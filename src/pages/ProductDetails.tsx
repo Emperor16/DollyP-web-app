@@ -1,4 +1,5 @@
 import PageContainer from "../components/layout/PageContainer";
+<<<<<<< HEAD
 import ProductImages from "../components/products/ProductImages";
 import { useProducts } from "../services/productService";
 import { useParams } from "react-router-dom";
@@ -61,6 +62,14 @@ const ProductDetails = () => {
           </button>
         </div>
       </div>
+=======
+
+const ProductDetails = () => {
+  return (
+    <PageContainer>
+      <h1 className="font-serif text-3xl text-dp-black mb-4">PRODUCT DETAILS PAGE</h1>
+      <p className="font-sans text-gray-600">Dynamic product details and selection options will render here.</p>
+>>>>>>> 5975c4c
     </PageContainer>
   );
 };

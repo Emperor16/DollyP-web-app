@@ -1,4 +1,5 @@
 import PageContainer from "../components/layout/PageContainer";
+<<<<<<< HEAD
 import { useCart } from "../context/CartContexts";
 import { Link } from "react-router-dom";
 
@@ -112,6 +113,14 @@ const Checkout = () => {
           </div>
         </div>
       )}
+=======
+
+const Checkout = () => {
+  return (
+    <PageContainer>
+      <h1 className="font-serif text-3xl text-dp-black mb-4">CHECKOUT</h1>
+      <p className="font-sans text-gray-600">Secure payment and shipping forms will render here.</p>
+>>>>>>> 5975c4c
     </PageContainer>
   );
 };

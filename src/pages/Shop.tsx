@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getProducts, Product } from "../services/productService";
+import { getProducts,type Product } from "../services/productService";
 import ProductGrid from "../components/products/ProductGrid";
 import PageContainer from "../components/layout/PageContainer";
 

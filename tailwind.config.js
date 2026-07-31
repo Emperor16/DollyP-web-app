@@ -5,7 +5,23 @@ export default {
     "./src/**/*.{ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        // Base neutrals
+        "dp-black": "#0B0B0C",
+        "dp-charcoal": "#1A1A1D",
+        "dp-offwhite": "#F5F3EF",
+        "dp-white": "#FFFFFF",
+
+        // Accent
+        "dp-gold": "#C9A46B",
+        "dp-velvet": "#3B1F2B",
+      },
+      fontFamily: {
+        serif: ["Playfair Display", "serif"],
+        sans: ["Inter", "system-ui", "sans-serif"],
+      },
+    },
   },
   plugins: [],
-}
+};

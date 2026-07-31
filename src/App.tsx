@@ -1,9 +1,7 @@
+import AppRouter from "./router/AppRouter";
+
 function App() {
-  return (
-    <div className="text-3xl font-bold text-center mt-10">
-      Dolly P Fashion Brand
-    </div>
-  );
+  return <AppRouter />;
 }
 
 export default App;

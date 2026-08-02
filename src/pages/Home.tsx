@@ -20,7 +20,7 @@ const Home = () => {
       {/* HERO SECTION */}
       <section className="relative h-[85vh] w-full overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1520975922071-a57c1d1a6a3b?auto=format&fit=crop&q=80&w=1600"
+          src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=800"
           className="absolute inset-0 w-full h-full object-cover"
         />
 

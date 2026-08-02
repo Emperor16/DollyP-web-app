@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getProductById, type Product } from "../services/productService";
 import PageContainer from "../components/layout/PageContainer";
+import { useCart } from "../context/CartContexts";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedSize, setSelectedSize] = useState<string>("");
+  
+  const { addToCart } = useCart();
 
   useEffect(() => {
     if (id) {
@@ -78,6 +81,13 @@ const ProductDetails = () => {
           {/* ADD TO CART */}
           <button
             disabled={!selectedSize}
+            onClick={() =>
+              addToCart({
+                product,
+                size: selectedSize,
+                quantity: 1,
+              })
+            }
             className={`mt-10 w-full py-3 font-sans tracking-wide transition 
               ${
                 selectedSize

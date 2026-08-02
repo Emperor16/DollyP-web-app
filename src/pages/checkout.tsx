@@ -1,5 +1,5 @@
 import PageContainer from "../components/layout/PageContainer";
-import { useCart } from "../context/CartContext";
+import { useCart } from "../context/CartContexts";
 import { useState } from "react";
 
 const Checkout = () => {

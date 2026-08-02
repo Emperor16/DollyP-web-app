@@ -44,7 +44,7 @@ const Reservation = () => {
       {/* FORM SECTION */}
       <PageContainer>
         <div className="max-w-3xl mx-auto">
-          <h2 classend="font-serif text-3xl text-dp-black tracking-wide mb-10">
+          <h2 className="font-serif text-3xl text-dp-black tracking-wide mb-10">
             Reservation Details
           </h2>
 

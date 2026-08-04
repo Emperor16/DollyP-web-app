@@ -5,10 +5,9 @@ import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 import Checkout from "../pages/checkout";
 import Reservation from "../pages/Reservation";
-import AdminDashboard from "../pages/admin/AdminDashboard";
-import AdminProducts from "../pages/admin/AdminProducts";
-import AdminCreate from "../pages/admin/AdminCreate";
-import AdminEdit from "../pages/admin/AdminEdit";
+import AdminDashboard from "../pages/AdminDashboard";
+import AdminProducts from "../components/AdminProducts";
+import AdminEdit from "../components/admin/AdminEdit";
 import AdminReservation from "../pages/admin/AdminReservation";
 
 function AppRouter() {
@@ -25,7 +24,6 @@ function AppRouter() {
       <Route path="/admin" element={<Navigate to="/admin/dashboard" />} />
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
       <Route path="/admin/products" element={<AdminProducts />} />
-      <Route path="/admin/create" element={<AdminCreate />} />
       <Route path="/admin/edit/:id" element={<AdminEdit />} />
       <Route path="/admin/reservations" element={<AdminReservation />} />
     </Routes>

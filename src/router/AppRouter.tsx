@@ -10,6 +10,12 @@ function AppRouter() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/admin/dashboard" element={<AdminDashboard />} />
+<Route path="/admin/products" element={<AdminProducts />} />
+<Route path="/admin/create" element={<AdminCreate />} />
+<Route path="/admin/edit/:id" element={<AdminEdit />} />
+<Route path="/admin/reservations" element={<AdminReservation />} />
+
       <Route path="/shop" element={<Shop />} />
       <Route path="/product/:id" element={<ProductDetails />} />
       <Route path="/cart" element={<Cart />} />

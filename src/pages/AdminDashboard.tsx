@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import AdminLayout from "./AdminLayout";
-import { getProducts, type Product } from "../../services/productService";
+import { getProducts, type Product } from "../services/productService";
 import axios from "axios";
 
 const AdminDashboard = () => {

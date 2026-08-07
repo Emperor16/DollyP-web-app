@@ -5,7 +5,7 @@ import ProductDetails from "../pages/ProductDetails";
 import Cart from "../pages/Cart";
 import Checkout from "../pages/checkout";
 import Reservation from "../pages/Reservation";
-import AdminDashboard from "../pages/AdminDashboard";
+import AdminDashboard from "../pages/Admin/AdminDashboard";
 import AdminProducts from "../pages/AdminProduct";
 import AdminEdit from "../components/admin/AdminEdit";
 import AdminReservation from "../pages/AdminReservation";

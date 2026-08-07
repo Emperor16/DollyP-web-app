@@ -8,7 +8,7 @@ import Reservation from "../pages/Reservation";
 import AdminDashboard from "../pages/Admin/AdminDashboard";
 import AdminProducts from "../pages/Admin/AdminProduct";
 import AdminEdit from "../components/admin/AdminEdit";
-import AdminReservation from "../pages/AdminReservation";
+import AdminReservation from "../pages/Admin/AdminReservation";
 
 function AppRouter() {
   return (

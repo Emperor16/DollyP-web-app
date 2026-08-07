@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import AdminLayout from "./Admin/AdminLayout";
+import AdminLayout from "./AdminLayout";
 import axios from "axios";
 
 interface Reservation {

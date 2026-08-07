@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import PageContainer from "../components/layout/PageContainer";
-import { getProducts, type Product } from "../services/productService";
+import PageContainer from "../../components/layout/PageContainer";
+import { getProducts, type Product } from "../../services/productService";
 
 const AdminProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);

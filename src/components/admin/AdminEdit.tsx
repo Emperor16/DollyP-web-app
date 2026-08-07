@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import AdminLayout from "../../pages/AdminLayout";
+import AdminLayout from "../../pages/Admin/AdminLayout";
 import { getProductById, type Product } from "../../services/productService";
 import axios from "axios";
 

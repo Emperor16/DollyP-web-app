@@ -127,7 +127,7 @@ const AdminCreate = () => {
         {/* SIZES */}
         <div>
           <label className="block font-sans text-sm text-dp-charcoal/80 mb-2">
-            Sizes (comma separated)
+            Sizes (separated by comma)
           </label>
           <input
             name="sizes"
@@ -155,7 +155,7 @@ const AdminCreate = () => {
         {/* IMAGES */}
         <div>
           <label className="block font-sans text-sm text-dp-charcoal/80 mb-2">
-            Image URLs (comma separated)
+            Image URLs (seperated by comma)
           </label>
           <textarea
             name="images"

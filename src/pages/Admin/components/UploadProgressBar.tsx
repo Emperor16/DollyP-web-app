@@ -18,4 +18,5 @@ const UploadProgressBar: React.FC<Props> = ({ progress, uploading }) => {
   );
 };
 
+
 export default UploadProgressBar;

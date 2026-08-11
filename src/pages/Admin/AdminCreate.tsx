@@ -24,10 +24,11 @@ const AdminCreate = () => {
     imagesUrl: "",
   });
 
-  
   const [files, setFiles] = useState<File[]>([]);
   const [preview, setPreview] = useState<string[]>([]);
   const dropRef = useRef<HTMLDivElement>(null);
+
+  const { progress, uploading, start, update, finish } = useUploadProgress();
 
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
@@ -66,9 +67,14 @@ const AdminCreate = () => {
     formData.append("description", form.description);
     formData.append("price", form.price);
     formData.append("category", form.category);
-    formData.append("sizes", form.sizes);
     formData.append("stock", form.stock);
     formData.append("isFeatured", String(form.isFeatured));
+
+    // Convert comma-separated sizes string into array format if your backend expects it
+    const sizesArray = form.sizes.split(",").map((s) => s.trim());
+    sizesArray.forEach((size) => {
+      formData.append("sizes[]", size);
+    });
 
     // Add uploaded files
     files.forEach((file) => {
@@ -81,6 +87,8 @@ const AdminCreate = () => {
     }
 
     try {
+      start(); // Start the progress bar animation
+
       await axios.post(
         `${import.meta.env.VITE_API_URL}/api/products`,
         formData,
@@ -89,13 +97,21 @@ const AdminCreate = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
+          onUploadProgress: (progressEvent) => {
+            const percent = progressEvent.total
+              ? Math.round((progressEvent.loaded * 100) / progressEvent.total)
+              : 0;
+            update(percent);
+          },
         }
       );
 
+      finish(); // Complete the progress bar
       alert("Product created successfully!");
       navigate("/admin/products");
     } catch (error: any) {
       console.error(error);
+      finish();
       alert("Failed to create product. Check console for details.");
     }
   };
@@ -110,7 +126,7 @@ const AdminCreate = () => {
         
         {/* NAME */}
         <div>
-          <label className="block mb-2">Product Name</label>
+          <label className="block mb-2 font-sans">Product Name</label>
           <input
             name="name"
             value={form.name}
@@ -122,7 +138,7 @@ const AdminCreate = () => {
 
         {/* DESCRIPTION */}
         <div>
-          <label className="block mb-2">Description</label>
+          <label className="block mb-2 font-sans">Description</label>
           <textarea
             name="description"
             value={form.description}
@@ -135,9 +151,10 @@ const AdminCreate = () => {
 
         {/* PRICE */}
         <div>
-          <label className="block mb-2">Price (₦)</label>
+          <label className="block mb-2 font-sans">Price (₦)</label>
           <input
             name="price"
+            type="number"
             value={form.price}
             onChange={handleChange}
             className="w-full border px-4 py-3"
@@ -147,12 +164,12 @@ const AdminCreate = () => {
 
         {/* CATEGORY */}
         <div>
-          <label className="block mb-2">Category</label>
+          <label className="block mb-2 font-sans">Category</label>
           <select
             name="category"
             value={form.category}
             onChange={handleChange}
-            className="w-full border px-4 py-3"
+            className="w-full border px-4 py-3 bg-white"
           >
             <option value="dress">Dress</option>
             <option value="gown">Gown</option>
@@ -164,11 +181,12 @@ const AdminCreate = () => {
 
         {/* SIZES */}
         <div>
-          <label className="block mb-2">Sizes (comma separated)</label>
+          <label className="block mb-2 font-sans">Sizes (comma separated)</label>
           <input
             name="sizes"
             value={form.sizes}
             onChange={handleChange}
+            placeholder="e.g. S, M, L, XL"
             className="w-full border px-4 py-3"
             required
           />
@@ -176,9 +194,10 @@ const AdminCreate = () => {
 
         {/* STOCK */}
         <div>
-          <label className="block mb-2">Stock</label>
+          <label className="block mb-2 font-sans">Stock</label>
           <input
             name="stock"
+            type="number"
             value={form.stock}
             onChange={handleChange}
             className="w-full border px-4 py-3"
@@ -188,21 +207,19 @@ const AdminCreate = () => {
 
         {/* IMAGE UPLOAD */}
         <div>
-          <label className="block mb-2">Upload Images</label>
+          <label className="block mb-2 font-sans">Upload Images</label>
 
-          {/* Drag & Drop Zone */}
           <div
             ref={dropRef}
             onDrop={handleDrop}
             onDragOver={(e) => e.preventDefault()}
-            className="border-2 border-dashed border-gray-400 p-6 text-center rounded-lg mb-4"
+            className="border-2 border-dashed border-gray-400 p-6 text-center rounded-lg mb-4 cursor-pointer"
           >
             Drag & Drop images here  
             <br />
             <span className="text-sm text-gray-500">Max size: {MAX_FILE_SIZE_MB}MB per image</span>
           </div>
 
-          {/* File Input */}
           <input
             type="file"
             multiple
@@ -211,13 +228,13 @@ const AdminCreate = () => {
             className="w-full border px-4 py-3"
           />
 
-          {/* Preview */}
           {preview.length > 0 && (
             <div className="grid grid-cols-3 gap-4 mt-4">
               {preview.map((src, idx) => (
                 <img
                   key={idx}
                   src={src}
+                  alt={`Preview ${idx}`}
                   className="w-full h-32 object-cover rounded"
                 />
               ))}
@@ -227,18 +244,18 @@ const AdminCreate = () => {
 
         {/* URL IMAGES */}
         <div>
-          <label className="block mb-2">Image URLs (optional)</label>
+          <label className="block mb-2 font-sans">Image URLs (optional)</label>
           <textarea
             name="imagesUrl"
             value={form.imagesUrl}
             onChange={handleChange}
-            rows={3}
+            rows={2}
             className="w-full border px-4 py-3"
           />
         </div>
 
         {/* FEATURED */}
-        <label className="flex items-center gap-3">
+        <label className="flex items-center gap-3 font-sans">
           <input
             type="checkbox"
             name="isFeatured"
@@ -248,12 +265,16 @@ const AdminCreate = () => {
           Featured Product
         </label>
 
+        {/* UPLOAD PROGRESS BAR */}
+        <UploadProgressBar progress={progress} uploading={uploading} />
+
         {/* SUBMIT */}
         <button
           type="submit"
-          className="bg-dp-gold text-dp-black px-10 py-3 hover:bg-dp-velvet hover:text-white transition"
+          disabled={uploading}
+          className="bg-dp-gold text-dp-black px-10 py-3 hover:bg-dp-velvet hover:text-white transition disabled:opacity-50"
         >
-          Create Product
+          {uploading ? "Creating Product..." : "Create Product"}
         </button>
       </form>
     </AdminLayout>

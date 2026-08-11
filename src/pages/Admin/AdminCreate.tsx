@@ -1,13 +1,15 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "./AdminLayout";
 import { useAdminAuth } from "../../context/AdminAuthContext";
+
+// Upload system components
+import { useImageUpload } from "./components/useImageUpload";
+import ImageUploadZone from "./components/ImageUploadZone";
+import ImagePreviewGrid from "./components/ImagePreviewGrid";
 import { useUploadProgress } from "./components/useUploadProgress";
 import UploadProgressBar from "./components/UploadProgressBar";
-
-const MAX_FILE_SIZE_MB = 2; // limit per image
-const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
 
 const AdminCreate = () => {
   const navigate = useNavigate();
@@ -21,41 +23,25 @@ const AdminCreate = () => {
     sizes: "",
     stock: "",
     isFeatured: false,
-    imagesUrl: "",
   });
 
-  const [files, setFiles] = useState<File[]>([]);
-  const [preview, setPreview] = useState<string[]>([]);
-  const dropRef = useRef<HTMLDivElement>(null);
+  // Upload system hook
+  const {
+    files,
+    preview,
+    dragActive,
+    setDragActive,
+    error,
+    addFiles,
+    removeImage,
+  } = useImageUpload();
 
+  // Progress bar hook
   const { progress, uploading, start, update, finish } = useUploadProgress();
 
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setForm({ ...form, [name]: type === "checkbox" ? checked : value });
-  };
-
-  const handleFiles = (selectedFiles: FileList) => {
-    const validFiles: File[] = [];
-    const previews: string[] = [];
-
-    Array.from(selectedFiles).forEach((file) => {
-      if (file.size > MAX_FILE_SIZE_BYTES) {
-        alert(`File "${file.name}" is too large. Max size is ${MAX_FILE_SIZE_MB}MB.`);
-        return;
-      }
-
-      validFiles.push(file);
-      previews.push(URL.createObjectURL(file));
-    });
-
-    setFiles((prev) => [...prev, ...validFiles]);
-    setPreview((prev) => [...prev, ...previews]);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    handleFiles(e.dataTransfer.files);
   };
 
   const handleSubmit = async (e: any) => {
@@ -70,24 +56,19 @@ const AdminCreate = () => {
     formData.append("stock", form.stock);
     formData.append("isFeatured", String(form.isFeatured));
 
-    // Convert comma-separated sizes string into array format if your backend expects it
-    const sizesArray = form.sizes.split(",").map((s) => s.trim());
-    sizesArray.forEach((size) => {
-      formData.append("sizes[]", size);
-    });
+    // Sizes array
+    form.sizes
+      .split(",")
+      .map((s) => s.trim())
+      .forEach((size) => formData.append("sizes[]", size));
 
-    // Add uploaded files
+    // Cloudinary images
     files.forEach((file) => {
       formData.append("images", file);
     });
 
-    // Add URL images
-    if (form.imagesUrl.trim() !== "") {
-      formData.append("images", form.imagesUrl);
-    }
-
     try {
-      start(); // Start the progress bar animation
+      start();
 
       await axios.post(
         `${import.meta.env.VITE_API_URL}/api/products`,
@@ -97,22 +78,22 @@ const AdminCreate = () => {
             Authorization: `Bearer ${token}`,
             "Content-Type": "multipart/form-data",
           },
-          onUploadProgress: (progressEvent) => {
-            const percent = progressEvent.total
-              ? Math.round((progressEvent.loaded * 100) / progressEvent.total)
+          onUploadProgress: (event) => {
+            const percent = event.total
+              ? Math.round((event.loaded * 100) / event.total)
               : 0;
             update(percent);
           },
         }
       );
 
-      finish(); // Complete the progress bar
+      finish();
       alert("Product created successfully!");
       navigate("/admin/products");
-    } catch (error: any) {
+    } catch (error) {
       console.error(error);
       finish();
-      alert("Failed to create product. Check console for details.");
+      alert("Failed to create product.");
     }
   };
 
@@ -122,8 +103,11 @@ const AdminCreate = () => {
         Add New Product
       </h1>
 
-      <form className="space-y-8 max-w-2xl" onSubmit={handleSubmit} encType="multipart/form-data">
-        
+      <form
+        className="space-y-8 max-w-2xl"
+        onSubmit={handleSubmit}
+        encType="multipart/form-data"
+      >
         {/* NAME */}
         <div>
           <label className="block mb-2 font-sans">Product Name</label>
@@ -209,63 +193,17 @@ const AdminCreate = () => {
         <div>
           <label className="block mb-2 font-sans">Upload Images</label>
 
-          <div
-            ref={dropRef}
-            onDrop={handleDrop}
-            onDragOver={(e) => e.preventDefault()}
-            className="border-2 border-dashed border-gray-400 p-6 text-center rounded-lg mb-4 cursor-pointer"
-          >
-            Drag & Drop images here  
-            <br />
-            <span className="text-sm text-gray-500">Max size: {MAX_FILE_SIZE_MB}MB per image</span>
-          </div>
-
-          <input
-            type="file"
-            multiple
-            accept="image/*"
-            onChange={(e) => handleFiles(e.target.files!)}
-            className="w-full border px-4 py-3"
+          <ImageUploadZone
+            dragActive={dragActive}
+            setDragActive={setDragActive}
+            addFiles={addFiles}
+            error={error}
           />
 
-          {preview.length > 0 && (
-            <div className="grid grid-cols-3 gap-4 mt-4">
-              {preview.map((src, idx) => (
-                <img
-                  key={idx}
-                  src={src}
-                  alt={`Preview ${idx}`}
-                  className="w-full h-32 object-cover rounded"
-                />
-              ))}
-            </div>
-          )}
+          <ImagePreviewGrid preview={preview} removeImage={removeImage} />
         </div>
 
-        {/* URL IMAGES */}
-        <div>
-          <label className="block mb-2 font-sans">Image URLs (optional)</label>
-          <textarea
-            name="imagesUrl"
-            value={form.imagesUrl}
-            onChange={handleChange}
-            rows={2}
-            className="w-full border px-4 py-3"
-          />
-        </div>
-
-        {/* FEATURED */}
-        <label className="flex items-center gap-3 font-sans">
-          <input
-            type="checkbox"
-            name="isFeatured"
-            checked={form.isFeatured}
-            onChange={handleChange}
-          />
-          Featured Product
-        </label>
-
-        {/* UPLOAD PROGRESS BAR */}
+        {/* PROGRESS BAR */}
         <UploadProgressBar progress={progress} uploading={uploading} />
 
         {/* SUBMIT */}

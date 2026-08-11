@@ -1,5 +1,5 @@
 import React from "react";
-import ImageItem from "./ImagItem";
+import ImageItem from "./ImageItem";
 
 interface Props {
   preview: string[];

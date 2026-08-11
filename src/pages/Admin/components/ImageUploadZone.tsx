@@ -66,6 +66,7 @@ const ImageUploadZone: React.FC<Props> = ({
       {error && (
         <p className="text-red-600 text-sm mt-2">{error}</p>
       )}
+      
 
       {/* HIDDEN FILE INPUT */}
       <input

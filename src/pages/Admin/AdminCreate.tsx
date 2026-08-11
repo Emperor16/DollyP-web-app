@@ -3,6 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "./AdminLayout";
 import { useAdminAuth } from "../../context/AdminAuthContext";
+import { useUploadProgress } from "./components/useUploadProgress";
+import UploadProgressBar from "./components/UploadProgressBar";
 
 const MAX_FILE_SIZE_MB = 2; // limit per image
 const MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024;
@@ -22,6 +24,7 @@ const AdminCreate = () => {
     imagesUrl: "",
   });
 
+  
   const [files, setFiles] = useState<File[]>([]);
   const [preview, setPreview] = useState<string[]>([]);
   const dropRef = useRef<HTMLDivElement>(null);

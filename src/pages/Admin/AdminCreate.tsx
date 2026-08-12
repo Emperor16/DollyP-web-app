@@ -36,7 +36,7 @@ const AdminCreate = () => {
     removeImage,
   } = useImageUpload();
 
-  // Progress bar hook
+ //progress bar
   const { progress, uploading, start, update, finish } = useUploadProgress();
 
   const handleChange = (e: any) => {

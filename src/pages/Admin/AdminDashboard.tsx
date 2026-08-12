@@ -20,7 +20,7 @@ const AdminDashboard = () => {
   // Stats
   const totalProducts = products.length;
   const featuredProducts = products.filter((p) => p.isFeatured).length;
-  const totalReservations = reservations.length;
+  const totalReservations = reservations?.length ?? 0;
 
   const categoryCounts = products.reduce((acc: any, p) => {
     acc[p.category] = (acc[p.category] || 0) + 1;

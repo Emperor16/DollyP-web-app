@@ -11,8 +11,9 @@ import AdminDashboard from "../pages/Admin/AdminDashboard";
 import AdminProducts from "../pages/Admin/AdminProduct";
 import AdminEdit from "../components/admin/AdminEdit";
 import AdminReservation from "../pages/Admin/AdminReservation";
-import AdminLogin from "../pages/Admin/AdminLogin"; 
+import AdminLogin from "../pages/Admin/AdminLogin";
 import AdminRoute from "../components/admin/AdminRoute";
+import AdminCreate from "../pages/Admin/AdminCreate";
 
 function AppRouter() {
   return (
@@ -30,7 +31,7 @@ function AppRouter() {
 
       {/* Protected Admin Routes (Wrapped in AdminRoute) */}
       <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
-      
+
       <Route
         path="/admin/dashboard"
         element={
@@ -39,7 +40,16 @@ function AppRouter() {
           </AdminRoute>
         }
       />
-      
+      // Admin create -fixed
+      <Route
+        path="/admin/create"
+        element={
+          <AdminRoute>
+            <AdminCreate />
+          </AdminRoute>
+        }
+      />
+
       <Route
         path="/admin/products"
         element={
@@ -57,7 +67,7 @@ function AppRouter() {
           </AdminRoute>
         }
       />
-      
+
       <Route
         path="/admin/reservations"
         element={

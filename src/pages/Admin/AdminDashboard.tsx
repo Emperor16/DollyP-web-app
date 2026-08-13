@@ -11,15 +11,22 @@ const AdminDashboard = () => {
     // Fetch products
     getProducts().then((data) => setProducts(data));
 
-    // Fetch reservations
-    axios.get(`${import.meta.env.VITE_API_URL}/api/reservations`)
+    // Fetch reservations WITH ADMIN TOKEN
+    const token = localStorage.getItem("adminToken");
+
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/api/reservations`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => setReservations(res.data.reservations || []))
       .catch(() => setReservations([]));
   }, []);
 
-  // Stats
-  const totalProducts = products.length;
-  const featuredProducts = products.filter((p) => p.isFeatured).length;
+  // Stats (safe fallbacks)
+  const totalProducts = products?.length ?? 0;
+  const featuredProducts = products?.filter((p) => p.isFeatured)?.length ?? 0;
   const totalReservations = reservations?.length ?? 0;
 
   const categoryCounts = products.reduce((acc: any, p) => {

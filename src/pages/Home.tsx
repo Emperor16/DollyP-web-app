@@ -8,11 +8,17 @@ const Home = () => {
   const [featured, setFeatured] = useState<Product[]>([]);
 
   useEffect(() => {
-    getProducts().then((data) => {
+  getProducts()
+    .then((data) => {
       const filtered = data.filter((p) => p.isFeatured).slice(0, 6);
       setFeatured(filtered);
+    })
+    .catch((err) => {
+      console.error("Failed to load products:", err);
+      setFeatured([]); // safe fallback
     });
-  }, []);
+}, []);
+
 
   return (
     <div className="bg-dp-white">

@@ -90,11 +90,19 @@ const AdminCreate = () => {
       finish();
       alert("Product created successfully!");
       navigate("/admin/products");
-    } catch (error) {
-      console.error(error);
-      finish();
-      alert("Failed to create product.");
-    }
+    } catch (error: any) {
+  finish();
+
+  const backendMessage =
+    error.response?.data?.message ||
+    error.response?.data?.error ||
+    "Failed to create product.";
+
+  alert(backendMessage);
+
+  console.error("Full error:", error);
+}
+
   };
 
   return (

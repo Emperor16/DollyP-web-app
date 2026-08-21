@@ -10,6 +10,7 @@ import ImageUploadZone from "./components/ImageUploadZone";
 import ImagePreviewGrid from "./components/ImagePreviewGrid";
 import { useUploadProgress } from "./components/useUploadProgress";
 import UploadProgressBar from "./components/UploadProgressBar";
+import api from "../../services/api";
 
 const AdminCreate = () => {
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ const AdminCreate = () => {
     try {
       start();
 
-      await axios.post(
+      await api.post(
         `${import.meta.env.VITE_API_URL}/api/products`,
         formData,
         {

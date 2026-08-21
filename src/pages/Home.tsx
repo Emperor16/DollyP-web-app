@@ -8,11 +8,28 @@ const Home = () => {
   const [featured, setFeatured] = useState<Product[]>([]);
 
   useEffect(() => {
-    getProducts().then((data) => {
+  const loadFeatured = async () => {
+    try {
+      const data = await getProducts();
+
+      if (!Array.isArray(data)) {
+        console.error("Products response is not an array:", data);
+        setFeatured([]);
+        return;
+      }
+
       const filtered = data.filter((p) => p.isFeatured).slice(0, 6);
       setFeatured(filtered);
-    });
-  }, []);
+    } catch (err) {
+      console.error("Failed to load products:", err);
+      setFeatured([]);
+    }
+  };
+
+  loadFeatured();
+}, []);
+
+
 
   return (
     <div className="bg-dp-white">

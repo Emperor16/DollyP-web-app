@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useAdminAuth } from "../../context/AdminAuthContext";
+import api from "../../services/api";
 
 const AdminLogin = () => {
   const { login } = useAdminAuth();
@@ -19,7 +20,7 @@ const AdminLogin = () => {
     setError("");
 
     try {
-      const res = await axios.post(
+      const res = await api.post(
         `${import.meta.env.VITE_API_URL}/api/admin/login`,
         form
       );

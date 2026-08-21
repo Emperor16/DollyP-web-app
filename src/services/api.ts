@@ -1,14 +1,14 @@
 import axios from "axios";
 
-const API = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000",
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5000/api",
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-// 1. Request Interceptor: Always attach token if available
-API.interceptors.request.use(
+// Automatically inject the admin token into every request
+api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("adminToken");
     if (token) {
@@ -16,19 +16,9 @@ API.interceptors.request.use(
     }
     return config;
   },
-  (error) => Promise.reject(error)
-);
-
-// 2. Response Interceptor: Catch 401s globally and redirect to login
-API.interceptors.response.use(
-  (response) => response,
   (error) => {
-    if (error.response && error.response.status === 401) {
-      localStorage.removeItem("adminToken");
-      window.location.href = "/admin/login";
-    }
     return Promise.reject(error);
   }
 );
 
-export default API;
+export default api;

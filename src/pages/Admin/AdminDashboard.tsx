@@ -1,36 +1,41 @@
 import { useEffect, useState } from "react";
 import AdminLayout from "./AdminLayout";
 import { getProducts, type Product } from "../../services/productService";
-import axios from "axios";
+import api from "../../services/api"; // <-- Use centralized api instance
+import { safeArray } from "../../utils/safeArray"; // <-- Import safe array utility
 
 const AdminDashboard = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [reservations, setReservations] = useState<any[]>([]);
 
   useEffect(() => {
-    // Fetch products
-    getProducts().then((data) => setProducts(data));
+    // Fetch products safely
+    getProducts().then((data) => setProducts(safeArray(data)));
 
-    // Fetch reservations WITH ADMIN TOKEN
-    const token = localStorage.getItem("adminToken");
-
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/reservations`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    // Fetch reservations using the centralized api client (Token & 401s handled automatically!)
+    api
+      .get("/reservations")
+      .then((res) => {
+        // Handle standard response contract data shape
+        const rawReservations = res.data.data || res.data.reservations;
+        setReservations(safeArray(rawReservations));
       })
-      .then((res) => setReservations(res.data.reservations || []))
       .catch(() => setReservations([]));
   }, []);
 
-  // Stats (safe fallbacks)
-  const totalProducts = products?.length ?? 0;
-  const featuredProducts = products?.filter((p) => p.isFeatured)?.length ?? 0;
-  const totalReservations = reservations?.length ?? 0;
+  // Safe array coercions to prevent runtime crashes
+  const safeProductsList = safeArray(products);
+  const safeReservationsList = safeArray(reservations);
 
-  const categoryCounts = products.reduce((acc: any, p) => {
-    acc[p.category] = (acc[p.category] || 0) + 1;
+  // Stats (safe fallbacks)
+  const totalProducts = safeProductsList.length;
+  const featuredProducts = safeProductsList.filter((p) => p.isFeatured).length;
+  const totalReservations = safeReservationsList.length;
+
+  const categoryCounts = safeProductsList.reduce((acc: any, p) => {
+    if (p && p.category) {
+      acc[p.category] = (acc[p.category] || 0) + 1;
+    }
     return acc;
   }, {});
 
@@ -42,7 +47,6 @@ const AdminDashboard = () => {
 
       {/* STATS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
-
         {/* TOTAL PRODUCTS */}
         <div className="bg-white shadow-md p-8 rounded-lg border border-dp-offwhite">
           <h2 className="font-serif text-xl text-dp-black">Total Products</h2>

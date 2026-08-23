@@ -7,7 +7,7 @@ const api = axios.create({
   },
 });
 
-// Automatically inject the admin token into every request
+// 1. Request Interceptor: Automatically inject the admin token
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("adminToken");
@@ -17,6 +17,23 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// 2. Response Interceptor: Catch 401s globally and redirect
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    const status = error.response?.status;
+
+    if (status === 401) {
+
+      localStorage.removeItem("adminToken");     
+
+      window.location.href = "/admin/login";
+    }
+
     return Promise.reject(error);
   }
 );

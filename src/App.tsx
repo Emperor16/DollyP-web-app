@@ -10,16 +10,15 @@ import AdminDashboard from "./pages/Admin/AdminDashboard";
 function App() {
   return (
     <BrowserRouter>
-    <ErrorBoundary>
-      <AdminDashboard />
       <AdminAuthProvider>
         <CartProvider>
-          <Navbar />
-          <AppRouter />
-          <Footer />
+          <ErrorBoundary>
+            <Navbar />
+            <AppRouter />
+            <Footer />
+          </ErrorBoundary>
         </CartProvider>
       </AdminAuthProvider>
-    </ErrorBoundary>
     </BrowserRouter>
   );
 }

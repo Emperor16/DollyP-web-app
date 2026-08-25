@@ -3,7 +3,7 @@ import Footer from "./components/layout/Footer";
 import AppRouter from "./router/AppRouter";
 import { BrowserRouter } from "react-router-dom";
 import { CartProvider } from "./context/CartContexts";
-import { AdminAuthProvider } from "./context/AdminAuthContext";\
+import { AdminAuthProvider } from "./context/AdminAuthContext";
 import ErrorBoundary from "./components/error/ErrorBoundary";
 import AdminDashboard from "./pages/Admin/AdminDashboard";
 

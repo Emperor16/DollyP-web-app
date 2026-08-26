@@ -72,21 +72,22 @@ const AdminCreate = () => {
       start();
 
       await api.post(
-        `${import.meta.env.VITE_API_URL}/api/products`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-          onUploadProgress: (event) => {
-            const percent = event.total
-              ? Math.round((event.loaded * 100) / event.total)
-              : 0;
-            update(percent);
-          },
-        }
-      );
+  "/api/products",
+  formData,
+  {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+    onUploadProgress: (event) => {
+      const percent = event.total
+        ? Math.round((event.loaded * 100) / event.total)
+        : 0;
+      update(percent);
+    },
+  }
+);
+
 
       finish();
       alert("Product created successfully!");

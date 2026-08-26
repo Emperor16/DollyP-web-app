@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import PageContainer from "../../components/layout/PageContainer";
-import { getProducts, deleteProduct, type Product } from "../../services/productService";
+import {
+  getProducts,
+  deleteProduct,
+  type Product,
+} from "../../services/productService";
 import { safeArray } from "../../utils/safeArray";
 
 const AdminProducts = () => {
@@ -10,19 +14,17 @@ const AdminProducts = () => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchInventory = async () => {
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const raw = await getProducts(); // now returns array
-    setProducts(safeArray<Product>(raw));
-
-  } catch {
-    setError("Failed to load inventory catalog.");
-  } finally {
-    setLoading(false);
-  }
-};
-
+      const raw = await getProducts(); // now returns array
+      setProducts(safeArray<Product>(raw));
+    } catch {
+      setError("Failed to load inventory catalog.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetchInventory();
@@ -90,13 +92,19 @@ const AdminProducts = () => {
           <tbody className="divide-y divide-dp-charcoal/10 font-sans text-sm">
             {products.length === 0 ? (
               <tr>
-                <td colSpan={5} className="py-8 text-center text-dp-charcoal/60">
+                <td
+                  colSpan={5}
+                  className="py-8 text-center text-dp-charcoal/60"
+                >
                   No products found in inventory.
                 </td>
               </tr>
             ) : (
               products.map((product) => (
-                <tr key={product._id} className="hover:bg-dp-offwhite/50 transition">
+                <tr
+                  key={product._id}
+                  className="hover:bg-dp-offwhite/50 transition"
+                >
                   <td className="py-4 px-6 flex items-center space-x-4">
                     {product.images?.[0] ? (
                       <img
@@ -111,7 +119,9 @@ const AdminProducts = () => {
                     )}
 
                     <div>
-                      <p className="font-medium text-dp-black">{product.name}</p>
+                      <p className="font-medium text-dp-black">
+                        {product.name}
+                      </p>
                       <p className="text-xs text-dp-charcoal/60 line-clamp-1">
                         {product.description || "No description"}
                       </p>

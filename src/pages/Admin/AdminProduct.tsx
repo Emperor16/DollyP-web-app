@@ -10,21 +10,19 @@ const AdminProducts = () => {
   const [error, setError] = useState<string | null>(null);
 
   const fetchInventory = async () => {
-    try {
-      setLoading(true);
+  try {
+    setLoading(true);
 
-      const response = await getProducts();
+    const raw = await getProducts(); // now returns array
+    setProducts(safeArray<Product>(raw));
 
-      // Extract correct backend shape
-      const raw = response?.data || response?.products || response;
+  } catch {
+    setError("Failed to load inventory catalog.");
+  } finally {
+    setLoading(false);
+  }
+};
 
-      setProducts(safeArray<Product>(raw));
-    } catch {
-      setError("Failed to load inventory catalog.");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
     fetchInventory();

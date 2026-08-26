@@ -21,8 +21,9 @@ export interface Product {
 // Fetch all products
 export const getProducts = async (): Promise<Product[]> => {
   const response = await api.get("/api/products");
-  return response.data; // backend returns array directly
+  return response.data.data || [];
 };
+
 
 // Fetch a single product by ID
 export const getProductById = async (id: string): Promise<Product> => {

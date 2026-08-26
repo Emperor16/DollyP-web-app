@@ -108,7 +108,7 @@ const AdminProducts = () => {
                   <td className="py-4 px-6 flex items-center space-x-4">
                     {product.images?.[0] ? (
                       <img
-                        src={product.images[0]}
+                        src={product.images[0]?.url}
                         alt={product.name}
                         className="w-12 h-12 object-cover rounded-md border border-dp-charcoal/10"
                       />

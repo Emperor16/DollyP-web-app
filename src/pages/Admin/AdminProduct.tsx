@@ -8,6 +8,9 @@ import {
 } from "../../services/productService";
 import { safeArray } from "../../utils/safeArray";
 
+import { getProductImage } from "../../utils/getProductImage";
+
+
 const AdminProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -106,17 +109,12 @@ const AdminProducts = () => {
                   className="hover:bg-dp-offwhite/50 transition"
                 >
                   <td className="py-4 px-6 flex items-center space-x-4">
-                    {product.images?.[0] ? (
-                      <img
-                        src={product.images[0]?.url}
-                        alt={product.name}
-                        className="w-12 h-12 object-cover rounded-md border border-dp-charcoal/10"
-                      />
-                    ) : (
-                      <div className="w-12 h-12 bg-gray-200 rounded-md flex items-center justify-center text-xs text-gray-500">
-                        No Img
-                      </div>
-                    )}
+                    <img
+  src={getProductImage(product.images)}
+  alt={product.name}
+  className="w-12 h-12 object-cover rounded-md border border-dp-charcoal/10"
+/>
+
 
                     <div>
                       <p className="font-medium text-dp-black">

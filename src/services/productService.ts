@@ -21,7 +21,8 @@ export interface Product {
 // Fetch all products
 export const getProducts = async (): Promise<Product[]> => {
   const response = await api.get("/api/products");
-  return response.data.data || [];
+  return response.data.products || [];
+
 };
 
 

@@ -29,8 +29,9 @@ export const getProducts = async (): Promise<Product[]> => {
 // Fetch a single product by ID
 export const getProductById = async (id: string): Promise<Product> => {
   const response = await api.get(`/api/products/${id}`);
-  return response.data.data;
+  return response.data.product;
 };
+
 
 
 // Create a new product (Admin Dashboard)

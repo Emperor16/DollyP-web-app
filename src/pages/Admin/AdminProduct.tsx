@@ -10,7 +10,6 @@ import { safeArray } from "../../utils/safeArray";
 
 import { getProductImage } from "../../utils/getProductImage";
 
-
 const AdminProducts = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -110,11 +109,10 @@ const AdminProducts = () => {
                 >
                   <td className="py-4 px-6 flex items-center space-x-4">
                     <img
-  src={getProductImage(product.images)}
-  alt={product.name}
-  className="w-12 h-12 object-cover rounded-md border border-dp-charcoal/10"
-/>
-
+                      src={getProductImage(product.images)}
+                      alt={product.name}
+                      className="w-12 h-12 object-cover rounded-md border border-dp-charcoal/10"
+                    />
 
                     <div>
                       <p className="font-medium text-dp-black">

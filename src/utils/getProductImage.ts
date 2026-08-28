@@ -1,6 +1,6 @@
 export const getProductImage = (images: any[]): string => {
   if (!images || images.length === 0) {
-    return "/placeholder.jpg"; // your fallback
+    return "./assets/hero.png"; // your fallback
   }
 
   const first = images[0];

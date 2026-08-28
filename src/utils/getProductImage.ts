@@ -15,5 +15,5 @@ export const getProductImage = (images: any[]): string => {
     return first.url;
   }
 
-  return "/placeholder.jpg";
+  return "/hero.png";
 };

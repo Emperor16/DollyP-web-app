@@ -17,10 +17,10 @@ const ProductCard = ({ product }: Props) => {
       {/* Image */}
       <div className="overflow-hidden rounded-md bg-dp-offwhite aspect-[3/4]">
         <img
-  src={getProductImage(product.images)}
-  alt={product.name}
-  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-/>
+          src={getProductImage(product.images)}
+          alt={product.name}
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
       </div>
 
       {/* Info */}

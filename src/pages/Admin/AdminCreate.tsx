@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AdminLayout from "./AdminLayout";
 import { useAdminAuth } from "../../context/AdminAuthContext";
 
-// Upload system components
+//system components
 import { useImageUpload } from "./components/useImageUpload";
 import ImageUploadZone from "./components/ImageUploadZone";
 import ImagePreviewGrid from "./components/ImagePreviewGrid";

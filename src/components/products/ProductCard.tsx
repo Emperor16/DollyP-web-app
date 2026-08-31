@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import type { Product } from "../../services/productService";
+import { getProductImage } from "../../utils/getProductImage";
 
 interface Props {
   product: Product;
@@ -16,7 +17,7 @@ const ProductCard = ({ product }: Props) => {
       {/* Image */}
       <div className="overflow-hidden rounded-md bg-dp-offwhite aspect-[3/4]">
         <img
-          src={product.images[0]}
+          src={getProductImage(product.images)}
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />

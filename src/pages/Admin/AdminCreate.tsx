@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 import AdminLayout from "./AdminLayout";
 import { useAdminAuth } from "../../context/AdminAuthContext";
 
-// Upload system components
+//system components
 import { useImageUpload } from "./components/useImageUpload";
 import ImageUploadZone from "./components/ImageUploadZone";
 import ImagePreviewGrid from "./components/ImagePreviewGrid";
 import { useUploadProgress } from "./components/useUploadProgress";
 import UploadProgressBar from "./components/UploadProgressBar";
+import api from "../../services/api";
 
 const AdminCreate = () => {
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ const AdminCreate = () => {
     removeImage,
   } = useImageUpload();
 
- //progress bar
+  //progress bar
   const { progress, uploading, start, update, finish } = useUploadProgress();
 
   const handleChange = (e: any) => {
@@ -70,39 +71,34 @@ const AdminCreate = () => {
     try {
       start();
 
-      await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/products`,
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-          onUploadProgress: (event) => {
-            const percent = event.total
-              ? Math.round((event.loaded * 100) / event.total)
-              : 0;
-            update(percent);
-          },
-        }
-      );
+      await api.post("/api/products", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (event) => {
+          const percent = event.total
+            ? Math.round((event.loaded * 100) / event.total)
+            : 0;
+          update(percent);
+        },
+      });
 
       finish();
       alert("Product created successfully!");
       navigate("/admin/products");
     } catch (error: any) {
-  finish();
+      finish();
 
-  const backendMessage =
-    error.response?.data?.message ||
-    error.response?.data?.error ||
-    "Failed to create product.";
+      const backendMessage =
+        error.response?.data?.message ||
+        error.response?.data?.error ||
+        "Failed to create product.";
 
-  alert(backendMessage);
+      alert(backendMessage);
 
-  console.error("Full error:", error);
-}
-
+      console.error("Full error:", error);
+    }
   };
 
   return (
@@ -173,7 +169,9 @@ const AdminCreate = () => {
 
         {/* SIZES */}
         <div>
-          <label className="block mb-2 font-sans">Sizes (comma separated)</label>
+          <label className="block mb-2 font-sans">
+            Sizes (comma separated)
+          </label>
           <input
             name="sizes"
             value={form.sizes}

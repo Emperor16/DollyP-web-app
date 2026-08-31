@@ -50,7 +50,7 @@ const Home = () => {
 
           <p className="text-white/90 font-sans text-lg max-w-xl mt-6">
             Discover handcrafted gowns, kaftans, and couture pieces inspired by
-            African heritage — designed for modern elegance.
+            African heritage designed for modern elegance.
           </p>
 
           <Link

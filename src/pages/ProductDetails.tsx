@@ -3,12 +3,13 @@ import { useParams } from "react-router-dom";
 import { getProductById, type Product } from "../services/productService";
 import PageContainer from "../components/layout/PageContainer";
 import { useCart } from "../context/CartContexts";
+import { getProductImage } from "../utils/getProductImage";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedSize, setSelectedSize] = useState<string>("");
-  
+
   const { addToCart } = useCart();
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const ProductDetails = () => {
         <div>
           <div className="overflow-hidden rounded-lg aspect-[3/4] bg-dp-offwhite">
             <img
-              src={product.images[0]}
+              src={getProductImage(product.images)}
               alt={product.name}
               className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
             />

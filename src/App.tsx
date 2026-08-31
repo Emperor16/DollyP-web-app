@@ -4,15 +4,19 @@ import AppRouter from "./router/AppRouter";
 import { BrowserRouter } from "react-router-dom";
 import { CartProvider } from "./context/CartContexts";
 import { AdminAuthProvider } from "./context/AdminAuthContext";
+import ErrorBoundary from "./components/error/ErrorBoundary";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
 
 function App() {
   return (
     <BrowserRouter>
       <AdminAuthProvider>
         <CartProvider>
-          <Navbar />
-          <AppRouter />
-          <Footer />
+          <ErrorBoundary>
+            <Navbar />
+            <AppRouter />
+            <Footer />
+          </ErrorBoundary>
         </CartProvider>
       </AdminAuthProvider>
     </BrowserRouter>

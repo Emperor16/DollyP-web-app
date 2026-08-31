@@ -1,4 +1,4 @@
-import { api } from "./api";
+import api  from "./api";
 
 export interface Product {
   _id: string;
@@ -21,14 +21,18 @@ export interface Product {
 // Fetch all products
 export const getProducts = async (): Promise<Product[]> => {
   const response = await api.get("/api/products");
-  return response.data; // ✔ backend returns array directly
+  return response.data.products || [];
+
 };
+
 
 // Fetch a single product by ID
 export const getProductById = async (id: string): Promise<Product> => {
   const response = await api.get(`/api/products/${id}`);
-  return response.data; // ✔ backend returns product directly
+  return response.data.product;
 };
+
+
 
 // Create a new product (Admin Dashboard)
 export const createProduct = async (formData: FormData): Promise<Product> => {

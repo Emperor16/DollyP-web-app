@@ -13,6 +13,7 @@ const Shop = () => {
 
   useEffect(() => {
     getProducts().then((data) => {
+      console.log("SHOP PRODUCTS:", data);
       setProducts(data);
       setFiltered(data);
     });

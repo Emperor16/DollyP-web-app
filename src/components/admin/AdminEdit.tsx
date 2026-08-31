@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import AdminLayout from "../../pages/Admin/AdminLayout";
 import { getProductById, type Product } from "../../services/productService";
 import axios from "axios";
+import api from "../../services/api";
 
 const AdminEdit = () => {
   const { id } = useParams();
@@ -56,7 +57,7 @@ const AdminEdit = () => {
       images: form.images.split(",").map((i) => i.trim()),
     };
 
-    await axios.put(`${import.meta.env.VITE_API_URL}/api/products/${id}`, payload);
+    await api.put(`${import.meta.env.VITE_API_URL}/api/products/${id}`, payload);
 
     alert("Product updated successfully!");
     navigate("/admin/products");

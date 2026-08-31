@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AdminLayout from "./AdminLayout";
 import axios from "axios";
+import api from "../../services/api";
 
 interface Reservation {
   _id: string;
@@ -24,7 +25,7 @@ const AdminReservation = () => {
   }, []);
 
   const updateStatus = async (id: string, status: string) => {
-    await axios.put(`${import.meta.env.VITE_API_URL}/api/reservations/${id}`, {
+    await api.put(`${import.meta.env.VITE_API_URL}/api/reservations/${id}`, {
       status,
     });
 
@@ -36,7 +37,7 @@ const AdminReservation = () => {
   const deleteReservation = async (id: string) => {
     if (!confirm("Delete this reservation?")) return;
 
-    await axios.delete(`${import.meta.env.VITE_API_URL}/api/reservations/${id}`);
+    await api.delete(`${import.meta.env.VITE_API_URL}/api/reservations/${id}`);
 
     setReservations((prev) => prev.filter((r) => r._id !== id));
   };

@@ -1,38 +1,48 @@
 import { useEffect, useState } from "react";
 import AdminLayout from "./AdminLayout";
 import { getProducts, type Product } from "../../services/productService";
-import axios from "axios";
+import api from "../../services/api";
+import { safeArray } from "../../utils/safeArray";
+
+interface Reservation {
+  _id: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  date: string;
+}
 
 const AdminDashboard = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [reservations, setReservations] = useState<any[]>([]);
+  const [reservations, setReservations] = useState<Reservation[]>([]);
 
   useEffect(() => {
-    // Fetch products
-    getProducts().then((data) => setProducts(data));
+    getProducts().then((data) => setProducts(safeArray<Product>(data)));
 
-    // Fetch reservations WITH ADMIN TOKEN
-    const token = localStorage.getItem("adminToken");
-
-    axios
-      .get(`${import.meta.env.VITE_API_URL}/api/reservations`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    api.get("/reservations")
+      .then((res) => {
+        const rawReservations = res.data.data || res.data.reservations;
+        setReservations(safeArray<Reservation>(rawReservations));
       })
-      .then((res) => setReservations(res.data.reservations || []))
       .catch(() => setReservations([]));
   }, []);
 
-  // Stats (safe fallbacks)
-  const totalProducts = products?.length ?? 0;
-  const featuredProducts = products?.filter((p) => p.isFeatured)?.length ?? 0;
-  const totalReservations = reservations?.length ?? 0;
+  const safeProductsList = safeArray<Product>(products);
+  const safeReservationsList = safeArray<Reservation>(reservations);
 
-  const categoryCounts = products.reduce((acc: any, p) => {
-    acc[p.category] = (acc[p.category] || 0) + 1;
-    return acc;
-  }, {});
+  const totalProducts = safeProductsList.length;
+  const featuredProducts = safeProductsList.filter((p) => p.isFeatured).length;
+  const totalReservations = safeReservationsList.length;
+
+  const categoryCounts: Record<string, number> = safeProductsList.reduce(
+    (acc, p) => {
+      if (p?.category) {
+        acc[p.category] = (acc[p.category] || 0) + 1;
+      }
+      return acc;
+    },
+    {} as Record<string, number>
+  );
 
   return (
     <AdminLayout>
@@ -42,7 +52,6 @@ const AdminDashboard = () => {
 
       {/* STATS GRID */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-16">
-
         {/* TOTAL PRODUCTS */}
         <div className="bg-white shadow-md p-8 rounded-lg border border-dp-offwhite">
           <h2 className="font-serif text-xl text-dp-black">Total Products</h2>

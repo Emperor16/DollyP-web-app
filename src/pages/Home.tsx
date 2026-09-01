@@ -29,8 +29,7 @@ const Home = () => {
   loadFeatured();
 }, []);
 
-
-
+  // The return function
   return (
     <div className="bg-dp-white">
 

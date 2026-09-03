@@ -18,27 +18,26 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Validate token on load + whenever token changes
   useEffect(() => {
-    if (!token) {
-      setIsAuthenticated(false);
+  if (!token) {
+    setIsAuthenticated(false);
+    return;
+  }
+
+  try {
+    const decoded: any = jwtDecode(token);
+
+    if (decoded.exp * 1000 < Date.now()) {
+      logout();
       return;
     }
 
-    try {
-      const decoded: any = jwtDecode(token);
+    // Token is valid
+    setIsAuthenticated(true);
+  } catch {
+    logout();
+  }
+}, [token]);
 
-      // Check expiry
-      if (decoded.exp * 1000 < Date.now()) {
-        logout();
-        return;
-      }
-
-      // Token is valid
-      setIsAuthenticated(true);
-    } catch (err) {
-      // Token corrupted or invalid
-      logout();
-    }
-  }, [token]);
 
   const login = (newToken: string) => {
     localStorage.setItem("adminToken", newToken);

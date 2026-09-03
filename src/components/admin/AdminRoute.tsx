@@ -6,7 +6,7 @@ const AdminRoute = ({ children }: { children: React.ReactElement }) => {
   const { isAuthenticated } = useAdminAuth();
   const location = useLocation();
 
-  // 1. If user is authenticated and tries to access /admin/login → redirect to dashboard
+  // 1. If user is authenticated and tries to access /admin/login redirect to dashboard
   if (isAuthenticated && location.pathname === "/admin/login") {
     return <Navigate to="/admin/dashboard" replace />;
   }

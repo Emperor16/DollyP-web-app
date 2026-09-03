@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, type ReactNode, useEffect } from "react";
-import jwtDecode from "jwt-decode";
+export function jwtDecode() {}
+
 
 
 interface AdminAuthContextType {

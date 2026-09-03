@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, type ReactNode, useEffect } from "react";
+import jwtDecode from "jwt-decode";
 
 interface AdminAuthContextType {
   token: string | null;
@@ -10,26 +11,46 @@ interface AdminAuthContextType {
 const AdminAuthContext = createContext<AdminAuthContextType | null>(null);
 
 export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
-  const [token, setToken] = useState<string | null>(
-    () => localStorage.getItem("adminToken")
-  );
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem("adminToken"));
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+
+  // Validate token on load + whenever token changes
+  useEffect(() => {
+    if (!token) {
+      setIsAuthenticated(false);
+      return;
+    }
+
+    try {
+      const decoded: any = jwtDecode(token);
+
+      // Check expiry
+      if (decoded.exp * 1000 < Date.now()) {
+        logout();
+        return;
+      }
+
+      // Token is valid
+      setIsAuthenticated(true);
+    } catch (err) {
+      // Token corrupted or invalid
+      logout();
+    }
+  }, [token]);
 
   const login = (newToken: string) => {
-    setToken(newToken);
     localStorage.setItem("adminToken", newToken);
+    setToken(newToken);
   };
 
   const logout = () => {
-    setToken(null);
     localStorage.removeItem("adminToken");
+    setToken(null);
+    setIsAuthenticated(false);
   };
 
-  const isAuthenticated = !!token;
-
   return (
-    <AdminAuthContext.Provider
-      value={{ token, isAuthenticated, login, logout }}
-    >
+    <AdminAuthContext.Provider value={{ token, isAuthenticated, login, logout }}>
       {children}
     </AdminAuthContext.Provider>
   );

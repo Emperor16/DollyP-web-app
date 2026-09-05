@@ -31,7 +31,7 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
       return;
     }
 
-    // Token is valid
+    // Token is validded
     setIsAuthenticated(true);
   } catch {
     logout();

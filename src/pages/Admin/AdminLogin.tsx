@@ -69,13 +69,15 @@ const AdminLogin = () => {
               Password
             </label>
             <input
-              name="password"
-              type="password"
-              value={form.password}
-              onChange={handleChange}
-              className="w-full border px-4 py-3 font-sans text-sm"
-              required
-            />
+  name="password"
+  type="password"
+  autoComplete="current-password"
+  value={form.password}
+  onChange={handleChange}
+  className="w-full border px-4 py-3 font-sans text-sm"
+  required
+/>
+
           </div>
 
           <button

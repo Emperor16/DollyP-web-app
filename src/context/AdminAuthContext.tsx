@@ -16,7 +16,7 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(() => localStorage.getItem("adminToken"));
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  // Validate token on load + whenever token changes
+  // Validate token on load + whenever token changeses
   useEffect(() => {
   if (!token) {
     setIsAuthenticated(false);

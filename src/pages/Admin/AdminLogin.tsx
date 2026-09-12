@@ -55,13 +55,15 @@ const AdminLogin = () => {
               Email
             </label>
             <input
-              name="email"
-              type="email"
-              value={form.email}
-              onChange={handleChange}
-              className="w-full border px-4 py-3 font-sans text-sm"
-              required
-            />
+  name="email"
+  type="email"
+  autoComplete="username"
+  value={form.email}
+  onChange={handleChange}
+  className="w-full border px-4 py-3 font-sans text-sm"
+  required
+/>
+
           </div>
 
           <div>
@@ -71,11 +73,13 @@ const AdminLogin = () => {
             <input
               name="password"
               type="password"
+              autoComplete="current-password"
               value={form.password}
               onChange={handleChange}
               className="w-full border px-4 py-3 font-sans text-sm"
               required
             />
+
           </div>
 
           <button

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import DollyPIcon from "../../../public/dollyp_icon.svg";
+import DollyPIcon from "../../assets/dollyp_icon.svg";
 
 const Navbar = () => {
   return (

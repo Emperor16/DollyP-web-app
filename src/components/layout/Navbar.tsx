@@ -1,63 +1,59 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import DollyPIcon from "../../assets/dollyp_icon.svg";
+import { FiShoppingBag, FiCalendar, FiShoppingCart } from "react-icons/fi"; // premium icons
 
 const Navbar = () => {
   return (
     <motion.header
-      initial={{ y: -40, opacity: 0 }}
+      initial={{ y: -30, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       className="
-        fixed top-4 left-1/2 -translate-x-1/2 
-        w-[92%] md:w-[85%] 
-        backdrop-blur-xl bg-white/40 
-        border border-[#D4AF37]/40 
-        shadow-[0_8px_30px_rgba(0,0,0,0.12)]
-        rounded-2xl 
-        z-50
+        fixed top-4 inset-x-0 mx-auto w-[90%] md:w-[80%] backdrop-blur-xl bg-white/30 border border-[#D4AF37]/40 shadow-[0_6px_25px_rgba(0,0,0,0.10)] rounded-xl z-50
       "
     >
-      <div className="px-8 py-4 flex items-center justify-between">
+      <div className="px-6 py-3 flex items-center justify-between">
         
         {/* BRAND ICON + NAME */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <img 
             src={DollyPIcon} 
             alt="Dolly P Icon" 
-            className="w-12 h-12"
+            className="w-10 h-10"
           />
-          <motion.div 
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="font-serif text-3xl tracking-wide text-dp-black"
-          >
-            <Link to="/">DOLLY P</Link>
-          </motion.div>
+          <h1 className="font-serif text-2xl tracking-wide text-dp-black">
+            DOLLY P
+          </h1>
         </div>
 
         {/* NAV LINKS */}
-        <nav className="hidden md:flex items-center gap-10 font-sans text-lg text-dp-black">
+        <nav className="hidden md:flex items-center gap-8 font-sans text-lg text-dp-black">
+          
           <Link 
             to="/shop" 
-            className="hover:text-[#D4AF37] transition-colors"
+            className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
           >
+            <FiShoppingBag className="text-xl" />
             Shop
           </Link>
 
           <Link 
             to="/reservation" 
-            className="hover:text-[#D4AF37] transition-colors"
+            className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
           >
+            <FiCalendar className="text-xl" />
             Reservation
           </Link>
 
           <Link 
             to="/cart" 
-            className="hover:text-[#D4AF37] transition-colors"
+            className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
           >
+            <FiShoppingCart className="text-xl" />
             Cart
           </Link>
+
         </nav>
 
         {/* MOBILE MENU */}

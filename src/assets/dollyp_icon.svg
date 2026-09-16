@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="100%" height="100%">
+  <defs>
+    <!-- Gold Gradient for Interlocking Letter P & Outer Crest Frame -->
+    <linearGradient id="richGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#9E7631" />
+      <stop offset="30%" stop-color="#E2C17C" />
+      <stop offset="50%" stop-color="#FDF1B8" />
+      <stop offset="70%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#7B581B" />
+    </linearGradient>
+
+    <!-- Cream Gold Gradient for Letter D -->
+    <linearGradient id="creamGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#EDE1CD" />
+      <stop offset="50%" stop-color="#FAF3E6" />
+      <stop offset="100%" stop-color="#DCD0BA" />
+    </linearGradient>
+
+    <!-- Dark Soft Drop Shadow -->
+    <filter id="iconShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Transparent/Dark Canvas Container Optimized for Header Usage -->
+  <g filter="url(#iconShadow)">
+    
+    <!-- SEGMENTED OUTER DOUBLE-RING CREST FRAME -->
+    <!-- Segment 1: Top-Right Arc -->
+    <path d="M 275 62 A 188 188 0 0 1 438 225" fill="none" stroke="url(#richGold)" stroke-width="4" stroke-linecap="butt" />
+    <path d="M 270 70 A 180 180 0 0 1 430 230" fill="none" stroke="url(#richGold)" stroke-width="2" stroke-linecap="butt" opacity="0.85" />
+
+    <!-- Segment 2: Bottom-Right Arc -->
+    <path d="M 438 275 A 188 188 0 0 1 275 438" fill="none" stroke="url(#richGold)" stroke-width="4" stroke-linecap="butt" />
+    <path d="M 430 270 A 180 180 0 0 1 270 430" fill="none" stroke="url(#richGold)" stroke-width="2" stroke-linecap="butt" opacity="0.85" />
+
+    <!-- Segment 3: Bottom-Left Arc -->
+    <path d="M 225 438 A 188 188 0 0 1 62 275" fill="none" stroke="url(#richGold)" stroke-width="4" stroke-linecap="butt" />
+    <path d="M 230 430 A 180 180 0 0 1 70 270" fill="none" stroke="url(#richGold)" stroke-width="2" stroke-linecap="butt" opacity="0.85" />
+
+    <!-- Segment 4: Top-Left Arc -->
+    <path d="M 62 225 A 188 188 0 0 1 225 62" fill="none" stroke="url(#richGold)" stroke-width="4" stroke-linecap="butt" />
+    <path d="M 70 230 A 180 180 0 0 1 230 70" fill="none" stroke="url(#richGold)" stroke-width="2" stroke-linecap="butt" opacity="0.85" />
+
+    <!-- MONOGRAM MARK -->
+    <g transform="translate(0, 0)">
+      
+      <!-- LETTER D (Cream-Gold Finish) -->
+      <path fill="url(#creamGold)" d="
+        M 110 145
+        H 210
+        C 320 145, 385 185, 385 250
+        C 385 315, 320 355, 210 355
+        H 110
+        V 345
+        H 135
+        V 155
+        H 110
+        Z
+        M 175 160
+        V 340
+        H 205
+        C 295 340, 345 305, 345 250
+        C 345 195, 295 160, 205 160
+        Z
+      " />
+
+      <!-- LETTER P (Rich Gold Finish Interlocking Over Stem) -->
+      <path fill="url(#richGold)" d="
+        M 175 100
+        H 285
+        C 345 100, 360 140, 360 185
+        C 360 230, 345 270, 285 270
+        H 215
+        V 385
+        H 240
+        V 395
+        H 170
+        V 385
+        H 190
+        V 110
+        H 175
+        Z
+        M 215 115
+        V 255
+        H 280
+        C 325 255, 338 225, 338 185
+        C 338 145, 325 115, 280 115
+        Z
+      " />
+      
+    </g>
+  </g>
+</svg>

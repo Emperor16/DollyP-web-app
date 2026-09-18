@@ -21,7 +21,7 @@ const Home = () => {
       const filtered = data.filter((p) => p.isFeatured).slice(0, 6);
       setFeatured(filtered);
     } catch (err) {
-      console.error("Failed to load products:", err);
+      console.error("Failed to load products, check your sever log:", err);
       setFeatured([]);
     }
   };

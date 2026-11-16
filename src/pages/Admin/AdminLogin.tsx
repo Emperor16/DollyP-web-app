@@ -22,7 +22,7 @@ const AdminLogin = () => {
     try {
       const res = await api.post(
         `${import.meta.env.VITE_API_URL}/api/admin/login`,
-        form
+        form,
       );
 
       if (res.data.success && res.data.token) {
@@ -33,7 +33,7 @@ const AdminLogin = () => {
       }
     } catch (err: any) {
       setError(
-        err?.response?.data?.message || "Login failed. Please try again."
+        err?.response?.data?.message || "Login failed. Please try again.",
       );
     }
   };
@@ -41,9 +41,7 @@ const AdminLogin = () => {
   return (
     <div className="min-h-screen bg-dp-offwhite flex items-center justify-center">
       <div className="bg-white shadow-md rounded-lg p-10 w-full max-w-md">
-        <h1 className="font-serif text-2xl text-dp-black mb-6">
-          Admin Login
-        </h1>
+        <h1 className="font-serif text-2xl text-dp-black mb-6">Admin Login</h1>
 
         {error && (
           <p className="text-red-600 font-sans text-sm mb-4">{error}</p>
@@ -55,15 +53,14 @@ const AdminLogin = () => {
               Email
             </label>
             <input
-  name="email"
-  type="email"
-  autoComplete="username"
-  value={form.email}
-  onChange={handleChange}
-  className="w-full border px-4 py-3 font-sans text-sm"
-  required
-/>
-
+              name="email"
+              type="email"
+              autoComplete="username"
+              value={form.email}
+              onChange={handleChange}
+              className="w-full border px-4 py-3 font-sans text-sm"
+              required
+            />
           </div>
 
           <div>
@@ -79,7 +76,6 @@ const AdminLogin = () => {
               className="w-full border px-4 py-3 font-sans text-sm"
               required
             />
-
           </div>
 
           <button

@@ -25,13 +25,13 @@ function AppRouter() {
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route path="/reservation" element={<Reservation />} />
-
       {/* Public Admin Login Route */}
       <Route path="/admin/login" element={<AdminLogin />} />
-
       {/* Protected Admin Routes (Wrapped in AdminRoute) */}
-      <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
-
+      <Route
+        path="/admin"
+        element={<Navigate to="/admin/dashboard" replace />}
+      />
       <Route
         path="/admin/dashboard"
         element={
@@ -49,7 +49,6 @@ function AppRouter() {
           </AdminRoute>
         }
       />
-
       <Route
         path="/admin/products"
         element={
@@ -58,7 +57,6 @@ function AppRouter() {
           </AdminRoute>
         }
       />
-
       <Route
         path="/admin/edit/:id"
         element={
@@ -67,7 +65,6 @@ function AppRouter() {
           </AdminRoute>
         }
       />
-
       <Route
         path="/admin/reservations"
         element={

@@ -260,4 +260,16 @@ const AdminHeader = ({ onLogout }: AdminHeaderProps) => {
                 transition-all duration-300
                 hover:bg-red-50
                 hover:text-red-700
-        
+              "
+            >
+              <LogOut size={19} strokeWidth={1.6} />
+              Log out
+            </button>
+          </div>
+        </div>
+      )}
+    </header>
+  );
+};
+
+export default AdminHeader;

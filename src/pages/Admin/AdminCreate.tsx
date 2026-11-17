@@ -187,30 +187,30 @@ const AdminCreate = () => {
   };
 
   const fieldClassName = `
-    w-full
-    rounded-xl
-    border border-dp-gold/20
-    bg-white
-    px-4 py-3.5
-    font-sans text-sm text-dp-black
-    outline-none
-    transition-all duration-200
-    placeholder:text-dp-charcoal/35
-    hover:border-dp-gold/40
-    focus:border-dp-gold
-    focus:ring-4
-    focus:ring-dp-gold/10
-    disabled:cursor-not-allowed
-    disabled:opacity-60
-  `;
+  w-full
+  rounded-xl
+  border border-dp-gold/25
+  bg-white
+  px-4 py-4
+  font-sans text-base font-medium text-dp-black
+  outline-none
+  transition-all duration-200
+  placeholder:font-normal
+  placeholder:text-dp-charcoal/50
+  hover:border-dp-gold/50
+  focus:border-dp-gold
+  focus:ring-4
+  focus:ring-dp-gold/10
+  disabled:cursor-not-allowed
+  disabled:opacity-60
+`;
 
-  const labelClassName = `
-    mb-2
-    block
-    font-sans text-xs
-    font-medium
-    text-dp-charcoal
-  `;
+const labelClassName = `
+  mb-2.5
+  block
+  font-sans text-base font-semibold
+  text-dp-black
+`;
 
   return (
     <AdminLayout>

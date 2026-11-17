@@ -323,3 +323,206 @@ const AdminDashboard = () => {
           </div>
         </section>
 
+        {/* =====================================================
+            PRODUCT OVERVIEW
+        ====================================================== */}
+        <section>
+          <div className="mb-6 flex items-end justify-between">
+            <div>
+              <p className="mb-2 font-sans text-[10px] uppercase tracking-[0.28em] text-dp-gold">
+                Catalogue insights
+              </p>
+
+              <h2 className="font-serif text-2xl md:text-3xl text-dp-black">
+                Product Overview
+              </h2>
+            </div>
+
+            <Link
+              to="/admin/products"
+              className="hidden sm:inline-flex items-center gap-2 font-sans text-xs text-dp-charcoal/60 transition hover:text-dp-gold"
+            >
+              Manage products
+              <ArrowUpRight size={14} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
+            {/* PRODUCT DISTRIBUTION */}
+            <div
+              className="
+                lg:col-span-2
+                rounded-3xl
+                border border-dp-gold/20
+                bg-white/75
+                p-6 md:p-8
+                backdrop-blur-sm
+              "
+            >
+              <div className="mb-8 flex items-center justify-between gap-4">
+                <div>
+                  <h3 className="font-serif text-xl text-dp-black">
+                    Product Distribution
+                  </h3>
+
+                  <p className="mt-1 font-sans text-xs leading-5 text-dp-charcoal/50">
+                    Your catalogue across each category.
+                  </p>
+                </div>
+
+                <span className="shrink-0 rounded-full bg-dp-gold/10 px-3 py-1.5 font-sans text-[10px] uppercase tracking-[0.16em] text-dp-charcoal/65">
+                  {totalProducts} items
+                </span>
+              </div>
+
+              {categories.length > 0 ? (
+                <div className="space-y-6">
+                  {categories.map(([category, count]) => {
+                    const percentage =
+                      largestCategoryCount > 0
+                        ? (count / largestCategoryCount) * 100
+                        : 0;
+
+                    return (
+                      <div key={category}>
+                        <div className="mb-2.5 flex items-center justify-between gap-4">
+                          <span className="font-sans text-sm capitalize text-dp-charcoal">
+                            {formatCategory(category)}
+                          </span>
+
+                          <span className="font-serif text-lg text-dp-black">
+                            {count}
+                          </span>
+                        </div>
+
+                        <div className="h-2 overflow-hidden rounded-full bg-dp-gold/10">
+                          <div
+                            className="h-full rounded-full bg-dp-gold transition-all duration-500"
+                            style={{
+                              width: `${percentage}%`,
+                            }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="flex min-h-[220px] items-center justify-center rounded-2xl border border-dashed border-dp-gold/30">
+                  <div className="text-center">
+                    <Package
+                      size={24}
+                      strokeWidth={1.3}
+                      className="mx-auto text-dp-gold"
+                    />
+
+                    <p className="mt-3 font-serif text-lg text-dp-black">
+                      No products yet
+                    </p>
+
+                    <Link
+                      to="/admin/create"
+                      className="mt-2 inline-flex items-center gap-1 font-sans text-xs text-dp-gold"
+                    >
+                      Add your first product
+                      <ArrowUpRight size={13} />
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* AT A GLANCE */}
+            <div
+              className="
+                rounded-3xl
+                border border-dp-gold/20
+                bg-white/75
+                p-6 md:p-8
+                backdrop-blur-sm
+              "
+            >
+              <h3 className="font-serif text-xl text-dp-black">
+                At a Glance
+              </h3>
+
+              <p className="mt-1 font-sans text-xs leading-5 text-dp-charcoal/50">
+                A quick view of the Dolly P catalogue.
+              </p>
+
+              <div className="mt-8 divide-y divide-dp-gold/15">
+                <div className="flex items-center gap-4 py-5 first:pt-0">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
+                    <Sparkles size={18} strokeWidth={1.5} />
+                  </div>
+
+                  <div>
+                    <p className="font-serif text-2xl text-dp-black">
+                      {featuredProducts}
+                    </p>
+
+                    <p className="font-sans text-xs text-dp-charcoal/55">
+                      Featured products
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 py-5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
+                    <CalendarDays size={18} strokeWidth={1.5} />
+                  </div>
+
+                  <div>
+                    <p className="font-serif text-2xl text-dp-black">
+                      {totalReservations}
+                    </p>
+
+                    <p className="font-sans text-xs text-dp-charcoal/55">
+                      Reservations
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 py-5">
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
+                    <Grid2X2 size={18} strokeWidth={1.5} />
+                  </div>
+
+                  <div>
+                    <p className="font-serif text-2xl text-dp-black">
+                      {totalCategories}
+                    </p>
+
+                    <p className="font-sans text-xs text-dp-charcoal/55">
+                      Categories
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <Link
+                to="/admin/products"
+                className="
+                  mt-3
+                  flex w-full items-center justify-between
+                  rounded-2xl
+                  border border-dp-gold/20
+                  px-4 py-3
+                  font-sans text-xs text-dp-charcoal
+                  transition-all duration-300
+                  hover:border-dp-gold/50
+                  hover:bg-dp-gold/10
+                "
+              >
+                View full catalogue
+                <ArrowUpRight size={15} />
+              </Link>
+            </div>
+          </div>
+        </section>
+      </div>
+    </AdminLayout>
+  );
+};
+
+export default AdminDashboard;

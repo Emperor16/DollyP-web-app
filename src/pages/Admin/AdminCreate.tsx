@@ -1,8 +1,4 @@
-import {
-  type ChangeEvent,
-  type FormEvent,
-  useState,
-} from "react";
+import { type ChangeEvent, type FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   ArrowLeft,
@@ -47,9 +43,7 @@ const AdminCreate = () => {
     isFeatured: false,
   });
 
-  const [submitError, setSubmitError] = useState<string | null>(
-    null
-  );
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const {
     files,
@@ -61,27 +55,17 @@ const AdminCreate = () => {
     removeImage,
   } = useImageUpload();
 
-  const {
-    progress,
-    uploading,
-    start,
-    update,
-    finish,
-  } = useUploadProgress();
+  const { progress, uploading, start, update, finish } = useUploadProgress();
 
   const handleChange = (
     event: ChangeEvent<
-      HTMLInputElement |
-      HTMLTextAreaElement |
-      HTMLSelectElement
-    >
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value, type } = event.target;
 
     const nextValue =
-      type === "checkbox"
-        ? (event.target as HTMLInputElement).checked
-        : value;
+      type === "checkbox" ? (event.target as HTMLInputElement).checked : value;
 
     setForm((currentForm) => ({
       ...currentForm,
@@ -93,9 +77,7 @@ const AdminCreate = () => {
     }
   };
 
-  const handleSubmit = async (
-    event: FormEvent<HTMLFormElement>
-  ) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitError(null);
 
@@ -105,16 +87,12 @@ const AdminCreate = () => {
       .filter(Boolean);
 
     if (normalizedSizes.length === 0) {
-      setSubmitError(
-        "Enter at least one available product size."
-      );
+      setSubmitError("Enter at least one available product size.");
       return;
     }
 
     if (Number(form.price) <= 0) {
-      setSubmitError(
-        "Product price must be greater than zero."
-      );
+      setSubmitError("Product price must be greater than zero.");
       return;
     }
 
@@ -126,17 +104,11 @@ const AdminCreate = () => {
     const formData = new FormData();
 
     formData.append("name", form.name.trim());
-    formData.append(
-      "description",
-      form.description.trim()
-    );
+    formData.append("description", form.description.trim());
     formData.append("price", form.price);
     formData.append("category", form.category);
     formData.append("stock", form.stock);
-    formData.append(
-      "isFeatured",
-      String(form.isFeatured)
-    );
+    formData.append("isFeatured", String(form.isFeatured));
 
     normalizedSizes.forEach((size) => {
       formData.append("sizes[]", size);
@@ -157,10 +129,7 @@ const AdminCreate = () => {
 
         onUploadProgress: (uploadEvent) => {
           const percent = uploadEvent.total
-            ? Math.round(
-                (uploadEvent.loaded * 100) /
-                  uploadEvent.total
-              )
+            ? Math.round((uploadEvent.loaded * 100) / uploadEvent.total)
             : 0;
 
           update(percent);
@@ -179,10 +148,7 @@ const AdminCreate = () => {
         "Failed to create product.";
 
       setSubmitError(backendMessage);
-      console.error(
-        "Failed to create product:",
-        requestError
-      );
+      console.error("Failed to create product:", requestError);
     }
   };
 
@@ -205,7 +171,7 @@ const AdminCreate = () => {
   disabled:opacity-60
 `;
 
-const labelClassName = `
+  const labelClassName = `
   mb-2.5
   block
   font-sans text-base font-semibold
@@ -218,9 +184,9 @@ const labelClassName = `
         {/* PAGE HEADER */}
         <section className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-          <Link
-  to="/admin/products"
-  className="
+            <Link
+              to="/admin/products"
+              className="
     mb-5
     inline-flex items-center gap-2
     font-sans text-sm font-semibold
@@ -228,23 +194,23 @@ const labelClassName = `
     transition-colors
     hover:text-dp-gold
   "
->
-  <ArrowLeft size={17} strokeWidth={2} />
-  Back to product inventory
-</Link>
+            >
+              <ArrowLeft size={17} strokeWidth={2} />
+              Back to product inventory
+            </Link>
 
-<p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-dp-gold">
-  Dolly P Admin · Catalogue Management
-</p>
+            <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-dp-gold">
+              Dolly P Admin · Catalogue Management
+            </p>
 
-<h1 className="font-serif text-4xl font-semibold tracking-tight text-dp-black md:text-5xl">
-  Create a new product
-</h1>
+            <h1 className="font-serif text-4xl font-semibold tracking-tight text-dp-black md:text-5xl">
+              Create a new product
+            </h1>
 
-<p className="mt-4 max-w-2xl font-sans text-sm font-normal leading-7 text-dp-charcoal/70 md:text-base">
-  Add product details, inventory information, available sizes,
-  and imagery to the Dolly P catalogue.
-</p>
+            <p className="mt-4 max-w-2xl font-sans text-sm font-normal leading-7 text-dp-charcoal/70 md:text-base">
+              Add product details, inventory information, available sizes, and
+              imagery to the Dolly P catalogue.
+            </p>
           </div>
 
           <div className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold lg:flex">
@@ -252,10 +218,7 @@ const labelClassName = `
           </div>
         </section>
 
-        <form
-          onSubmit={handleSubmit}
-          encType="multipart/form-data"
-        >
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(340px,0.65fr)]">
             {/* LEFT COLUMN */}
             <div className="space-y-6">
@@ -271,24 +234,22 @@ const labelClassName = `
               >
                 <div className="mb-8">
                   <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-dp-gold">
-  Product information
-</p>
+                    Product information
+                  </p>
 
-<h2 className="font-serif text-2xl font-semibold text-dp-black md:text-3xl">
-  Product Details
-</h2>
+                  <h2 className="font-serif text-2xl font-semibold text-dp-black md:text-3xl">
+                    Product Details
+                  </h2>
 
-<p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/70 md:text-base">
-  Enter the main information customers will see in the catalogue.
-</p>
+                  <p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/70 md:text-base">
+                    Enter the main information customers will see in the
+                    catalogue.
+                  </p>
                 </div>
 
                 <div className="space-y-6">
                   <div>
-                    <label
-                      htmlFor="name"
-                      className={labelClassName}
-                    >
+                    <label htmlFor="name" className={labelClassName}>
                       Product name
                     </label>
 
@@ -333,10 +294,7 @@ const labelClassName = `
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="category"
-                      className={labelClassName}
-                    >
+                    <label htmlFor="category" className={labelClassName}>
                       Category
                     </label>
 
@@ -351,12 +309,8 @@ const labelClassName = `
                       <option value="dress">Dress</option>
                       <option value="gown">Gown</option>
                       <option value="kaftan">Kaftan</option>
-                      <option value="two-piece">
-                        Two-Piece
-                      </option>
-                      <option value="outerwear">
-                        Outerwear
-                      </option>
+                      <option value="two-piece">Two-Piece</option>
+                      <option value="outerwear">Outerwear</option>
                     </select>
                   </div>
                 </div>
@@ -380,19 +334,16 @@ const labelClassName = `
                   <h2 className="font-serif text-2xl text-dp-black">
                     Pricing &amp; Inventory
                   </h2>
-           <p className="mt-2 font-sans text-xs leading-5 text-dp-charcoal/50">
-                    Set the selling price, quantity, and
-                    available product sizes.
+                  <p className="mt-2 font-sans text-xs leading-5 text-dp-charcoal/50">
+                    Set the selling price, quantity, and available product
+                    sizes.
                   </p>
                 </div>
 
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <div>
-                      <label
-                        htmlFor="price"
-                        className={labelClassName}
-                      >
+                      <label htmlFor="price" className={labelClassName}>
                         Price
                       </label>
 
@@ -418,10 +369,7 @@ const labelClassName = `
                     </div>
 
                     <div>
-                      <label
-                        htmlFor="stock"
-                        className={labelClassName}
-                      >
+                      <label htmlFor="stock" className={labelClassName}>
                         Stock quantity
                       </label>
 
@@ -442,10 +390,7 @@ const labelClassName = `
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="sizes"
-                      className={labelClassName}
-                    >
+                    <label htmlFor="sizes" className={labelClassName}>
                       Available sizes
                     </label>
 
@@ -462,8 +407,7 @@ const labelClassName = `
                     />
 
                     <p className="mt-2 font-sans text-[11px] leading-5 text-dp-charcoal/45">
-                      Separate each size with a comma. Example:
-                      S, M, L, XL.
+                      Separate each size with a comma. Example: S, M, L, XL.
                     </p>
                   </div>
                 </div>
@@ -494,16 +438,12 @@ const labelClassName = `
                     </h2>
 
                     <p className="mt-2 font-sans text-xs leading-5 text-dp-charcoal/50">
-                      Add clear images that represent the
-                      product accurately.
+                      Add clear images that represent the product accurately.
                     </p>
                   </div>
 
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
-                    <ImagePlus
-                      size={19}
-                      strokeWidth={1.5}
-                    />
+                    <ImagePlus size={19} strokeWidth={1.5} />
                   </div>
                 </div>
 
@@ -523,9 +463,7 @@ const labelClassName = `
 
                       <span className="rounded-full bg-dp-gold/10 px-2.5 py-1 font-sans text-[10px] text-dp-charcoal/60">
                         {preview.length}{" "}
-                        {preview.length === 1
-                          ? "image"
-                          : "images"}
+                        {preview.length === 1 ? "image" : "images"}
                       </span>
                     </div>
 
@@ -570,16 +508,13 @@ const labelClassName = `
 
                     <span className="min-w-0">
                       <span className="flex items-center gap-2 font-sans text-sm font-medium text-dp-black">
-                        <Sparkles
-                          size={15}
-                          className="text-dp-gold"
-                        />
+                        <Sparkles size={15} className="text-dp-gold" />
                         Featured product
                       </span>
 
                       <span className="mt-1 block font-sans text-[11px] leading-5 text-dp-charcoal/50">
-                        Highlight this item in the featured
-                        catalogue collection.
+                        Highlight this item in the featured catalogue
+                        collection.
                       </span>
                     </span>
 
@@ -634,11 +569,7 @@ const labelClassName = `
                       transition-all duration-200
                       hover:border-dp-gold
                       hover:bg-dp-gold/10
-                      ${
-                        uploading
-                          ? "pointer-events-none opacity-50"
-                          : ""
-                      }
+                      ${uploading ? "pointer-events-none opacity-50" : ""}
                     `}
                   >
                     Cancel
@@ -661,14 +592,9 @@ const labelClassName = `
                       disabled:opacity-50
                     "
                   >
-                    <PackagePlus
-                      size={17}
-                      strokeWidth={1.7}
-                    />
+                    <PackagePlus size={17} strokeWidth={1.7} />
 
-                    {uploading
-                      ? `Creating ${progress}%`
-                      : "Create Product"}
+                    {uploading ? `Creating ${progress}%` : "Create Product"}
                   </button>
                 </div>
               </section>

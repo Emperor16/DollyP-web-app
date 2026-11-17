@@ -270,18 +270,17 @@ const labelClassName = `
                 "
               >
                 <div className="mb-8">
-                  <p className="mb-2 font-sans text-[10px] uppercase tracking-[0.28em] text-dp-gold">
-                    Product information
-                  </p>
+                  <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-dp-gold">
+  Product information
+</p>
 
-                  <h2 className="font-serif text-2xl text-dp-black">
-                    Product Details
-                  </h2>
+<h2 className="font-serif text-2xl font-semibold text-dp-black md:text-3xl">
+  Product Details
+</h2>
 
-                  <p className="mt-2 font-sans text-xs leading-5 text-dp-charcoal/50">
-                    Enter the main information customers will
-                    see in the catalogue.
-                  </p>
+<p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/70 md:text-base">
+  Enter the main information customers will see in the catalogue.
+</p>
                 </div>
 
                 <div className="space-y-6">

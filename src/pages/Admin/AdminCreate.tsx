@@ -407,9 +407,9 @@ const AdminCreate = () => {
                       required
                     />
 
-                    <p className="mt-2 font-sans text-[11px] leading-5 text-dp-charcoal/45">
-                      Separate each size with a comma. Example: S, M, L, XL.
-                    </p>
+                    <p className="mt-2.5 font-sans text-sm leading-6 text-dp-charcoal/65">
+  Separate each size with a comma. Example: S, M, L, XL.
+</p>
                   </div>
                 </div>
               </section>

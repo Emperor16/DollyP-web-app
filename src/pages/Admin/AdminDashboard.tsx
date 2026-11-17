@@ -161,4 +161,165 @@ const AdminDashboard = () => {
                   Catalogue
                 </p>
 
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-
+                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-dp-gold/30 bg-dp-gold/10 text-dp-gold">
+                  <Package size={18} strokeWidth={1.5} />
+                </div>
+              </div>
+
+              <div className="mt-8">
+                <p className="font-serif text-5xl text-white">
+                  {totalProducts}
+                </p>
+
+                <h2 className="mt-2 font-sans text-sm text-white/70">
+                  Total Products
+                </h2>
+              </div>
+
+              <Link
+                to="/admin/create"
+                className="mt-7 inline-flex items-center gap-2 font-sans text-xs text-dp-gold transition hover:text-white"
+              >
+                Add product
+                <ArrowUpRight size={14} />
+              </Link>
+            </div>
+          </div>
+
+          {/* FEATURED */}
+          <div
+            className="
+              rounded-3xl
+              border border-dp-gold/20
+              bg-white/75
+              p-6 md:p-7
+              min-h-[220px]
+              backdrop-blur-sm
+              transition-all duration-300
+              hover:-translate-y-1
+              hover:shadow-[0_16px_40px_rgba(0,0,0,0.07)]
+            "
+          >
+            <div className="flex items-start justify-between">
+              <p className="font-sans text-[10px] uppercase tracking-[0.28em] text-dp-charcoal/45">
+                Curation
+              </p>
+
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
+                <Sparkles size={18} strokeWidth={1.5} />
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <p className="font-serif text-5xl text-dp-black">
+                {featuredProducts}
+              </p>
+
+              <h2 className="mt-2 font-sans text-sm text-dp-charcoal/70">
+                Featured Products
+              </h2>
+            </div>
+
+            <div className="mt-7 flex items-center gap-2">
+              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-dp-gold/10">
+                <div
+                  className="h-full rounded-full bg-dp-gold transition-all duration-500"
+                  style={{
+                    width: `${Math.min(featuredPercentage, 100)}%`,
+                  }}
+                />
+              </div>
+
+              <span className="font-sans text-xs text-dp-charcoal/55">
+                {featuredPercentage}%
+              </span>
+            </div>
+          </div>
+
+          {/* RESERVATIONS */}
+          <div
+            className="
+              rounded-3xl
+              border border-dp-gold/20
+              bg-white/75
+              p-6 md:p-7
+              min-h-[220px]
+              backdrop-blur-sm
+              transition-all duration-300
+              hover:-translate-y-1
+              hover:shadow-[0_16px_40px_rgba(0,0,0,0.07)]
+            "
+          >
+            <div className="flex items-start justify-between">
+              <p className="font-sans text-[10px] uppercase tracking-[0.28em] text-dp-charcoal/45">
+                Appointments
+              </p>
+
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
+                <CalendarDays size={18} strokeWidth={1.5} />
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <p className="font-serif text-5xl text-dp-black">
+                {totalReservations}
+              </p>
+
+              <h2 className="mt-2 font-sans text-sm text-dp-charcoal/70">
+                Reservations
+              </h2>
+            </div>
+
+            <Link
+              to="/admin/reservations"
+              className="mt-7 inline-flex items-center gap-2 font-sans text-xs text-dp-charcoal/60 transition hover:text-dp-gold"
+            >
+              View reservations
+              <ArrowUpRight size={14} />
+            </Link>
+          </div>
+
+          {/* CATEGORIES */}
+          <div
+            className="
+              rounded-3xl
+              border border-dp-gold/20
+              bg-white/75
+              p-6 md:p-7
+              min-h-[220px]
+              backdrop-blur-sm
+              transition-all duration-300
+              hover:-translate-y-1
+              hover:shadow-[0_16px_40px_rgba(0,0,0,0.07)]
+            "
+          >
+            <div className="flex items-start justify-between">
+              <p className="font-sans text-[10px] uppercase tracking-[0.28em] text-dp-charcoal/45">
+                Collections
+              </p>
+
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
+                <Grid2X2 size={18} strokeWidth={1.5} />
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <p className="font-serif text-5xl text-dp-black">
+                {totalCategories}
+              </p>
+
+              <h2 className="mt-2 font-sans text-sm text-dp-charcoal/70">
+                Categories
+              </h2>
+            </div>
+
+            <Link
+              to="/admin/products"
+              className="mt-7 inline-flex items-center gap-2 font-sans text-xs text-dp-charcoal/60 transition hover:text-dp-gold"
+            >
+              Manage catalogue
+              <ArrowUpRight size={14} />
+            </Link>
+          </div>
+        </section>
+

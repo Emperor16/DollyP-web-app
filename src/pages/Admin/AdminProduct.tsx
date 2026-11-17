@@ -113,7 +113,7 @@ const AdminProducts = () => {
                 </td>
               </tr>
             ) : (
-              products.map((product) => (
+              paginatedProducts.map((product) => (
                 <tr
                   key={product._id}
                   className="hover:bg-dp-offwhite/50 transition"

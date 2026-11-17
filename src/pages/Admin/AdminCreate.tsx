@@ -268,4 +268,42 @@ const AdminCreate = () => {
                   bg-white/75
                   p-6 md:p-8
                   backdrop-blur-sm
-       
+                "
+              >
+                <div className="mb-8">
+                  <p className="mb-2 font-sans text-[10px] uppercase tracking-[0.28em] text-dp-gold">
+                    Product information
+                  </p>
+
+                  <h2 className="font-serif text-2xl text-dp-black">
+                    Product Details
+                  </h2>
+
+                  <p className="mt-2 font-sans text-xs leading-5 text-dp-charcoal/50">
+                    Enter the main information customers will
+                    see in the catalogue.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <div>
+                    <label
+                      htmlFor="name"
+                      className={labelClassName}
+                    >
+                      Product name
+                    </label>
+
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="e.g. Monochrome Statement Kimono"
+                      className={fieldClassName}
+                      disabled={uploading}
+                      required
+                    />
+                  </div>
+

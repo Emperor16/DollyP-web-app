@@ -564,8 +564,8 @@ const AdminCreate = () => {
                       rounded-full
                       border border-dp-gold/25
                       px-5 py-3.5
-                      font-sans text-sm
-                      text-dp-charcoal
+                      font-sans text-base font-semibold
+text-dp-charcoal
                       transition-all duration-200
                       hover:border-dp-gold
                       hover:bg-dp-gold/10

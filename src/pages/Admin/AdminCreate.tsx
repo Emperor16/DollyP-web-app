@@ -458,11 +458,11 @@ const AdminCreate = () => {
                 {preview.length > 0 && (
                   <div className="mt-6">
                     <div className="mb-3 flex items-center justify-between">
-                      <p className="font-sans text-xs font-medium text-dp-charcoal">
-                        Selected images
-                      </p>
+                 <p className="font-sans text-base font-semibold text-dp-black">
+  Selected images
+</p>
 
-                      <span className="rounded-full bg-dp-gold/10 px-2.5 py-1 font-sans text-[10px] text-dp-charcoal/60">
+<span className="rounded-full bg-dp-gold/10 px-3 py-1.5 font-sans text-sm font-semibold text-dp-charcoal/70">
                         {preview.length}{" "}
                         {preview.length === 1 ? "image" : "images"}
                       </span>

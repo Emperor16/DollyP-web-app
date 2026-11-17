@@ -267,18 +267,18 @@ const AdminCreate = () => {
                   </div>
 
                   <div>
-                    <div className="mb-2 flex items-center justify-between gap-4">
-                      <label
-                        htmlFor="description"
-                        className="font-sans text-xs font-medium text-dp-charcoal"
-                      >
-                        Description
-                      </label>
+                    <div className="mb-2.5 flex items-center justify-between gap-4">
+  <label
+    htmlFor="description"
+    className="font-sans text-base font-semibold text-dp-black"
+  >
+    Description
+  </label>
 
-                      <span className="font-sans text-[10px] text-dp-charcoal/40">
-                        {form.description.length} characters
-                      </span>
-                    </div>
+  <span className="font-sans text-sm font-medium text-dp-charcoal/60">
+    {form.description.length} characters
+  </span>
+</div>
 
                     <textarea
                       id="description"

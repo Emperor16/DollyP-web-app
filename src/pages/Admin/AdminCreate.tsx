@@ -349,9 +349,9 @@ const AdminCreate = () => {
                       </label>
 
                       <div className="relative">
-                        <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 font-sans text-sm text-dp-charcoal/45">
-                          ₦
-                        </span>
+                       <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 font-sans text-base font-semibold text-dp-charcoal/70">
+  ₦
+</span>
 
                         <input
                           id="price"

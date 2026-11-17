@@ -268,17 +268,17 @@ const AdminCreate = () => {
 
                   <div>
                     <div className="mb-2.5 flex items-center justify-between gap-4">
-  <label
-    htmlFor="description"
-    className="font-sans text-base font-semibold text-dp-black"
-  >
-    Description
-  </label>
+                      <label
+                        htmlFor="description"
+                        className="font-sans text-base font-semibold text-dp-black"
+                      >
+                        Description
+                      </label>
 
-  <span className="font-sans text-sm font-medium text-dp-charcoal/60">
-    {form.description.length} characters
-  </span>
-</div>
+                      <span className="font-sans text-sm font-medium text-dp-charcoal/60">
+                        {form.description.length} characters
+                      </span>
+                    </div>
 
                     <textarea
                       id="description"
@@ -328,16 +328,17 @@ const AdminCreate = () => {
               >
                 <div className="mb-8">
                   <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-dp-gold">
-  Availability
-</p>
+                    Availability
+                  </p>
 
-<h2 className="font-serif text-2xl font-semibold text-dp-black md:text-3xl">
-  Pricing &amp; Inventory
-</h2>
+                  <h2 className="font-serif text-2xl font-semibold text-dp-black md:text-3xl">
+                    Pricing &amp; Inventory
+                  </h2>
 
-<p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/70 md:text-base">
-  Set the selling price, quantity, and available product sizes.
-</p>
+                  <p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/70 md:text-base">
+                    Set the selling price, quantity, and available product
+                    sizes.
+                  </p>
                 </div>
 
                 <div className="space-y-6">

@@ -575,27 +575,32 @@ text-dp-charcoal
                     Cancel
                   </Link>
 
-                  <button
-                    type="submit"
-                    disabled={uploading}
-                    className="
-                      inline-flex flex-[1.4]
-                      items-center justify-center gap-2
-                      rounded-full
-                      bg-dp-black
-                      px-5 py-3.5
-                      font-sans text-sm text-white
-                      transition-all duration-300
-                      hover:bg-dp-gold
-                      hover:text-dp-black
-                      disabled:cursor-not-allowed
-                      disabled:opacity-50
-                    "
-                  >
-                    <PackagePlus size={17} strokeWidth={1.7} />
+                 <button
+  type="submit"
+  disabled={uploading}
+  className="
+    inline-flex flex-[1.4]
+    items-center justify-center gap-2
+    rounded-full
+    bg-dp-black
+    px-5 py-4
+    font-sans text-base font-semibold text-white
+    transition-all duration-300
+    hover:bg-dp-gold
+    hover:text-dp-black
+    disabled:cursor-not-allowed
+    disabled:opacity-50
+  "
+>
+  <PackagePlus
+    size={18}
+    strokeWidth={1.8}
+  />
 
-                    {uploading ? `Creating ${progress}%` : "Create Product"}
-                  </button>
+  {uploading
+    ? `Creating ${progress}%`
+    : "Create Product"}
+</button>
                 </div>
               </section>
             </aside>

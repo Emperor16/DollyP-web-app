@@ -508,7 +508,7 @@ const AdminCreate = () => {
                     </span>
 
                     <span className="min-w-0">
-                      <span className="flex items-center gap-2 font-sans text-sm font-medium text-dp-black">
+                      <span className="flex items-center gap-2 font-sans text-base font-semibold text-dp-black">
                         <Sparkles size={15} className="text-dp-gold" />
                         Featured product
                       </span>

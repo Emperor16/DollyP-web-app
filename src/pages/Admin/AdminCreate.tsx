@@ -542,7 +542,7 @@ const AdminCreate = () => {
                 {submitError && (
                   <div
                     role="alert"
-                    className="mt-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 font-sans text-xs leading-5 text-red-700"
+                    className="mt-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3.5 font-sans text-sm font-medium leading-6 text-red-700"
                   >
                     {submitError}
                   </div>

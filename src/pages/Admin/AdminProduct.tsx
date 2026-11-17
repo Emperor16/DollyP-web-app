@@ -11,9 +11,14 @@ import { safeArray } from "../../utils/safeArray";
 import { getProductImage } from "../../utils/getProductImage";
 
 const AdminProducts = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+const [products, setProducts] = useState<Product[]>([]);
+const [loading, setLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+// Pagination
+const [currentPage, setCurrentPage] = useState(1);
+const PRODUCTS_PER_PAGE = 8;
+
 
   const fetchInventory = async () => {
     try {

@@ -430,17 +430,17 @@ const AdminCreate = () => {
               >
                 <div className="mb-7 flex items-start justify-between gap-4">
                   <div>
-                    <p className="mb-2 font-sans text-[10px] uppercase tracking-[0.28em] text-dp-gold">
-                      Product media
-                    </p>
+                   <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-dp-gold">
+  Product media
+</p>
 
-                    <h2 className="font-serif text-2xl text-dp-black">
-                      Product Images
-                    </h2>
+<h2 className="font-serif text-2xl font-semibold text-dp-black md:text-3xl">
+  Product Images
+</h2>
 
-                    <p className="mt-2 font-sans text-xs leading-5 text-dp-charcoal/50">
-                      Add clear images that represent the product accurately.
-                    </p>
+<p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/70 md:text-base">
+  Add clear images that represent the product accurately.
+</p>
                   </div>
 
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">

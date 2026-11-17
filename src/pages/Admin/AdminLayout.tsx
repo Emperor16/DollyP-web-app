@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAdminAuth } from "../../context/AdminAuthContext";
+import AdminHeader from "../../components/admin/AdminHeader";
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
   const { logout } = useAdminAuth();

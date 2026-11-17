@@ -4,6 +4,7 @@ export default {
     "./index.html",
     "./src/**/*.{ts,tsx}",
   ],
+
   theme: {
     extend: {
       colors: {
@@ -17,11 +18,22 @@ export default {
         "dp-gold": "#C9A46B",
         "dp-velvet": "#3B1F2B",
       },
+
       fontFamily: {
-        serif: ["Playfair Display", "serif"],
-        sans: ["Inter", "system-ui", "sans-serif"],
+        serif: [
+          "Cormorant Garamond",
+          "Georgia",
+          "serif",
+        ],
+
+        sans: [
+          "DM Sans",
+          "system-ui",
+          "sans-serif",
+        ],
       },
     },
   },
+
   plugins: [],
 };

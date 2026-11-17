@@ -27,50 +27,42 @@ const AdminDashboard = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
 
   useEffect(() => {
-    getProducts().then((data) =>
-      setProducts(safeArray<Product>(data))
-    );
+    getProducts().then((data) => setProducts(safeArray<Product>(data)));
 
     api
       .get("/reservations")
       .then((res) => {
-        const rawReservations =
-          res.data.data || res.data.reservations;
+        const rawReservations = res.data.data || res.data.reservations;
 
-        setReservations(
-          safeArray<Reservation>(rawReservations)
-        );
+        setReservations(safeArray<Reservation>(rawReservations));
       })
       .catch(() => setReservations([]));
   }, []);
 
   const safeProductsList = safeArray<Product>(products);
-  const safeReservationsList =
-    safeArray<Reservation>(reservations);
+  const safeReservationsList = safeArray<Reservation>(reservations);
 
   const totalProducts = safeProductsList.length;
 
   const featuredProducts = safeProductsList.filter(
-    (product) => product.isFeatured
+    (product) => product.isFeatured,
   ).length;
 
   const totalReservations = safeReservationsList.length;
 
-  const categoryCounts: Record<string, number> =
-    safeProductsList.reduce(
-      (acc, product) => {
-        if (product?.category) {
-          acc[product.category] =
-            (acc[product.category] || 0) + 1;
-        }
+  const categoryCounts: Record<string, number> = safeProductsList.reduce(
+    (acc, product) => {
+      if (product?.category) {
+        acc[product.category] = (acc[product.category] || 0) + 1;
+      }
 
-        return acc;
-      },
-      {} as Record<string, number>
-    );
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   const categories = Object.entries(categoryCounts).sort(
-    ([, a], [, b]) => b - a
+    ([, a], [, b]) => b - a,
   );
 
   const totalCategories = categories.length;
@@ -85,8 +77,7 @@ const AdminDashboard = () => {
       ? Math.max(...categories.map(([, count]) => count))
       : 0;
 
-  const formatCategory = (category: string) =>
-    category.replace(/-/g, " ");
+  const formatCategory = (category: string) => category.replace(/-/g, " ");
 
   return (
     <AdminLayout>
@@ -442,9 +433,7 @@ const AdminDashboard = () => {
                 backdrop-blur-sm
               "
             >
-              <h3 className="font-serif text-xl text-dp-black">
-                At a Glance
-              </h3>
+              <h3 className="font-serif text-xl text-dp-black">At a Glance</h3>
 
               <p className="mt-1 font-sans text-xs leading-5 text-dp-charcoal/50">
                 A quick view of the Dolly P catalogue.

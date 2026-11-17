@@ -118,8 +118,8 @@ useEffect(() => {
             </p>
 
             <h1 className="font-serif text-4xl md:text-5xl text-dp-black tracking-tight">
-              Good morning.
-            </h1>
+  {greeting}
+</h1>
 
             <p className="mt-3 max-w-xl font-sans text-sm md:text-base leading-7 text-dp-charcoal/65">
               Here&apos;s what&apos;s happening with Dolly P today.

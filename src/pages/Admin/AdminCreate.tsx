@@ -513,10 +513,9 @@ const AdminCreate = () => {
                         Featured product
                       </span>
 
-                      <span className="mt-1 block font-sans text-[11px] leading-5 text-dp-charcoal/50">
-                        Highlight this item in the featured catalogue
-                        collection.
-                      </span>
+                      <span className="mt-1.5 block font-sans text-sm leading-6 text-dp-charcoal/65">
+  Highlight this item in the featured catalogue collection.
+</span>
                     </span>
 
                     <input

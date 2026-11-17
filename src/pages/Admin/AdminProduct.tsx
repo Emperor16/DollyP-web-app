@@ -37,6 +37,13 @@ const PRODUCTS_PER_PAGE = 8;
     fetchInventory();
   }, []);
 
+  const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
+
+const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+const endIndex = startIndex + PRODUCTS_PER_PAGE;
+
+const paginatedProducts = products.slice(startIndex, endIndex);
+
   const handleDelete = async (id: string) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {

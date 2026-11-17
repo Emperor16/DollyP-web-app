@@ -218,34 +218,33 @@ const labelClassName = `
         {/* PAGE HEADER */}
         <section className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <Link
-              to="/admin/products"
-              className="
-                mb-5
-                inline-flex items-center gap-2
-                font-sans text-xs
-                text-dp-charcoal/55
-                transition-colors
-                hover:text-dp-gold
-              "
-            >
-              <ArrowLeft size={15} />
-              Back to product inventory
-            </Link>
+          <Link
+  to="/admin/products"
+  className="
+    mb-5
+    inline-flex items-center gap-2
+    font-sans text-sm font-semibold
+    text-dp-charcoal/70
+    transition-colors
+    hover:text-dp-gold
+  "
+>
+  <ArrowLeft size={17} strokeWidth={2} />
+  Back to product inventory
+</Link>
 
-            <p className="mb-3 font-sans text-[10px] uppercase tracking-[0.3em] text-dp-gold">
-              Catalogue management
-            </p>
+<p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-dp-gold">
+  Dolly P Admin · Catalogue Management
+</p>
 
-            <h1 className="font-serif text-4xl tracking-tight text-dp-black md:text-5xl">
-              Create a new product
-            </h1>
+<h1 className="font-serif text-4xl font-semibold tracking-tight text-dp-black md:text-5xl">
+  Create a new product
+</h1>
 
-            <p className="mt-3 max-w-2xl font-sans text-sm leading-7 text-dp-charcoal/60">
-              Add product details, inventory information,
-              available sizes, and imagery to the Dolly P
-              catalogue.
-            </p>
+<p className="mt-4 max-w-2xl font-sans text-sm font-normal leading-7 text-dp-charcoal/70 md:text-base">
+  Add product details, inventory information, available sizes,
+  and imagery to the Dolly P catalogue.
+</p>
           </div>
 
           <div className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold lg:flex">

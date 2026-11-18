@@ -14,14 +14,9 @@ const Navbar = () => {
       "
     >
       <div className="px-6 py-3 flex items-center justify-between">
-        
         {/* BRAND ICON + NAME */}
         <div className="flex items-center gap-3">
-          <img 
-            src={DollyPIcon} 
-            alt="Dolly P Icon" 
-            className="w-10 h-10"
-          />
+          <img src={DollyPIcon} alt="Dolly P Icon" className="w-10 h-10" />
           <h1 className="font-serif text-2xl tracking-wide text-dp-black">
             DOLLY P
           </h1>
@@ -29,38 +24,35 @@ const Navbar = () => {
 
         {/* NAV LINKS */}
         <nav className="hidden md:flex items-center gap-8 font-sans text-lg text-dp-black">
-          
-          <Link 
-            to="/shop" 
+          <Link
+            to="/shop"
             className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
           >
             <FiShoppingBag className="text-xl" />
             Shop
           </Link>
 
-          <Link 
-            to="/reservation" 
+          <Link
+            to="/reservation"
             className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
           >
             <FiCalendar className="text-xl" />
             Reservation
           </Link>
 
-          <Link 
-            to="/cart" 
+          <Link
+            to="/cart"
             className="flex items-center gap-2 hover:text-[#D4AF37] transition-colors"
           >
             <FiShoppingCart className="text-xl" />
             Cart
           </Link>
-
         </nav>
 
         {/* MOBILE MENU */}
         <div className="md:hidden text-dp-black">
           <span className="text-3xl">☰</span>
         </div>
-
       </div>
     </motion.header>
   );

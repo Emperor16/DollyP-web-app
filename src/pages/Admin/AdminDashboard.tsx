@@ -185,9 +185,19 @@ const AdminDashboard = () => {
               </div>
 
               <div className="mt-8">
-                <p className="font-serif text-5xl text-white">
-                  {totalProducts}
-                </p>
+                <p
+  className="
+    font-serif
+    text-[4.75rem]
+    leading-[0.8]
+    tracking-[-0.055em]
+    text-white
+    md:text-[5.5rem]
+    xl:text-[6rem]
+  "
+>
+  {totalProducts}
+</p>
 
                 <h2 className="mt-2 font-sans text-sm text-white/70">
                   Total Products

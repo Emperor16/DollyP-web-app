@@ -67,3 +67,108 @@ const formatCategory = (category?: string): string => {
 
   return category.replace(/-/g, " ");
 };
+
+const Home = () => {
+  const [featured, setFeatured] = useState<Product[]>([]);
+  const [heroProducts, setHeroProducts] = useState<HeroProduct[]>([]);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isHeroPaused, setIsHeroPaused] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        setIsLoading(true);
+
+        const data = await getProducts();
+
+        if (!Array.isArray(data)) {
+          console.error("Products response is not an array:", data);
+
+          setFeatured([]);
+          setHeroProducts([]);
+          return;
+        }
+
+        const products = data as HeroProduct[];
+
+        // Products displayed in the existing Featured Pieces section
+        const featuredProducts = products
+          .filter((product) => product.isFeatured)
+          .slice(0, 6);
+
+        setFeatured(featuredProducts);
+
+        // Featured products with usable backend images get priority
+        const featuredWithImages = products.filter(
+          (product) =>
+            product.isFeatured &&
+            Boolean(getProductImage(product)),
+        );
+
+        // Other products can fill the carousel if needed
+        const remainingWithImages = products.filter(
+          (product) =>
+            !product.isFeatured &&
+            Boolean(getProductImage(product)),
+        );
+
+        const carouselProducts = [
+          ...featuredWithImages,
+          ...remainingWithImages,
+        ].slice(0, 5);
+
+        setHeroProducts(carouselProducts);
+        setActiveSlide(0);
+      } catch (error) {
+        console.error(
+          "Failed to load products. Check your server log:",
+          error,
+        );
+
+        setFeatured([]);
+        setHeroProducts([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadProducts();
+  }, []);
+
+  // Automatically change hero every 5.5 seconds
+  useEffect(() => {
+    if (heroProducts.length <= 1 || isHeroPaused) {
+      return;
+    }
+
+    const interval = window.setInterval(() => {
+      setActiveSlide((current) => {
+        return (current + 1) % heroProducts.length;
+      });
+    }, 5500);
+
+    return () => window.clearInterval(interval);
+  }, [heroProducts.length, isHeroPaused]);
+
+  const showPreviousSlide = () => {
+    if (heroProducts.length === 0) {
+      return;
+    }
+
+    setActiveSlide((current) =>
+      current === 0
+        ? heroProducts.length - 1
+        : current - 1,
+    );
+  };
+
+  const showNextSlide = () => {
+    if (heroProducts.length === 0) {
+      return;
+    }
+
+    setActiveSlide((current) =>
+      (current + 1) % heroProducts.length,
+    );
+  };

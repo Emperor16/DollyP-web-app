@@ -252,7 +252,6 @@ const AdminDashboard = () => {
 >
   {featuredProducts}
 </p>
-              </p>
 
               <h2 className="mt-2 font-sans text-sm text-dp-charcoal/70">
                 Featured Products

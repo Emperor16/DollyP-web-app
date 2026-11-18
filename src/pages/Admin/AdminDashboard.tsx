@@ -197,9 +197,10 @@ const AdminDashboard = () => {
                   {totalProducts}
                 </p>
 
-                <h2 className="mt-2 font-sans text-sm text-white/70">
-                  Total Products
-                </h2>
+                <h2 className="mt-5 font-sans text-[15px] font-medium tracking-[-0.01em] text-white/75">
+  Total Products
+</h2>
+
               </div>
 
               <Link

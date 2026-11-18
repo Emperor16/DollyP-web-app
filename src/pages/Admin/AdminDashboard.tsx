@@ -236,9 +236,9 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            <div className="mt-8">
+            <div className="mt-0">
               <p
-                className=" font-serif text-[4.75rem] leading-[0.8] tracking-[-0.055em] md:text-[5.5rem] xl:text-[6rem] "
+                className=" font-serif text-[10.75rem] leading-[0.8] tracking-[-0.055em] md:text-[5.5rem] xl:text-[6rem] "
               >
                 {featuredProducts}
               </p>

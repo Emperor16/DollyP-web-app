@@ -153,4 +153,456 @@ const Home = () => {
               "
             >
               Discover handcrafted gowns, kaftans, and couture pieces
-              inspired by African heritage and created for
+              inspired by African heritage and created for modern elegance.
+            </p>
+
+            {/* HERO ACTIONS */}
+            <div className="mt-10 flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+              <Link
+                to="/shop"
+                className="
+                  group
+                  inline-flex items-center gap-3
+                  rounded-full
+                  bg-dp-gold
+                  px-7 py-4
+                  font-sans text-sm font-medium
+                  text-dp-black
+
+                  shadow-[0_14px_35px_rgba(198,157,93,0.28)]
+
+                  transition-all duration-300
+
+                  hover:-translate-y-0.5
+                  hover:bg-white
+                  hover:shadow-[0_20px_45px_rgba(0,0,0,0.22)]
+                "
+              >
+                Explore Collection
+
+                <ArrowUpRight
+                  size={17}
+                  strokeWidth={1.7}
+                  className="
+                    transition-transform duration-300
+                    group-hover:translate-x-0.5
+                    group-hover:-translate-y-0.5
+                  "
+                />
+              </Link>
+
+              <Link
+                to="/reservation"
+                className="
+                  group
+                  inline-flex items-center gap-3
+                  px-1 py-3
+                  font-sans text-sm font-medium
+                  text-white/85
+                  transition-colors duration-300
+                  hover:text-dp-gold
+                "
+              >
+                <CalendarDays size={17} strokeWidth={1.5} />
+
+                Book a Private Fitting
+
+                <ArrowUpRight
+                  size={15}
+                  strokeWidth={1.6}
+                  className="
+                    transition-transform duration-300
+                    group-hover:translate-x-0.5
+                    group-hover:-translate-y-0.5
+                  "
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        {/* SCROLL INDICATOR */}
+        <a
+          href="#brand-story"
+          aria-label="Scroll to discover more"
+          className="
+            absolute bottom-8 right-6 z-10
+            hidden items-center gap-3
+            font-sans text-[10px] font-medium
+            uppercase tracking-[0.24em]
+            text-white/55
+            transition-colors duration-300
+            hover:text-dp-gold
+            sm:flex
+            lg:right-16
+            xl:right-20
+          "
+        >
+          Discover
+
+          <span
+            className="
+              flex h-10 w-10
+              items-center justify-center
+              rounded-full
+              border border-white/20
+              bg-black/10
+              backdrop-blur-sm
+            "
+          >
+            <ArrowDown size={15} strokeWidth={1.5} />
+          </span>
+        </a>
+      </section>
+
+      {/* =====================================================
+          BRAND STATEMENT
+      ====================================================== */}
+      <section
+        id="brand-story"
+        className="
+          relative
+          border-y border-dp-gold/10
+          bg-[#f7f3ed]
+          py-24
+          sm:py-28
+          lg:py-36
+        "
+      >
+        {/* DECORATIVE NUMBER */}
+        <span
+          aria-hidden="true"
+          className="
+            pointer-events-none
+            absolute right-4 top-4
+            hidden
+            font-serif text-[11rem]
+            leading-none
+            text-dp-gold/[0.055]
+            lg:block
+            xl:right-20
+          "
+        >
+          DP
+        </span>
+
+        <PageContainer>
+          <div
+            className="
+              relative
+              mx-auto
+              grid max-w-6xl
+              gap-10
+              lg:grid-cols-[0.85fr_1.5fr]
+              lg:items-start
+              lg:gap-20
+            "
+          >
+            {/* LEFT LABEL */}
+            <div>
+              <div className="flex items-center gap-4">
+                <span className="h-px w-9 bg-dp-gold" />
+
+                <p
+                  className="
+                    font-sans
+                    text-[10px] font-medium
+                    uppercase tracking-[0.32em]
+                    text-dp-gold
+                  "
+                >
+                  Our Philosophy
+                </p>
+              </div>
+
+              <p
+                className="
+                  mt-5 max-w-[270px]
+                  font-sans text-sm
+                  leading-7
+                  text-dp-charcoal/55
+                "
+              >
+                A celebration of distinctive design, skilled craftsmanship,
+                and enduring personal style.
+              </p>
+            </div>
+
+            {/* STATEMENT */}
+            <div>
+              <h2
+                className="
+                  max-w-4xl
+                  font-serif
+                  text-[2.8rem]
+                  leading-[1.02]
+                  tracking-[-0.04em]
+                  text-dp-black
+                  sm:text-[3.6rem]
+                  lg:text-[4.3rem]
+                "
+              >
+                Crafted with heritage.
+                <span className="block text-dp-gold">
+                  Worn with presence.
+                </span>
+              </h2>
+
+              <div
+                className="
+                  mt-9
+                  grid gap-6
+                  border-t border-dp-gold/20
+                  pt-8
+                  md:grid-cols-2
+                  md:gap-10
+                "
+              >
+                <p
+                  className="
+                    font-sans text-[15px]
+                    leading-7
+                    text-dp-charcoal/70
+                  "
+                >
+                  Dolly P celebrates African luxury through timeless
+                  silhouettes, artisanal craftsmanship, and carefully selected
+                  fabrics.
+                </p>
+
+                <p
+                  className="
+                    font-sans text-[15px]
+                    leading-7
+                    text-dp-charcoal/70
+                  "
+                >
+                  Every piece is created to carry a story of identity,
+                  confidence, elegance, and lasting personal expression.
+                </p>
+              </div>
+            </div>
+          </div>
+        </PageContainer>
+      </section>
+
+      {/* =====================================================
+          FEATURED PRODUCTS
+      ====================================================== */}
+      <section className="bg-dp-white py-24 sm:py-28 lg:py-32">
+        <PageContainer>
+          {/* SECTION HEADER */}
+          <div
+            className="
+              mb-12
+              flex flex-col gap-7
+              border-b border-dp-gold/15
+              pb-8
+              sm:flex-row
+              sm:items-end
+              sm:justify-between
+              lg:mb-16
+            "
+          >
+            <div>
+              <div className="mb-4 flex items-center gap-4">
+                <span className="h-px w-9 bg-dp-gold" />
+
+                <p
+                  className="
+                    font-sans
+                    text-[10px] font-medium
+                    uppercase tracking-[0.32em]
+                    text-dp-gold
+                  "
+                >
+                  Curated for You
+                </p>
+              </div>
+
+              <h2
+                className="
+                  font-serif
+                  text-[2.8rem]
+                  leading-none
+                  tracking-[-0.035em]
+                  text-dp-black
+                  sm:text-[3.5rem]
+                  lg:text-[4rem]
+                "
+              >
+                Featured Pieces
+              </h2>
+
+              <p
+                className="
+                  mt-5 max-w-xl
+                  font-sans text-[15px]
+                  leading-7
+                  text-dp-charcoal/60
+                "
+              >
+                A considered selection of standout silhouettes and signature
+                Dolly P designs.
+              </p>
+            </div>
+
+            <Link
+              to="/shop"
+              className="
+                group
+                inline-flex w-fit
+                items-center gap-2
+                font-sans text-sm font-medium
+                text-dp-charcoal
+                transition-colors duration-300
+                hover:text-dp-gold
+              "
+            >
+              View all pieces
+
+              <ArrowUpRight
+                size={16}
+                strokeWidth={1.6}
+                className="
+                  transition-transform duration-300
+                  group-hover:translate-x-0.5
+                  group-hover:-translate-y-0.5
+                "
+              />
+            </Link>
+          </div>
+
+          {/* LOADING STATE */}
+          {isLoading ? (
+            <div
+              className="
+                grid grid-cols-1 gap-x-7 gap-y-12
+                sm:grid-cols-2
+                lg:grid-cols-3
+              "
+            >
+              {Array.from({ length: 6 }).map((_, index) => (
+                <div key={index} className="animate-pulse">
+                  <div className="aspect-[3/4] rounded-[1.75rem] bg-dp-gold/10" />
+                  <div className="mt-5 h-4 w-2/3 rounded-full bg-dp-gold/10" />
+                  <div className="mt-3 h-3 w-1/3 rounded-full bg-dp-gold/10" />
+                </div>
+              ))}
+            </div>
+          ) : featured.length > 0 ? (
+            <div
+              className="
+                grid grid-cols-1
+                gap-x-7 gap-y-14
+                sm:grid-cols-2
+                lg:grid-cols-3
+                xl:gap-x-9
+                xl:gap-y-16
+              "
+            >
+              {featured.map((product) => (
+                <ProductCard key={product._id} product={product} />
+              ))}
+            </div>
+          ) : (
+            /* EMPTY STATE */
+            <div
+              className="
+                flex min-h-[340px]
+                items-center justify-center
+                rounded-[2rem]
+                border border-dashed border-dp-gold/30
+                bg-[#f7f3ed]
+                px-6 py-16
+                text-center
+              "
+            >
+              <div className="max-w-md">
+                <p className="font-serif text-3xl text-dp-black">
+                  New pieces are being curated
+                </p>
+
+                <p
+                  className="
+                    mt-4
+                    font-sans text-sm
+                    leading-7
+                    text-dp-charcoal/60
+                  "
+                >
+                  There are no featured products available right now. Explore
+                  the full collection to discover every Dolly P design.
+                </p>
+
+                <Link
+                  to="/shop"
+                  className="
+                    group
+                    mt-7 inline-flex
+                    items-center gap-3
+                    rounded-full
+                    bg-dp-black
+                    px-7 py-4
+                    font-sans text-sm font-medium
+                    text-white
+                    transition-all duration-300
+                    hover:-translate-y-0.5
+                    hover:bg-dp-gold
+                    hover:text-dp-black
+                  "
+                >
+                  Explore Collection
+                  <ArrowUpRight size={16} />
+                </Link>
+              </div>
+            </div>
+          )}
+
+          {/* BOTTOM CTA */}
+          {featured.length > 0 && !isLoading && (
+            <div className="mt-16 flex justify-center sm:mt-20">
+              <Link
+                to="/shop"
+                className="
+                  group
+                  inline-flex items-center gap-3
+                  rounded-full
+                  border border-dp-black/20
+                  bg-white
+                  px-8 py-4
+                  font-sans text-sm font-medium
+                  text-dp-black
+
+                  shadow-[0_10px_30px_rgba(28,24,19,0.06)]
+
+                  transition-all duration-300
+
+                  hover:-translate-y-0.5
+                  hover:border-dp-black
+                  hover:bg-dp-black
+                  hover:text-white
+                  hover:shadow-[0_18px_40px_rgba(28,24,19,0.16)]
+                "
+              >
+                Explore Full Collection
+
+                <ArrowUpRight
+                  size={16}
+                  strokeWidth={1.6}
+                  className="
+                    transition-transform duration-300
+                    group-hover:translate-x-0.5
+                    group-hover:-translate-y-0.5
+                  "
+                />
+              </Link>
+            </div>
+          )}
+        </PageContainer>
+      </section>
+    </main>
+  );
+};
+
+export default Home;

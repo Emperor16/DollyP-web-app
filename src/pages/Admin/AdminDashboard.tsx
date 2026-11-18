@@ -122,10 +122,9 @@ const AdminDashboard = () => {
             >
               {greeting}
             </h1>
-
-            <p className="mt-3 max-w-xl font-sans text-sm md:text-base leading-7 text-dp-charcoal/65">
-              Here&apos;s what&apos;s happening with Dolly P today.
-            </p>
+<p className="mt-5 max-w-xl font-sans text-base leading-7 text-dp-charcoal/65 md:text-[17px]">
+  Here&apos;s what&apos;s happening with Dolly P today.
+</p>
           </div>
 
           <Link

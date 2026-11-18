@@ -64,30 +64,56 @@ const formatCategory = (category?: string): string => {
 };
 
 
-const Home = () => {
-  const [featured, setFeatured] = useState<Product[]>([]);
+type HeroProduct = Product & {
+  image?: string;
+  imageUrl?: string;
+  images?: Array<string | { url?: string; secure_url?: string }>;
+  description?: string;
+  name?: string;
+  title?: string;
+  category?: string;
+  price?: number;
+};
 
-  useEffect(() => {
-  const loadFeatured = async () => {
-    try {
-      const data = await getProducts();
+const getProductImage = (product: HeroProduct): string | null => {
+  if (typeof product.image === "string" && product.image.trim()) {
+    return product.image;
+  }
 
-      if (!Array.isArray(data)) {
-        console.error("Products response is not an array:", data);
-        setFeatured([]);
-        return;
-      }
+  if (typeof product.imageUrl === "string" && product.imageUrl.trim()) {
+    return product.imageUrl;
+  }
 
-      const filtered = data.filter((p) => p.isFeatured).slice(0, 6);
-      setFeatured(filtered);
-    } catch (err) {
-      console.error("Failed to load products, check your sever log:", err);
-      setFeatured([]);
+  if (Array.isArray(product.images) && product.images.length > 0) {
+    const firstImage = product.images[0];
+
+    if (typeof firstImage === "string") {
+      return firstImage;
     }
-  };
 
-  loadFeatured();
-}, []);
+    if (firstImage?.secure_url) {
+      return firstImage.secure_url;
+    }
+
+    if (firstImage?.url) {
+      return firstImage.url;
+    }
+  }
+
+  return null;
+};
+
+const getProductName = (product: HeroProduct): string => {
+  return product.name || product.title || "Dolly P Signature Piece";
+};
+
+const formatCategory = (category?: string): string => {
+  if (!category) {
+    return "The Dolly P Collection";
+  }
+
+  return category.replace(/-/g, " ");
+};
 
   // The return function
   return (

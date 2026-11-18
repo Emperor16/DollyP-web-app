@@ -1,22 +1,39 @@
-import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { type ChangeEvent, type FormEvent, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  ArrowLeft,
+  Check,
+  ImagePlus,
+  PackagePlus,
+  Sparkles,
+} from "lucide-react";
+
 import AdminLayout from "./AdminLayout";
 import { useAdminAuth } from "../../context/AdminAuthContext";
 
-//system components
 import { useImageUpload } from "./components/useImageUpload";
 import ImageUploadZone from "./components/ImageUploadZone";
 import ImagePreviewGrid from "./components/ImagePreviewGrid";
 import { useUploadProgress } from "./components/useUploadProgress";
 import UploadProgressBar from "./components/UploadProgressBar";
+
 import api from "../../services/api";
+
+type ProductForm = {
+  name: string;
+  description: string;
+  price: string;
+  category: string;
+  sizes: string;
+  stock: string;
+  isFeatured: boolean;
+};
 
 const AdminCreate = () => {
   const navigate = useNavigate();
   const { token } = useAdminAuth();
 
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<ProductForm>({
     name: "",
     description: "",
     price: "",
@@ -26,44 +43,77 @@ const AdminCreate = () => {
     isFeatured: false,
   });
 
-  // Upload system hook
+  const [submitError, setSubmitError] = useState<string | null>(null);
+
   const {
     files,
     preview,
     dragActive,
     setDragActive,
-    error,
+    error: uploadError,
     addFiles,
     removeImage,
   } = useImageUpload();
 
-  //progress bar
   const { progress, uploading, start, update, finish } = useUploadProgress();
 
-  const handleChange = (e: any) => {
-    const { name, value, type, checked } = e.target;
-    setForm({ ...form, [name]: type === "checkbox" ? checked : value });
+  const handleChange = (
+    event: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value, type } = event.target;
+
+    const nextValue =
+      type === "checkbox" ? (event.target as HTMLInputElement).checked : value;
+
+    setForm((currentForm) => ({
+      ...currentForm,
+      [name]: nextValue,
+    }));
+
+    if (submitError) {
+      setSubmitError(null);
+    }
   };
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitError(null);
+
+    const normalizedSizes = form.sizes
+      .split(",")
+      .map((size) => size.trim())
+      .filter(Boolean);
+
+    if (normalizedSizes.length === 0) {
+      setSubmitError("Enter at least one available product size.");
+      return;
+    }
+
+    if (Number(form.price) <= 0) {
+      setSubmitError("Product price must be greater than zero.");
+      return;
+    }
+
+    if (Number(form.stock) < 0) {
+      setSubmitError("Product stock cannot be negative.");
+      return;
+    }
 
     const formData = new FormData();
 
-    formData.append("name", form.name);
-    formData.append("description", form.description);
+    formData.append("name", form.name.trim());
+    formData.append("description", form.description.trim());
     formData.append("price", form.price);
     formData.append("category", form.category);
     formData.append("stock", form.stock);
     formData.append("isFeatured", String(form.isFeatured));
 
-    // Sizes array
-    form.sizes
-      .split(",")
-      .map((s) => s.trim())
-      .forEach((size) => formData.append("sizes[]", size));
+    normalizedSizes.forEach((size) => {
+      formData.append("sizes[]", size);
+    });
 
-    // Cloudinary images
     files.forEach((file) => {
       formData.append("images", file);
     });
@@ -76,151 +126,487 @@ const AdminCreate = () => {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
-        onUploadProgress: (event) => {
-          const percent = event.total
-            ? Math.round((event.loaded * 100) / event.total)
+
+        onUploadProgress: (uploadEvent) => {
+          const percent = uploadEvent.total
+            ? Math.round((uploadEvent.loaded * 100) / uploadEvent.total)
             : 0;
+
           update(percent);
         },
       });
 
       finish();
-      alert("Product created successfully!");
+      window.alert("Product created successfully!");
       navigate("/admin/products");
-    } catch (error: any) {
+    } catch (requestError: any) {
       finish();
 
       const backendMessage =
-        error.response?.data?.message ||
-        error.response?.data?.error ||
+        requestError.response?.data?.message ||
+        requestError.response?.data?.error ||
         "Failed to create product.";
 
-      alert(backendMessage);
-
-      console.error("Full error:", error);
+      setSubmitError(backendMessage);
+      console.error("Failed to create product:", requestError);
     }
   };
 
+  const fieldClassName = `
+  w-full
+  rounded-xl
+  border border-dp-gold/25
+  bg-white
+  px-4 py-4
+  font-sans text-base font-medium text-dp-black
+  outline-none
+  transition-all duration-200
+  placeholder:font-normal
+  placeholder:text-dp-charcoal/50
+  hover:border-dp-gold/50
+  focus:border-dp-gold
+  focus:ring-4
+  focus:ring-dp-gold/10
+  disabled:cursor-not-allowed
+  disabled:opacity-60
+`;
+
+  const labelClassName = `
+  mb-2.5
+  block
+  font-sans text-base font-semibold
+  text-dp-black
+`;
+
   return (
     <AdminLayout>
-      <h1 className="font-serif text-3xl text-dp-black mb-10 tracking-wide">
-        Add New Product
-      </h1>
+      <div className="mx-auto max-w-7xl space-y-8">
+        {/* PAGE HEADER */}
+        <section className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <Link
+              to="/admin/products"
+              className="
+    mb-5
+    inline-flex items-center gap-2
+    font-sans text-sm font-semibold
+    text-dp-charcoal/70
+    transition-colors
+    hover:text-dp-gold
+  "
+            >
+              <ArrowLeft size={17} strokeWidth={2} />
+              Back to product inventory
+            </Link>
 
-      <form
-        className="space-y-8 max-w-2xl"
-        onSubmit={handleSubmit}
-        encType="multipart/form-data"
-      >
-        {/* NAME */}
-        <div>
-          <label className="block mb-2 font-sans">Product Name</label>
-          <input
-            name="name"
-            value={form.name}
-            onChange={handleChange}
-            className="w-full border px-4 py-3"
-            required
-          />
-        </div>
+            <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-dp-gold">
+              Dolly P Admin · Catalogue Management
+            </p>
 
-        {/* DESCRIPTION */}
-        <div>
-          <label className="block mb-2 font-sans">Description</label>
-          <textarea
-            name="description"
-            value={form.description}
-            onChange={handleChange}
-            rows={4}
-            className="w-full border px-4 py-3"
-            required
-          />
-        </div>
+            <h1 className="font-serif text-4xl font-semibold tracking-tight text-dp-black md:text-5xl">
+              Create a new product
+            </h1>
 
-        {/* PRICE */}
-        <div>
-          <label className="block mb-2 font-sans">Price (₦)</label>
-          <input
-            name="price"
-            type="number"
-            value={form.price}
-            onChange={handleChange}
-            className="w-full border px-4 py-3"
-            required
-          />
-        </div>
+            <p className="mt-4 max-w-2xl font-sans text-sm font-normal leading-7 text-dp-charcoal/70 md:text-base">
+              Add product details, inventory information, available sizes, and
+              imagery to the Dolly P catalogue.
+            </p>
+          </div>
 
-        {/* CATEGORY */}
-        <div>
-          <label className="block mb-2 font-sans">Category</label>
-          <select
-            name="category"
-            value={form.category}
-            onChange={handleChange}
-            className="w-full border px-4 py-3 bg-white"
-          >
-            <option value="dress">Dress</option>
-            <option value="gown">Gown</option>
-            <option value="kaftan">Kaftan</option>
-            <option value="two-piece">Two-Piece</option>
-            <option value="outerwear">Outerwear</option>
-          </select>
-        </div>
+          <div className="hidden h-14 w-14 shrink-0 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold lg:flex">
+            <PackagePlus size={23} strokeWidth={1.5} />
+          </div>
+        </section>
 
-        {/* SIZES */}
-        <div>
-          <label className="block mb-2 font-sans">
-            Sizes (comma separated)
-          </label>
-          <input
-            name="sizes"
-            value={form.sizes}
-            onChange={handleChange}
-            placeholder="e.g. S, M, L, XL"
-            className="w-full border px-4 py-3"
-            required
-          />
-        </div>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <div className="grid grid-cols-1 gap-6 xl:grid-cols-[minmax(0,1.35fr)_minmax(340px,0.65fr)]">
+            {/* LEFT COLUMN */}
+            <div className="space-y-6">
+              {/* PRODUCT DETAILS */}
+              <section
+                className="
+                  rounded-3xl
+                  border border-dp-gold/20
+                  bg-white/75
+                  p-6 md:p-8
+                  backdrop-blur-sm
+                "
+              >
+                <div className="mb-8">
+                  <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-dp-gold">
+                    Product information
+                  </p>
 
-        {/* STOCK */}
-        <div>
-          <label className="block mb-2 font-sans">Stock</label>
-          <input
-            name="stock"
-            type="number"
-            value={form.stock}
-            onChange={handleChange}
-            className="w-full border px-4 py-3"
-            required
-          />
-        </div>
+                  <h2 className="font-serif text-2xl font-semibold text-dp-black md:text-3xl">
+                    Product Details
+                  </h2>
 
-        {/* IMAGE UPLOAD */}
-        <div>
-          <label className="block mb-2 font-sans">Upload Images</label>
+                  <p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/70 md:text-base">
+                    Enter the main information customers will see in the
+                    catalogue.
+                  </p>
+                </div>
 
-          <ImageUploadZone
-            dragActive={dragActive}
-            setDragActive={setDragActive}
-            addFiles={addFiles}
-            error={error}
-          />
+                <div className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className={labelClassName}>
+                      Product name
+                    </label>
 
-          <ImagePreviewGrid preview={preview} removeImage={removeImage} />
-        </div>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      value={form.name}
+                      onChange={handleChange}
+                      placeholder="e.g. Monochrome Statement Kimono"
+                      className={fieldClassName}
+                      disabled={uploading}
+                      required
+                    />
+                  </div>
 
-        {/* PROGRESS BAR */}
-        <UploadProgressBar progress={progress} uploading={uploading} />
+                  <div>
+                    <div className="mb-2.5 flex items-center justify-between gap-4">
+                      <label
+                        htmlFor="description"
+                        className="font-sans text-base font-semibold text-dp-black"
+                      >
+                        Description
+                      </label>
 
-        {/* SUBMIT */}
-        <button
-          type="submit"
-          disabled={uploading}
-          className="bg-dp-gold text-dp-black px-10 py-3 hover:bg-dp-velvet hover:text-white transition disabled:opacity-50"
-        >
-          {uploading ? "Creating Product..." : "Create Product"}
-        </button>
-      </form>
+                      <span className="font-sans text-sm font-medium text-dp-charcoal/60">
+                        {form.description.length} characters
+                      </span>
+                    </div>
+
+                    <textarea
+                      id="description"
+                      name="description"
+                      value={form.description}
+                      onChange={handleChange}
+                      rows={6}
+                      placeholder="Describe the product, material, fit, and defining details."
+                      className={`${fieldClassName} resize-y leading-6`}
+                      disabled={uploading}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label htmlFor="category" className={labelClassName}>
+                      Category
+                    </label>
+
+                    <select
+                      id="category"
+                      name="category"
+                      value={form.category}
+                      onChange={handleChange}
+                      className={fieldClassName}
+                      disabled={uploading}
+                    >
+                      <option value="dress">Dress</option>
+                      <option value="gown">Gown</option>
+                      <option value="kaftan">Kaftan</option>
+                      <option value="two-piece">Two-Piece</option>
+                      <option value="outerwear">Outerwear</option>
+                    </select>
+                  </div>
+                </div>
+              </section>
+
+              {/* PRICING AND INVENTORY */}
+              <section
+                className="
+                  rounded-3xl
+                  border border-dp-gold/20
+                  bg-white/75
+                  p-6 md:p-8
+                  backdrop-blur-sm
+                "
+              >
+                <div className="mb-8">
+                  <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-dp-gold">
+                    Availability
+                  </p>
+
+                  <h2 className="font-serif text-2xl font-semibold text-dp-black md:text-3xl">
+                    Pricing &amp; Inventory
+                  </h2>
+
+                  <p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/70 md:text-base">
+                    Set the selling price, quantity, and available product
+                    sizes.
+                  </p>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="price" className={labelClassName}>
+                        Price
+                      </label>
+
+                      <div className="relative">
+                       <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 font-sans text-base font-semibold text-dp-charcoal/70">
+  ₦
+</span>
+
+                        <input
+                          id="price"
+                          name="price"
+                          type="number"
+                          value={form.price}
+                          onChange={handleChange}
+                          placeholder="60000"
+                          min="0"
+                          step="0.01"
+                          className={`${fieldClassName} pl-9`}
+                          disabled={uploading}
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="stock" className={labelClassName}>
+                        Stock quantity
+                      </label>
+
+                      <input
+                        id="stock"
+                        name="stock"
+                        type="number"
+                        value={form.stock}
+                        onChange={handleChange}
+                        placeholder="10"
+                        min="0"
+                        step="1"
+                        className={fieldClassName}
+                        disabled={uploading}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="sizes" className={labelClassName}>
+                      Available sizes
+                    </label>
+
+                    <input
+                      id="sizes"
+                      name="sizes"
+                      type="text"
+                      value={form.sizes}
+                      onChange={handleChange}
+                      placeholder="S, M, L, XL"
+                      className={fieldClassName}
+                      disabled={uploading}
+                      required
+                    />
+
+                    <p className="mt-2.5 font-sans text-sm leading-6 text-dp-charcoal/65">
+  Separate each size with a comma. Example: S, M, L, XL.
+</p>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+            {/* RIGHT COLUMN */}
+            <aside className="space-y-6">
+              {/* PRODUCT MEDIA */}
+              <section
+                className="
+                  rounded-3xl
+                  border border-dp-gold/20
+                  bg-white/75
+                  p-6 md:p-7
+                  backdrop-blur-sm
+                  xl:sticky xl:top-6
+                "
+              >
+                <div className="mb-7 flex items-start justify-between gap-4">
+                  <div>
+                   <p className="mb-2 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-dp-gold">
+  Product media
+</p>
+
+<h2 className="font-serif text-2xl font-semibold text-dp-black md:text-3xl">
+  Product Images
+</h2>
+
+<p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/70 md:text-base">
+  Add clear images that represent the product accurately.
+</p>
+                  </div>
+
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
+                    <ImagePlus size={19} strokeWidth={1.5} />
+                  </div>
+                </div>
+
+                <ImageUploadZone
+                  dragActive={dragActive}
+                  setDragActive={setDragActive}
+                  addFiles={addFiles}
+                  error={uploadError}
+                />
+
+                {preview.length > 0 && (
+                  <div className="mt-6">
+                    <div className="mb-3 flex items-center justify-between">
+                 <p className="font-sans text-base font-semibold text-dp-black">
+  Selected images
+</p>
+
+<span className="rounded-full bg-dp-gold/10 px-3 py-1.5 font-sans text-sm font-semibold text-dp-charcoal/70">
+                        {preview.length}{" "}
+                        {preview.length === 1 ? "image" : "images"}
+                      </span>
+                    </div>
+
+                    <ImagePreviewGrid
+                      preview={preview}
+                      removeImage={removeImage}
+                    />
+                  </div>
+                )}
+
+                {/* FEATURED CONTROL */}
+                <div className="mt-7 border-t border-dp-gold/15 pt-6">
+                  <label
+                    htmlFor="isFeatured"
+                    className="
+                      flex cursor-pointer
+                      items-start gap-4
+                      rounded-2xl
+                      border border-dp-gold/20
+                      p-4
+                      transition-all duration-200
+                      hover:border-dp-gold/45
+                      hover:bg-dp-gold/5
+                    "
+                  >
+                    <span
+                      className={`
+                        mt-0.5
+                        flex h-5 w-5 shrink-0
+                        items-center justify-center
+                        rounded-md border
+                        transition-all duration-200
+                        ${
+                          form.isFeatured
+                            ? "border-dp-black bg-dp-black text-white"
+                            : "border-dp-gold/40 bg-white text-transparent"
+                        }
+                      `}
+                    >
+                      <Check size={13} strokeWidth={2.5} />
+                    </span>
+
+                    <span className="min-w-0">
+                      <span className="flex items-center gap-2 font-sans text-base font-semibold text-dp-black">
+                        <Sparkles size={15} className="text-dp-gold" />
+                        Featured product
+                      </span>
+
+                      <span className="mt-1.5 block font-sans text-sm leading-6 text-dp-charcoal/65">
+  Highlight this item in the featured catalogue collection.
+</span>
+                    </span>
+
+                    <input
+                      id="isFeatured"
+                      name="isFeatured"
+                      type="checkbox"
+                      checked={form.isFeatured}
+                      onChange={handleChange}
+                      disabled={uploading}
+                      className="sr-only"
+                    />
+                  </label>
+                </div>
+
+                {/* UPLOAD PROGRESS */}
+                <div className="mt-6">
+                  <UploadProgressBar
+                    progress={progress}
+                    uploading={uploading}
+                  />
+                </div>
+
+                {/* SUBMISSION ERROR */}
+                {submitError && (
+                  <div
+                    role="alert"
+                    className="mt-5 rounded-2xl border border-red-200 bg-red-50 px-4 py-3.5 font-sans text-sm font-medium leading-6 text-red-700"
+                  >
+                    {submitError}
+                  </div>
+                )}
+
+                {/* ACTIONS */}
+                <div className="mt-7 flex flex-col-reverse gap-3 sm:flex-row">
+                  <Link
+                    to="/admin/products"
+                    aria-disabled={uploading}
+                    onClick={(event) => {
+                      if (uploading) {
+                        event.preventDefault();
+                      }
+                    }}
+                    className={`
+                      inline-flex flex-1
+                      items-center justify-center
+                      rounded-full
+                      border border-dp-gold/25
+                      px-5 py-3.5
+                      font-sans text-base font-semibold
+text-dp-charcoal
+                      transition-all duration-200
+                      hover:border-dp-gold
+                      hover:bg-dp-gold/10
+                      ${uploading ? "pointer-events-none opacity-50" : ""}
+                    `}
+                  >
+                    Cancel
+                  </Link>
+
+                 <button
+  type="submit"
+  disabled={uploading}
+  className="
+    inline-flex flex-[1.4]
+    items-center justify-center gap-2
+    rounded-full
+    bg-dp-black
+    px-5 py-4
+    font-sans text-base font-semibold text-white
+    transition-all duration-300
+    hover:bg-dp-gold
+    hover:text-dp-black
+    disabled:cursor-not-allowed
+    disabled:opacity-50
+  "
+>
+  <PackagePlus
+    size={18}
+    strokeWidth={1.8}
+  />
+
+  {uploading
+    ? `Creating ${progress}%`
+    : "Create Product"}
+</button>
+                </div>
+              </section>
+            </aside>
+          </div>
+        </form>
+      </div>
     </AdminLayout>
   );
 };

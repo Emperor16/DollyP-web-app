@@ -15,6 +15,10 @@ const AdminProducts = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const PRODUCTS_PER_PAGE = 8;
+
   const fetchInventory = async () => {
     try {
       setLoading(true);
@@ -31,6 +35,13 @@ const AdminProducts = () => {
   useEffect(() => {
     fetchInventory();
   }, []);
+
+  const totalPages = Math.ceil(products.length / PRODUCTS_PER_PAGE);
+
+  const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE;
+  const endIndex = startIndex + PRODUCTS_PER_PAGE;
+
+  const paginatedProducts = products.slice(startIndex, endIndex);
 
   const handleDelete = async (id: string) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
@@ -102,7 +113,7 @@ const AdminProducts = () => {
                 </td>
               </tr>
             ) : (
-              products.map((product) => (
+              paginatedProducts.map((product) => (
                 <tr
                   key={product._id}
                   className="hover:bg-dp-offwhite/50 transition"
@@ -162,8 +173,108 @@ const AdminProducts = () => {
                 </tr>
               ))
             )}
-          </tbody>
+                   </tbody>
         </table>
+
+        {totalPages > 1 && (
+          <div className="flex flex-col gap-4 border-t border-dp-charcoal/10 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
+            {/* Result count */}
+            <p className="font-sans text-xs text-dp-charcoal/55">
+              Showing{" "}
+              <span className="font-medium text-dp-black">
+                {startIndex + 1}–
+                {Math.min(endIndex, products.length)}
+              </span>{" "}
+              of{" "}
+              <span className="font-medium text-dp-black">
+                {products.length}
+              </span>{" "}
+              products
+            </p>
+
+            {/* Pagination controls */}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                disabled={currentPage === 1}
+                onClick={() =>
+                  setCurrentPage((page) => Math.max(page - 1, 1))
+                }
+                className="
+                  rounded-full
+                  border border-dp-charcoal/10
+                  px-4 py-2
+                  font-sans text-xs text-dp-charcoal
+                  transition-all duration-200
+                  hover:border-dp-gold
+                  hover:bg-dp-gold/10
+                  disabled:cursor-not-allowed
+                  disabled:opacity-30
+                  disabled:hover:border-dp-charcoal/10
+                  disabled:hover:bg-transparent
+                "
+              >
+                Previous
+              </button>
+
+              {/* Page numbers */}
+              <div className="hidden items-center gap-1 sm:flex">
+                {Array.from({ length: totalPages }, (_, index) => {
+                  const page = index + 1;
+                  const isActive = currentPage === page;
+
+                  return (
+                    <button
+                      key={page}
+                      type="button"
+                      onClick={() => setCurrentPage(page)}
+                      className={`
+                        flex h-9 w-9 items-center justify-center
+                        rounded-full
+                        font-sans text-xs
+                        transition-all duration-200
+                        ${
+                          isActive
+                            ? "bg-dp-black text-white"
+                            : "text-dp-charcoal/60 hover:bg-dp-gold/10 hover:text-dp-black"
+                        }
+                      `}
+                      aria-label={`Go to page ${page}`}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {page}
+                    </button>
+                  );
+                })}
+              </div>
+
+              <button
+                type="button"
+                disabled={currentPage === totalPages}
+                onClick={() =>
+                  setCurrentPage((page) =>
+                    Math.min(page + 1, totalPages)
+                  )
+                }
+                className="
+                  rounded-full
+                  border border-dp-charcoal/10
+                  px-4 py-2
+                  font-sans text-xs text-dp-charcoal
+                  transition-all duration-200
+                  hover:border-dp-gold
+                  hover:bg-dp-gold/10
+                  disabled:cursor-not-allowed
+                  disabled:opacity-30
+                  disabled:hover:border-dp-charcoal/10
+                  disabled:hover:bg-transparent
+                "
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </PageContainer>
   );

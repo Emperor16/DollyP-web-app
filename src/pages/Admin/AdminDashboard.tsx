@@ -27,50 +27,68 @@ const AdminDashboard = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
 
   useEffect(() => {
-    getProducts().then((data) =>
-      setProducts(safeArray<Product>(data))
-    );
+    getProducts().then((data) => setProducts(safeArray<Product>(data)));
 
     api
       .get("/reservations")
       .then((res) => {
-        const rawReservations =
-          res.data.data || res.data.reservations;
+        const rawReservations = res.data.data || res.data.reservations;
 
-        setReservations(
-          safeArray<Reservation>(rawReservations)
-        );
+        setReservations(safeArray<Reservation>(rawReservations));
       })
       .catch(() => setReservations([]));
   }, []);
 
+  const [greeting, setGreeting] = useState("");
+
+  useEffect(() => {
+    const updateGreeting = () => {
+      const hour = new Date().getHours();
+
+      if (hour >= 5 && hour < 12) {
+        setGreeting("Good morning.");
+      } else if (hour >= 12 && hour < 17) {
+        setGreeting("Good afternoon.");
+      } else if (hour >= 17 && hour < 22) {
+        setGreeting("Good evening.");
+      } else {
+        setGreeting("Good night.");
+      }
+    };
+
+    // Set the greeting immediately when the dashboard loads
+    updateGreeting();
+
+    // Keep it accurate if the admin leaves the dashboard open
+    const interval = window.setInterval(updateGreeting, 60_000);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
   const safeProductsList = safeArray<Product>(products);
-  const safeReservationsList =
-    safeArray<Reservation>(reservations);
+  const safeReservationsList = safeArray<Reservation>(reservations);
 
   const totalProducts = safeProductsList.length;
 
   const featuredProducts = safeProductsList.filter(
-    (product) => product.isFeatured
+    (product) => product.isFeatured,
   ).length;
 
   const totalReservations = safeReservationsList.length;
 
-  const categoryCounts: Record<string, number> =
-    safeProductsList.reduce(
-      (acc, product) => {
-        if (product?.category) {
-          acc[product.category] =
-            (acc[product.category] || 0) + 1;
-        }
+  const categoryCounts: Record<string, number> = safeProductsList.reduce(
+    (acc, product) => {
+      if (product?.category) {
+        acc[product.category] = (acc[product.category] || 0) + 1;
+      }
 
-        return acc;
-      },
-      {} as Record<string, number>
-    );
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   const categories = Object.entries(categoryCounts).sort(
-    ([, a], [, b]) => b - a
+    ([, a], [, b]) => b - a,
   );
 
   const totalCategories = categories.length;
@@ -85,8 +103,7 @@ const AdminDashboard = () => {
       ? Math.max(...categories.map(([, count]) => count))
       : 0;
 
-  const formatCategory = (category: string) =>
-    category.replace(/-/g, " ");
+  const formatCategory = (category: string) => category.replace(/-/g, " ");
 
   return (
     <AdminLayout>
@@ -100,11 +117,10 @@ const AdminDashboard = () => {
               Dolly P Administration
             </p>
 
-            <h1 className="font-serif text-4xl md:text-5xl text-dp-black tracking-tight">
-              Good morning.
+            <h1 className="font-serif text-[3rem] leading-[0.95] tracking-[-0.035em] text-dp-black md:text-[4rem]xl:text-[4.5rem]">
+              {greeting}
             </h1>
-
-            <p className="mt-3 max-w-xl font-sans text-sm md:text-base leading-7 text-dp-charcoal/65">
+            <p className="mt-5 max-w-xl font-sans text-base leading-7 text-dp-charcoal/65 md:text-[17px]">
               Here&apos;s what&apos;s happening with Dolly P today.
             </p>
           </div>
@@ -130,7 +146,7 @@ const AdminDashboard = () => {
         {/* =====================================================
             KPI CARDS
         ====================================================== */}
-        <section className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <section className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4 xl:gap-6">
           {/* TOTAL PRODUCTS / HERO CARD */}
           <div
             className="
@@ -138,7 +154,7 @@ const AdminDashboard = () => {
               rounded-3xl
               bg-dp-black
               p-6 md:p-7
-              min-h-[220px]
+              min-h-[280px] xl:min-h-[300px]
               text-white
               shadow-[0_18px_50px_rgba(0,0,0,0.12)]
             "
@@ -166,8 +182,18 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              <div className="mt-8">
-                <p className="font-serif text-5xl text-white">
+              <div className="mt-5">
+                <p
+                  className="
+    font-serif
+    text-[4.75rem]
+    leading-[0.8]
+    tracking-[-0.055em]
+    text-white
+    md:text-[5.5rem]
+    xl:text-[6rem]
+  "
+                >
                   {totalProducts}
                 </p>
 
@@ -193,7 +219,7 @@ const AdminDashboard = () => {
               border border-dp-gold/20
               bg-white/75
               p-6 md:p-7
-              min-h-[220px]
+              min-h-[280px] xl:min-h-[300px]
               backdrop-blur-sm
               transition-all duration-300
               hover:-translate-y-1
@@ -210,8 +236,10 @@ const AdminDashboard = () => {
               </div>
             </div>
 
-            <div className="mt-8">
-              <p className="font-serif text-5xl text-dp-black">
+            <div className="mt-0">
+              <p
+                className=" font-serif text-[4.75rem] leading-[0.8] tracking-[-0.055em] md:text-[5.5rem] xl:text-[6rem] "
+              >
                 {featuredProducts}
               </p>
 
@@ -243,7 +271,7 @@ const AdminDashboard = () => {
               border border-dp-gold/20
               bg-white/75
               p-6 md:p-7
-              min-h-[220px]
+              min-h-[280px] xl:min-h-[300px]
               backdrop-blur-sm
               transition-all duration-300
               hover:-translate-y-1
@@ -261,7 +289,13 @@ const AdminDashboard = () => {
             </div>
 
             <div className="mt-8">
-              <p className="font-serif text-5xl text-dp-black">
+              <p className="font-serif
+    text-[4.75rem]
+    leading-[0.8]
+    tracking-[-0.055em]
+    text-dp-black
+    md:text-[5.5rem]
+    xl:text-[6rem]">
                 {totalReservations}
               </p>
 
@@ -286,7 +320,7 @@ const AdminDashboard = () => {
               border border-dp-gold/20
               bg-white/75
               p-6 md:p-7
-              min-h-[220px]
+              min-h-[280px] xl:min-h-[300px]
               backdrop-blur-sm
               transition-all duration-300
               hover:-translate-y-1
@@ -442,9 +476,7 @@ const AdminDashboard = () => {
                 backdrop-blur-sm
               "
             >
-              <h3 className="font-serif text-xl text-dp-black">
-                At a Glance
-              </h3>
+              <h3 className="font-serif text-xl text-dp-black">At a Glance</h3>
 
               <p className="mt-1 font-sans text-xs leading-5 text-dp-charcoal/50">
                 A quick view of the Dolly P catalogue.

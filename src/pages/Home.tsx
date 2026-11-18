@@ -65,102 +65,114 @@ const formatCategory = (category?: string): string => {
 
 const Home = () => {
   const [featured, setFeatured] = useState<Product[]>([]);
+  const [heroProducts, setHeroProducts] = useState<HeroProduct[]>([]);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [isHeroPaused, setIsHeroPaused] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-  const loadFeatured = async () => {
-    try {
-      const data = await getProducts();
+    const loadProducts = async () => {
+      try {
+        setIsLoading(true);
 
-      if (!Array.isArray(data)) {
-        console.error("Products response is not an array:", data);
+        const data = await getProducts();
+
+        if (!Array.isArray(data)) {
+          console.error("Products response is not an array:", data);
+          setFeatured([]);
+          setHeroProducts([]);
+          return;
+        }
+
+        const products = data as HeroProduct[];
+
+        const featuredProducts = products
+          .filter((product) => product.isFeatured)
+          .slice(0, 6);
+
+        setFeatured(featuredProducts);
+
+        /*
+         * First use featured products that have images.
+         * If there are not enough, fill the carousel with other
+         * products that also have valid images.
+         */
+        const featuredWithImages = products.filter(
+          (product) => product.isFeatured && getProductImage(product),
+        );
+
+        const otherProductsWithImages = products.filter(
+          (product) => !product.isFeatured && getProductImage(product),
+        );
+
+        const carouselProducts = [
+          ...featuredWithImages,
+          ...otherProductsWithImages,
+        ].slice(0, 5);
+
+        setHeroProducts(carouselProducts);
+        setActiveSlide(0);
+      } catch (error) {
+        console.error(
+          "Failed to load products. Check your server log:",
+          error,
+        );
+
         setFeatured([]);
-        return;
+        setHeroProducts([]);
+      } finally {
+        setIsLoading(false);
       }
+    };
 
-      const filtered = data.filter((p) => p.isFeatured).slice(0, 6);
-      setFeatured(filtered);
-    } catch (err) {
-      console.error("Failed to load products, check your sever log:", err);
-      setFeatured([]);
+    loadProducts();
+  }, []);
+
+  useEffect(() => {
+    if (heroProducts.length <= 1 || isHeroPaused) {
+      return;
     }
+
+    const interval = window.setInterval(() => {
+      setActiveSlide((currentSlide) =>
+        currentSlide === heroProducts.length - 1
+          ? 0
+          : currentSlide + 1,
+      );
+    }, 5500);
+
+    return () => window.clearInterval(interval);
+  }, [heroProducts.length, isHeroPaused]);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsHeroPaused(document.hidden);
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange,
+      );
+    };
+  }, []);
+
+  const showPreviousSlide = () => {
+    setActiveSlide((currentSlide) =>
+      currentSlide === 0
+        ? heroProducts.length - 1
+        : currentSlide - 1,
+    );
   };
 
-  loadFeatured();
-}, []);
-
-  // The return function
-  return (
-    <div className="bg-dp-white">
-
-      {/* HERO SECTION */}
-      <section className="relative h-[85vh] w-full overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=800"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-
-        <div className="absolute inset-0 bg-black/40" />
-
-        <div className="relative z-10 h-full flex flex-col justify-center items-start px-10 lg:px-20">
-          <h1 className="font-serif text-5xl lg:text-6xl text-white tracking-wide leading-tight">
-            Luxury African Fashion<br />Redefined
-          </h1>
-
-          <p className="text-white/90 font-sans text-lg max-w-xl mt-6">
-            Discover handcrafted gowns, kaftans, and couture pieces inspired by
-            African heritage designed for modern elegance.
-          </p>
-
-          <Link
-            to="/shop"
-            className="mt-8 inline-block bg-dp-gold text-dp-black px-8 py-3 font-sans text-sm tracking-wide hover:bg-dp-velvet hover:text-white transition"
-          >
-            Shop Collection
-          </Link>
-        </div>
-      </section>
-
-      {/* BRAND STATEMENT */}
-      <PageContainer>
-        <div className="text-center max-w-3xl mx-auto mb-20">
-          <h2 className="font-serif text-3xl text-dp-black tracking-wide">
-            Crafted for the Modern African Royalty
-          </h2>
-          <p className="font-sans text-dp-charcoal/70 mt-4 leading-relaxed">
-            Dolly P celebrates African luxury through timeless silhouettes,
-            artisanal craftsmanship, and premium fabrics sourced across the
-            continent. Every piece tells a story of heritage, elegance, and
-            identity.
-          </p>
-        </div>
-
-        {/* FEATURED PRODUCTS */}
-        <h3 className="font-serif text-2xl text-dp-black mb-10 tracking-wide">
-          Featured Pieces
-        </h3>
-
-        {featured.length === 0 ? (
-          <p className="text-dp-charcoal/70 font-sans">Loading featured products...</p>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12">
-            {featured.map((product) => (
-              <ProductCard key={product._id} product={product} />
-            ))}
-          </div>
-        )}
-
-        {/* CTA */}
-        <div className="text-center mt-20">
-          <Link
-            to="/shop"
-            className="inline-block border border-dp-black px-10 py-3 font-sans text-sm tracking-wide hover:bg-dp-black hover:text-white transition"
-          >
-            Explore Full Collection
-          </Link>
-        </div>
-      </PageContainer>
-    </div>
-  );
-};
+  const showNextSlide = () => {
+    setActiveSlide((currentSlide) =>
+      currentSlide === heroProducts.length - 1
+        ? 0
+        : currentSlide + 1,
+    );
+  };;
 
 export default Home;

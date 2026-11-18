@@ -117,14 +117,12 @@ const AdminDashboard = () => {
               Dolly P Administration
             </p>
 
-            <h1
-              className= "font-serif text-[3rem] leading-[0.95] tracking-[-0.035em] text-dp-black md:text-[4rem]xl:text-[4.5rem]"
-            >
+            <h1 className="font-serif text-[3rem] leading-[0.95] tracking-[-0.035em] text-dp-black md:text-[4rem]xl:text-[4.5rem]">
               {greeting}
             </h1>
-<p className="mt-5 max-w-xl font-sans text-base leading-7 text-dp-charcoal/65 md:text-[17px]">
-  Here&apos;s what&apos;s happening with Dolly P today.
-</p>
+            <p className="mt-5 max-w-xl font-sans text-base leading-7 text-dp-charcoal/65 md:text-[17px]">
+              Here&apos;s what&apos;s happening with Dolly P today.
+            </p>
           </div>
 
           <Link
@@ -186,7 +184,7 @@ const AdminDashboard = () => {
 
               <div className="mt-8">
                 <p
-  className="
+                  className="
     font-serif
     text-[4.75rem]
     leading-[0.8]
@@ -195,9 +193,9 @@ const AdminDashboard = () => {
     md:text-[5.5rem]
     xl:text-[6rem]
   "
->
-  {totalProducts}
-</p>
+                >
+                  {totalProducts}
+                </p>
 
                 <h2 className="mt-2 font-sans text-sm text-white/70">
                   Total Products
@@ -240,18 +238,10 @@ const AdminDashboard = () => {
 
             <div className="mt-8">
               <p
-  className="
-    font-serif
-    text-[4.75rem]
-    leading-[0.8]
-    tracking-[-0.055em]
-    text-dp-black
-    md:text-[5.5rem]
-    xl:text-[6rem]
-  "
->
-  {featuredProducts}
-</p>
+                className=" font-serif text-[4.75rem] leading-[0.8] tracking-[-0.055em] md:text-[5.5rem] xl:text-[6rem] "
+              >
+                {featuredProducts}
+              </p>
 
               <h2 className="mt-2 font-sans text-sm text-dp-charcoal/70">
                 Featured Products

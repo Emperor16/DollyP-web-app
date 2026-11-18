@@ -144,227 +144,250 @@ const AdminDashboard = () => {
         </section>
 
         {/* =====================================================
-            KPI CARDS
-        ====================================================== */}
-        <section className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4 xl:gap-6">
-          {/* TOTAL PRODUCTS / HERO CARD */}
+    KPI CARDS
+====================================================== */}
+<section className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4 xl:gap-6">
+  {/* TOTAL PRODUCTS */}
+  <div
+    className="
+      group relative overflow-hidden
+      rounded-[2rem]
+      bg-dp-black
+      p-7 md:p-8
+      min-h-[280px] xl:min-h-[300px]
+      text-white
+      shadow-[0_22px_65px_rgba(0,0,0,0.16)]
+    "
+  >
+    <div
+      className="
+        pointer-events-none
+        absolute -right-16 -top-16
+        h-48 w-48
+        rounded-full
+        bg-dp-gold/15
+        blur-3xl
+      "
+    />
+
+    <div className="relative flex h-full flex-col">
+      <div className="flex items-start justify-between">
+        <p className="font-sans text-[11px] font-medium uppercase tracking-[0.3em] text-white/50">
+          Catalogue
+        </p>
+
+        <div className="flex h-12 w-12 items-center justify-center rounded-full border border-dp-gold/30 bg-dp-gold/10 text-dp-gold">
+          <Package size={20} strokeWidth={1.5} />
+        </div>
+      </div>
+
+      <div className="my-auto py-8">
+        <p
+          className="
+            font-serif
+            text-[4.75rem]
+            leading-[0.8]
+            tracking-[-0.055em]
+            text-white
+            md:text-[5.5rem]
+            xl:text-[6rem]
+          "
+        >
+          {totalProducts}
+        </p>
+
+        <h2 className="mt-5 font-sans text-[15px] font-medium tracking-[-0.01em] text-white/75">
+          Total Products
+        </h2>
+      </div>
+
+      <Link
+        to="/admin/create"
+        className="inline-flex items-center gap-2 font-sans text-sm font-medium text-dp-gold transition-colors hover:text-white"
+      >
+        Add product
+        <ArrowUpRight size={15} />
+      </Link>
+    </div>
+  </div>
+
+  {/* FEATURED PRODUCTS */}
+  <div
+    className="
+      group
+      flex min-h-[280px] flex-col
+      rounded-[2rem]
+      border border-dp-gold/20
+      bg-white/80
+      p-7 md:p-8
+      xl:min-h-[300px]
+      backdrop-blur-sm
+      transition-all duration-300
+      hover:-translate-y-1
+      hover:border-dp-gold/35
+      hover:shadow-[0_20px_55px_rgba(0,0,0,0.08)]
+    "
+  >
+    <div className="flex items-start justify-between">
+      <p className="font-sans text-[11px] font-medium uppercase tracking-[0.3em] text-dp-charcoal/45">
+        Curation
+      </p>
+
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
+        <Sparkles size={20} strokeWidth={1.5} />
+      </div>
+    </div>
+
+    <div className="my-auto py-8">
+      <p
+        className="
+          font-serif
+          text-[4.75rem]
+          leading-[0.8]
+          tracking-[-0.055em]
+          text-dp-black
+          md:text-[5.5rem]
+          xl:text-[6rem]
+        "
+      >
+        {featuredProducts}
+      </p>
+
+      <h2 className="mt-5 font-sans text-[15px] font-medium tracking-[-0.01em] text-dp-charcoal/70">
+        Featured Products
+      </h2>
+    </div>
+
+    <div>
+      <div className="flex items-center gap-3">
+        <div className="h-2 flex-1 overflow-hidden rounded-full bg-dp-gold/10">
           <div
-            className="
-              group relative overflow-hidden
-              rounded-3xl
-              bg-dp-black
-              p-6 md:p-7
-              min-h-[280px] xl:min-h-[300px]
-              text-white
-              shadow-[0_18px_50px_rgba(0,0,0,0.12)]
-            "
-          >
-            {/* DECORATIVE GOLD GLOW */}
-            <div
-              className="
-                pointer-events-none
-                absolute -right-16 -top-16
-                h-40 w-40
-                rounded-full
-                bg-dp-gold/10
-                blur-3xl
-              "
-            />
+            className="h-full rounded-full bg-dp-gold transition-all duration-500"
+            style={{
+              width: `${Math.min(featuredPercentage, 100)}%`,
+            }}
+          />
+        </div>
 
-            <div className="relative flex h-full flex-col justify-between">
-              <div className="flex items-start justify-between">
-                <p className="font-sans text-[10px] uppercase tracking-[0.28em] text-white/50">
-                  Catalogue
-                </p>
+        <span className="font-sans text-sm font-medium text-dp-charcoal/55">
+          {featuredPercentage}%
+        </span>
+      </div>
+    </div>
+  </div>
 
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-dp-gold/30 bg-dp-gold/10 text-dp-gold">
-                  <Package size={18} strokeWidth={1.5} />
-                </div>
-              </div>
+  {/* RESERVATIONS */}
+  <div
+    className="
+      group
+      flex min-h-[280px] flex-col
+      rounded-[2rem]
+      border border-dp-gold/20
+      bg-white/80
+      p-7 md:p-8
+      xl:min-h-[300px]
+      backdrop-blur-sm
+      transition-all duration-300
+      hover:-translate-y-1
+      hover:border-dp-gold/35
+      hover:shadow-[0_20px_55px_rgba(0,0,0,0.08)]
+    "
+  >
+    <div className="flex items-start justify-between">
+      <p className="font-sans text-[11px] font-medium uppercase tracking-[0.3em] text-dp-charcoal/45">
+        Appointments
+      </p>
 
-              <div className="mt-5">
-                <p
-                  className="
-    font-serif
-    text-[4.75rem]
-    leading-[0.8]
-    tracking-[-0.055em]
-    text-white
-    md:text-[5.5rem]
-    xl:text-[6rem]
-  "
-                >
-                  {totalProducts}
-                </p>
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
+        <CalendarDays size={20} strokeWidth={1.5} />
+      </div>
+    </div>
 
-                <h2 className="mt-5 font-sans text-[15px] font-medium tracking-[-0.01em] text-white/75">
-  Total Products
-</h2>
+    <div className="my-auto py-8">
+      <p
+        className="
+          font-serif
+          text-[4.75rem]
+          leading-[0.8]
+          tracking-[-0.055em]
+          text-dp-black
+          md:text-[5.5rem]
+          xl:text-[6rem]
+        "
+      >
+        {totalReservations}
+      </p>
 
-              </div>
+      <h2 className="mt-5 font-sans text-[15px] font-medium tracking-[-0.01em] text-dp-charcoal/70">
+        Reservations
+      </h2>
+    </div>
 
-              <Link
-                to="/admin/create"
-                className="mt-7 inline-flex items-center gap-2 font-sans text-xs text-dp-gold transition hover:text-white"
-              >
-                Add product
-                <ArrowUpRight size={14} />
-              </Link>
-            </div>
-          </div>
+    <Link
+      to="/admin/reservations"
+      className="inline-flex items-center gap-2 font-sans text-sm font-medium text-dp-charcoal/60 transition-colors hover:text-dp-gold"
+    >
+      View reservations
+      <ArrowUpRight size={15} />
+    </Link>
+  </div>
 
-          {/* FEATURED */}
-          <div
-            className="
-              rounded-3xl
-              border border-dp-gold/20
-              bg-white/75
-              p-6 md:p-7
-              min-h-[280px] xl:min-h-[300px]
-              backdrop-blur-sm
-              transition-all duration-300
-              hover:-translate-y-1
-              hover:shadow-[0_16px_40px_rgba(0,0,0,0.07)]
-            "
-          >
-            <div className="flex items-start justify-between">
-              <p className="font-sans text-[10px] uppercase tracking-[0.28em] text-dp-charcoal/45">
-                Curation
-              </p>
+  {/* CATEGORIES */}
+  <div
+    className="
+      group
+      flex min-h-[280px] flex-col
+      rounded-[2rem]
+      border border-dp-gold/20
+      bg-white/80
+      p-7 md:p-8
+      xl:min-h-[300px]
+      backdrop-blur-sm
+      transition-all duration-300
+      hover:-translate-y-1
+      hover:border-dp-gold/35
+      hover:shadow-[0_20px_55px_rgba(0,0,0,0.08)]
+    "
+  >
+    <div className="flex items-start justify-between">
+      <p className="font-sans text-[11px] font-medium uppercase tracking-[0.3em] text-dp-charcoal/45">
+        Collections
+      </p>
 
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
-                <Sparkles size={18} strokeWidth={1.5} />
-              </div>
-            </div>
+      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
+        <Grid2X2 size={20} strokeWidth={1.5} />
+      </div>
+    </div>
 
-            <div className="mt-0">
-              <p className=" font-serif text-[4.75rem] leading-[0.8] tracking-[-0.055em] md:text-[5.5rem] xl:text-[6rem] ">
-                {featuredProducts}
-              </p>
+    <div className="my-auto py-8">
+      <p
+        className="
+          font-serif
+          text-[4.75rem]
+          leading-[0.8]
+          tracking-[-0.055em]
+          text-dp-black
+          md:text-[5.5rem]
+          xl:text-[6rem]
+        "
+      >
+        {totalCategories}
+      </p>
 
-              <h2 className="mt-5 font-sans text-[15px] font-medium tracking-[-0.01em] text-dp-charcoal/70">
-  Featured Products
-</h2>
-            </div>
+      <h2 className="mt-5 font-sans text-[15px] font-medium tracking-[-0.01em] text-dp-charcoal/70">
+        Categories
+      </h2>
+    </div>
 
-            <div className="mt-7 flex items-center gap-2">
-              <div className="h-1.5 flex-1 overflow-hidden rounded-full bg-dp-gold/10">
-                <div
-                  className="h-full rounded-full bg-dp-gold transition-all duration-500"
-                  style={{
-                    width: `${Math.min(featuredPercentage, 100)}%`,
-                  }}
-                />
-              </div>
-
-              <span className="font-sans text-xs text-dp-charcoal/55">
-                {featuredPercentage}%
-              </span>
-            </div>
-          </div>
-
-          {/* RESERVATIONS */}
-          <div
-            className="
-              rounded-3xl
-              border border-dp-gold/20
-              bg-white/75
-              p-6 md:p-7
-              min-h-[280px] xl:min-h-[300px]
-              backdrop-blur-sm
-              transition-all duration-300
-              hover:-translate-y-1
-              hover:shadow-[0_16px_40px_rgba(0,0,0,0.07)]
-            "
-          >
-            <div className="flex items-start justify-between">
-              <p className="font-sans text-[10px] uppercase tracking-[0.28em] text-dp-charcoal/45">
-                Appointments
-              </p>
-
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
-                <CalendarDays size={18} strokeWidth={1.5} />
-              </div>
-            </div>
-
-            <div className="mt-8">
-              <p
-                className="font-serif
-    text-[4.75rem]
-    leading-[0.8]
-    tracking-[-0.055em]
-    text-dp-black
-    md:text-[5.5rem]
-    xl:text-[6rem]"
-              >
-                {totalReservations}
-              </p>
-
-              <h2 className="mt-2 font-sans text-sm text-dp-charcoal/70">
-                Reservations
-              </h2>
-            </div>
-
-            <Link
-              to="/admin/reservations"
-              className="mt-7 inline-flex items-center gap-2 font-sans text-xs text-dp-charcoal/60 transition hover:text-dp-gold"
-            >
-              View reservations
-              <ArrowUpRight size={14} />
-            </Link>
-          </div>
-
-          {/* CATEGORIES */}
-          <div
-            className="
-              rounded-3xl
-              border border-dp-gold/20
-              bg-white/75
-              p-6 md:p-7
-              min-h-[280px] xl:min-h-[300px]
-              backdrop-blur-sm
-              transition-all duration-300
-              hover:-translate-y-1
-              hover:shadow-[0_16px_40px_rgba(0,0,0,0.07)]
-            "
-          >
-            <div className="flex items-start justify-between">
-              <p className="font-sans text-[10px] uppercase tracking-[0.28em] text-dp-charcoal/45">
-                Collections
-              </p>
-
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-dp-gold/10 text-dp-gold">
-                <Grid2X2 size={18} strokeWidth={1.5} />
-              </div>
-            </div>
-
-            <div className="mt-8">
-              <p
-                className="font-serif
-    text-[4.75rem]
-    leading-[0.8]
-    tracking-[-0.055em]
-    text-dp-black
-    md:text-[5.5rem]
-    xl:text-[6rem]"
-              >
-                {totalCategories}
-              </p>
-
-              <h2 className="mt-2 font-sans text-sm text-dp-charcoal/70">
-                Categories
-              </h2>
-            </div>
-
-            <Link
-              to="/admin/products"
-              className="mt-7 inline-flex items-center gap-2 font-sans text-xs text-dp-charcoal/60 transition hover:text-dp-gold"
-            >
-              Manage catalogue
-              <ArrowUpRight size={14} />
-            </Link>
-          </div>
-        </section>
+    <Link
+      to="/admin/products"
+      className="inline-flex items-center gap-2 font-sans text-sm font-medium text-dp-charcoal/60 transition-colors hover:text-dp-gold"
+    >
+      Manage catalogue
+      <ArrowUpRight size={15} />
+    </Link>
+  </div>
+</section>
 
         {/* =====================================================
             PRODUCT OVERVIEW

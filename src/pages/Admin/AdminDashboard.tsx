@@ -156,7 +156,7 @@ const AdminDashboard = () => {
               rounded-3xl
               bg-dp-black
               p-6 md:p-7
-              min-h-[220px]
+              min-h-[280px] xl:min-h-[300px]
               text-white
               shadow-[0_18px_50px_rgba(0,0,0,0.12)]
             "
@@ -211,7 +211,7 @@ const AdminDashboard = () => {
               border border-dp-gold/20
               bg-white/75
               p-6 md:p-7
-              min-h-[220px]
+              min-h-[280px] xl:min-h-[300px]
               backdrop-blur-sm
               transition-all duration-300
               hover:-translate-y-1
@@ -261,7 +261,7 @@ const AdminDashboard = () => {
               border border-dp-gold/20
               bg-white/75
               p-6 md:p-7
-              min-h-[220px]
+              min-h-[280px] xl:min-h-[300px]
               backdrop-blur-sm
               transition-all duration-300
               hover:-translate-y-1
@@ -304,7 +304,7 @@ const AdminDashboard = () => {
               border border-dp-gold/20
               bg-white/75
               p-6 md:p-7
-              min-h-[220px]
+              min-h-[280px] xl:min-h-[300px]
               backdrop-blur-sm
               transition-all duration-300
               hover:-translate-y-1

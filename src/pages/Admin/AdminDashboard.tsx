@@ -41,29 +41,29 @@ const AdminDashboard = () => {
 
   const [greeting, setGreeting] = useState("");
 
-useEffect(() => {
-  const updateGreeting = () => {
-    const hour = new Date().getHours();
+  useEffect(() => {
+    const updateGreeting = () => {
+      const hour = new Date().getHours();
 
-    if (hour >= 5 && hour < 12) {
-      setGreeting("Good morning.");
-    } else if (hour >= 12 && hour < 17) {
-      setGreeting("Good afternoon.");
-    } else if (hour >= 17 && hour < 22) {
-      setGreeting("Good evening.");
-    } else {
-      setGreeting("Good night.");
-    }
-  };
+      if (hour >= 5 && hour < 12) {
+        setGreeting("Good morning.");
+      } else if (hour >= 12 && hour < 17) {
+        setGreeting("Good afternoon.");
+      } else if (hour >= 17 && hour < 22) {
+        setGreeting("Good evening.");
+      } else {
+        setGreeting("Good night.");
+      }
+    };
 
-  // Set the greeting immediately when the dashboard loads
-  updateGreeting();
+    // Set the greeting immediately when the dashboard loads
+    updateGreeting();
 
-  // Keep it accurate if the admin leaves the dashboard open
-  const interval = window.setInterval(updateGreeting, 60_000);
+    // Keep it accurate if the admin leaves the dashboard open
+    const interval = window.setInterval(updateGreeting, 60_000);
 
-  return () => window.clearInterval(interval);
-}, []);
+    return () => window.clearInterval(interval);
+  }, []);
 
   const safeProductsList = safeArray<Product>(products);
   const safeReservationsList = safeArray<Reservation>(reservations);
@@ -118,8 +118,8 @@ useEffect(() => {
             </p>
 
             <h1 className="font-serif text-4xl md:text-5xl text-dp-black tracking-tight">
-  {greeting}
-</h1>
+              {greeting}
+            </h1>
 
             <p className="mt-3 max-w-xl font-sans text-sm md:text-base leading-7 text-dp-charcoal/65">
               Here&apos;s what&apos;s happening with Dolly P today.

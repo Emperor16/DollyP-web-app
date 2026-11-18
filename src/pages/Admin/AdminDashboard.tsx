@@ -118,7 +118,7 @@ const AdminDashboard = () => {
             </p>
 
             <h1
-  className="
+              className="
     font-serif
     text-[3rem]
     leading-[0.95]
@@ -127,9 +127,9 @@ const AdminDashboard = () => {
     md:text-[4rem]
     xl:text-[4.5rem]
   "
->
-  {greeting}
-</h1>
+            >
+              {greeting}
+            </h1>
 
             <p className="mt-3 max-w-xl font-sans text-sm md:text-base leading-7 text-dp-charcoal/65">
               Here&apos;s what&apos;s happening with Dolly P today.

@@ -117,9 +117,19 @@ const AdminDashboard = () => {
               Dolly P Administration
             </p>
 
-            <h1 className="font-serif text-4xl md:text-5xl text-dp-black tracking-tight">
-              {greeting}
-            </h1>
+            <h1
+  className="
+    font-serif
+    text-[3rem]
+    leading-[0.95]
+    tracking-[-0.035em]
+    text-dp-black
+    md:text-[4rem]
+    xl:text-[4.5rem]
+  "
+>
+  {greeting}
+</h1>
 
             <p className="mt-3 max-w-xl font-sans text-sm md:text-base leading-7 text-dp-charcoal/65">
               Here&apos;s what&apos;s happening with Dolly P today.

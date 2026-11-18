@@ -237,15 +237,13 @@ const AdminDashboard = () => {
             </div>
 
             <div className="mt-0">
-              <p
-                className=" font-serif text-[4.75rem] leading-[0.8] tracking-[-0.055em] md:text-[5.5rem] xl:text-[6rem] "
-              >
+              <p className=" font-serif text-[4.75rem] leading-[0.8] tracking-[-0.055em] md:text-[5.5rem] xl:text-[6rem] ">
                 {featuredProducts}
               </p>
 
-              <h2 className="mt-2 font-sans text-sm text-dp-charcoal/70">
-                Featured Products
-              </h2>
+              <h2 className="mt-5 font-sans text-[15px] font-medium tracking-[-0.01em] text-dp-charcoal/70">
+  Featured Products
+</h2>
             </div>
 
             <div className="mt-7 flex items-center gap-2">
@@ -289,13 +287,15 @@ const AdminDashboard = () => {
             </div>
 
             <div className="mt-8">
-              <p className="font-serif
+              <p
+                className="font-serif
     text-[4.75rem]
     leading-[0.8]
     tracking-[-0.055em]
     text-dp-black
     md:text-[5.5rem]
-    xl:text-[6rem]">
+    xl:text-[6rem]"
+              >
                 {totalReservations}
               </p>
 
@@ -338,13 +338,15 @@ const AdminDashboard = () => {
             </div>
 
             <div className="mt-8">
-              <p className="font-serif
+              <p
+                className="font-serif
     text-[4.75rem]
     leading-[0.8]
     tracking-[-0.055em]
     text-dp-black
     md:text-[5.5rem]
-    xl:text-[6rem]">
+    xl:text-[6rem]"
+              >
                 {totalCategories}
               </p>
 

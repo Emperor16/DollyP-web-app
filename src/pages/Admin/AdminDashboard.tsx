@@ -338,7 +338,13 @@ const AdminDashboard = () => {
             </div>
 
             <div className="mt-8">
-              <p className="font-serif text-5xl text-dp-black">
+              <p className="font-serif
+    text-[4.75rem]
+    leading-[0.8]
+    tracking-[-0.055em]
+    text-dp-black
+    md:text-[5.5rem]
+    xl:text-[6rem]">
                 {totalCategories}
               </p>
 

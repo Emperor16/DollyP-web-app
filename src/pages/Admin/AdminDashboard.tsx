@@ -182,7 +182,7 @@ const AdminDashboard = () => {
                 </div>
               </div>
 
-              <div className="mt-8">
+              <div className="mt-5">
                 <p
                   className="
     font-serif
@@ -238,7 +238,7 @@ const AdminDashboard = () => {
 
             <div className="mt-0">
               <p
-                className=" font-serif text-[10.75rem] leading-[0.8] tracking-[-0.055em] md:text-[5.5rem] xl:text-[6rem] "
+                className=" font-serif text-[4.75rem] leading-[0.8] tracking-[-0.055em] md:text-[5.5rem] xl:text-[6rem] "
               >
                 {featuredProducts}
               </p>
@@ -289,7 +289,13 @@ const AdminDashboard = () => {
             </div>
 
             <div className="mt-8">
-              <p className="font-serif text-5xl text-dp-black">
+              <p className="font-serif
+    text-[4.75rem]
+    leading-[0.8]
+    tracking-[-0.055em]
+    text-dp-black
+    md:text-[5.5rem]
+    xl:text-[6rem]">
                 {totalReservations}
               </p>
 

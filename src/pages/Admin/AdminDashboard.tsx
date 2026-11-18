@@ -118,15 +118,7 @@ const AdminDashboard = () => {
             </p>
 
             <h1
-              className="
-    font-serif
-    text-[3rem]
-    leading-[0.95]
-    tracking-[-0.035em]
-    text-dp-black
-    md:text-[4rem]
-    xl:text-[4.5rem]
-  "
+              className= "font-serif text-[3rem] leading-[0.95] tracking-[-0.035em] text-dp-black md:text-[4rem]xl:text-[4.5rem]"
             >
               {greeting}
             </h1>

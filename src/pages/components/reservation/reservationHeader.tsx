@@ -1,8 +1,8 @@
 const ReservationHeader = () => {
   return (
     <section className="border-b border-dp-gold/15 bg-[#f7f3ed]">
-      <div className="mx-auto max-w-7xl px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-20">
-        <div className="max-w-3xl">
+      <div className=" mx-auto max-w-7xl px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-20">
+        <div className="mt-20 max-w-3xl">
           <div className="mb-4 flex items-center gap-4">
             <span className="h-px w-9 bg-dp-gold" />
 

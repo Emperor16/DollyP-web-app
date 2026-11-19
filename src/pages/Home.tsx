@@ -353,7 +353,7 @@ const Home = () => {
         )}
 
         {!isLoading && !activeProduct && (
-          <div className="flex h-full items-center bg-dp-black px-6 sm:px-10 lg:px-20">
+          <div className="flex items-center bg-dp-black px-6 sm:px-10 lg:px-20">
             <div>
               <h1 className="font-serif text-5xl text-white sm:text-6xl">
                 Dolly P
@@ -371,8 +371,7 @@ const Home = () => {
         )}
       </section>
 
-      <section className="border-b border-dp-gold/10 bg-[#f7f3ed] ">
-        <PageContainer>
+      <section className=" mt-5 border-b border-dp-gold/10 bg-[#ffffff] ">
           <div className="mx-auto max-w-4xl text-center">
             <p className="font-sans text-[10px] font-medium uppercase tracking-[0.3em] text-dp-gold">
               Dolly P
@@ -387,7 +386,6 @@ const Home = () => {
               fabrics created for confidence and elegance.
             </p>
           </div>
-        </PageContainer>
       </section>
 
       <section className="bg-dp-white py-16 sm:py-20 lg:py-24">

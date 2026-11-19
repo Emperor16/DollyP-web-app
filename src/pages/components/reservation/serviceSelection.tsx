@@ -19,29 +19,30 @@ const services = [
   },
 ];
 
-type ServiceSelectorProps = {
+type ServiceSelectionProps = {
   value: string;
-  onChange: (value: string) => void;
+  onChange: (service: string) => void;
 };
 
-const ServiceSelector = ({
+const ServiceSelection = ({
   value,
   onChange,
-}: ServiceSelectorProps) => {
+}: ServiceSelectionProps) => {
   return (
     <div>
-      <p className="mb-3 font-sans text-xs font-medium uppercase tracking-[0.08em] text-dp-charcoal/65">
-        Service
+      <p className="mb-3 font-sans text-xs font-medium text-dp-charcoal/65">
+        Service Type
       </p>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {services.map((service) => {
-          const selected = value === service.value;
+          const isSelected = service.value === value;
 
           return (
             <button
               key={service.value}
               type="button"
+              aria-pressed={isSelected}
               onClick={() => onChange(service.value)}
               className={`
                 flex min-h-[72px]
@@ -52,23 +53,18 @@ const ServiceSelector = ({
                 text-left
                 transition-all duration-300
                 ${
-                  selected
-                    ? "border-dp-gold bg-dp-gold/10 shadow-[0_8px_25px_rgba(198,157,93,0.12)]"
-                    : "border-dp-black/10 bg-[#faf8f4] hover:border-dp-gold/40"
+                  isSelected
+                    ? "border-dp-gold bg-dp-gold/10 shadow-[0_8px_24px_rgba(198,157,93,0.12)]"
+                    : "border-dp-black/10 bg-[#faf8f4] hover:border-dp-gold/40 hover:bg-white"
                 }
               `}
             >
-              <span
-                className={`
-                  font-sans text-sm font-medium
-                  ${selected ? "text-dp-black" : "text-dp-charcoal/75"}
-                `}
-              >
+              <span className="font-sans text-sm font-medium text-dp-black">
                 {service.label}
               </span>
 
-              {selected && (
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-dp-gold text-dp-black">
+              {isSelected && (
+                <span className="ml-4 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-dp-gold text-dp-black">
                   <Check size={14} strokeWidth={2} />
                 </span>
               )}
@@ -80,4 +76,4 @@ const ServiceSelector = ({
   );
 };
 
-export default ServiceSelector;
+export default ServiceSelection;

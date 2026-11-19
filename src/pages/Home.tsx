@@ -388,7 +388,7 @@ const Home = () => {
           </div>
       </section>
 
-      <section className="bg-dp-white py-16 sm:py-20 lg:py-24">
+      <section className="bg-dp-white  sm:py-20 lg:py-24">
         <PageContainer>
           <div className="mb-10 flex flex-col gap-5 border-b border-dp-gold/15 pb-7 sm:flex-row sm:items-end sm:justify-between lg:mb-12">
             <div>

@@ -1,11 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  ArrowLeft,
-  ArrowRight,
-  ArrowUpRight,
-  Pause,
-  Play,
-} from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Pause, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { getProducts, type Product } from "../services/productService";
@@ -258,7 +252,6 @@ const Home = () => {
                     className="group inline-flex items-center gap-3 rounded-full bg-dp-gold px-7 py-4 font-sans text-sm font-medium text-dp-black shadow-[0_14px_35px_rgba(198,157,93,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white"
                   >
                     View Piece
-
                     <ArrowUpRight
                       size={16}
                       strokeWidth={1.6}
@@ -271,7 +264,6 @@ const Home = () => {
                     className="group inline-flex items-center gap-2 py-3 font-sans text-sm font-medium text-white/80 transition-colors duration-300 hover:text-dp-gold"
                   >
                     Shop Collection
-
                     <ArrowUpRight
                       size={15}
                       strokeWidth={1.6}
@@ -372,20 +364,20 @@ const Home = () => {
       </section>
 
       <section className=" mt-20 bg-[#ffffff] ">
-          <div className="mx-auto max-w-4xl text-center">
-            <p className="font-sans text-[10px] font-medium uppercase tracking-[0.3em] text-dp-gold">
-              Dolly P
-            </p>
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="font-sans text-[10px] font-medium uppercase tracking-[0.3em] text-dp-gold">
+            Dolly P
+          </p>
 
-            <h2 className="mt-5 font-serif text-[2.6rem] leading-[1.05] tracking-[-0.035em] text-dp-black sm:text-[3.4rem] lg:text-[4rem]">
-              Crafted for modern African royalty.
-            </h2>
+          <h2 className="mt-5 font-serif text-[2.6rem] leading-[1.05] tracking-[-0.035em] text-dp-black sm:text-[3.4rem] lg:text-[4rem]">
+            Crafted for modern African royalty.
+          </h2>
 
-            <p className="mx-auto mt-6 max-w-2xl font-sans text-[15px] leading-7 text-dp-charcoal/65">
-              Timeless silhouettes, considered craftsmanship, and premium
-              fabrics created for confidence and elegance.
-            </p>
-          </div>
+          <p className="mx-auto mt-6 max-w-2xl font-sans text-[15px] leading-7 text-dp-charcoal/65">
+            Timeless silhouettes, considered craftsmanship, and premium fabrics
+            created for confidence and elegance.
+          </p>
+        </div>
       </section>
 
       <section className="bg-dp-white py-16 sm:py-20 lg:py-24">
@@ -406,7 +398,6 @@ const Home = () => {
               className="group inline-flex w-fit items-center gap-2 font-sans text-sm font-medium text-dp-charcoal transition-colors hover:text-dp-gold"
             >
               View all pieces
-
               <ArrowUpRight
                 size={16}
                 className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
@@ -453,7 +444,6 @@ const Home = () => {
                 className="group inline-flex items-center gap-3 rounded-full border border-dp-black/20 px-8 py-4 font-sans text-sm font-medium text-dp-black transition-all duration-300 hover:border-dp-black hover:bg-dp-black hover:text-white"
               >
                 Explore Full Collection
-
                 <ArrowUpRight
                   size={16}
                   className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"

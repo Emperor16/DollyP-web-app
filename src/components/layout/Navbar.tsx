@@ -200,4 +200,72 @@ const Navbar = () => {
               strokeWidth={1.6}
             />
           )}
-        </button
+        </button>
+      </nav>
+
+      {/* MOBILE NAVIGATION */}
+      {mobileMenuOpen && (
+        <div
+          className="
+            mt-3
+            overflow-hidden
+            rounded-2xl
+            border
+            border-dp-gold/30
+            bg-white/90
+            p-3
+            shadow-[0_18px_50px_rgba(0,0,0,0.12)]
+            backdrop-blur-xl
+            md:hidden
+          "
+        >
+          <nav
+            aria-label="Mobile navigation"
+            className="flex flex-col gap-1"
+          >
+            <NavLink
+              to="/shop"
+              onClick={closeMobileMenu}
+              className={mobileNavItemClass}
+            >
+              <ShoppingBag
+                size={19}
+                strokeWidth={1.6}
+              />
+
+              Shop
+            </NavLink>
+
+            <NavLink
+              to="/reservation"
+              onClick={closeMobileMenu}
+              className={mobileNavItemClass}
+            >
+              <CalendarDays
+                size={19}
+                strokeWidth={1.6}
+              />
+
+              Reservation
+            </NavLink>
+
+            <NavLink
+              to="/cart"
+              onClick={closeMobileMenu}
+              className={mobileNavItemClass}
+            >
+              <ShoppingCart
+                size={19}
+                strokeWidth={1.6}
+              />
+
+              Cart
+            </NavLink>
+          </nav>
+        </div>
+      )}
+    </motion.header>
+  );
+};
+
+export default Navbar;

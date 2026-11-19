@@ -371,7 +371,7 @@ const Home = () => {
         )}
       </section>
 
-      <section className="border-b border-dp-gold/10 bg-[#f7f3ed] py-16 sm:py-20 lg:py-24">
+      <section className="border-b border-dp-gold/10 bg-[#f7f3ed] ">
         <PageContainer>
           <div className="mx-auto max-w-4xl text-center">
             <p className="font-sans text-[10px] font-medium uppercase tracking-[0.3em] text-dp-gold">

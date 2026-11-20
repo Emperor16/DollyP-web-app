@@ -9,9 +9,13 @@ export async function createReservation(form: ReservationFormData) {
     fullName: form.name,
     email: form.email,
     phone: form.phone,
-    date: form.date,
     measurementType: form.service,
-    address: form.notes || "",
+    requestedDate: form.date,
+    requestedTime: form.time,
+    address:
+      form.service === "home-visit"
+        ? form.address
+        : undefined,
   };
 
   const response = await fetch(`${API_URL}/api/reservations`, {
@@ -26,13 +30,16 @@ export async function createReservation(form: ReservationFormData) {
 
   if (!response.ok) {
     throw new Error(
-      data?.message || `Reservation request failed (${response.status})`,
+      data?.message ||
+        `Reservation request failed (${response.status})`,
     );
-  };
+  }
 
-  if (!response.ok || !data.success) {
-  throw new Error(data.message || "Failed to create reservation");
-}
+  if (!data?.success) {
+    throw new Error(
+      data?.message || "Failed to create reservation",
+    );
+  }
 
   return data;
 }

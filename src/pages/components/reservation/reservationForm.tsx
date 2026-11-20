@@ -90,36 +90,59 @@ const ReservationForm = ({
         </div>
 
         <div>
-  <p className="mb-4 font-sans text-[10px] font-medium uppercase tracking-[0.28em] text-dp-gold">
-    Appointment
-  </p>
+          <p className="mb-4 font-sans text-[10px] font-medium uppercase tracking-[0.28em] text-dp-gold">
+            Appointment
+          </p>
 
-  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-    <ReservationField
-      label="Preferred Date"
-      type="date"
-      name="date"
-      min={today}
-      value={form.date}
-      onChange={onChange}
-      required
-    />
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <ReservationField
+              label="Preferred Date"
+              type="date"
+              name="date"
+              min={today}
+              value={form.date}
+              onChange={onChange}
+              required
+            />
 
-    <ReservationField
-      label="Preferred Time"
-      type="time"
-      name="time"
-      value={form.time}
-      onChange={onChange}
-      required
-    />
-  </div>
-</div>
+            <ReservationField
+              label="Preferred Time"
+              type="time"
+              name="time"
+              value={form.time}
+              onChange={onChange}
+              required
+            />
+          </div>
+        </div>
 
         <ServiceSelection
           value={form.service}
           onChange={onServiceChange}
         />
+
+        {/* CONDITIONAL HOME VISIT ADDRESS */}
+        {form.service === "home-visit" && (
+          <div className="space-y-4">
+            <div className="rounded-2xl bg-dp-gold/10 p-4">
+              <p className="font-sans text-sm leading-6 text-dp-charcoal/70">
+                Home visits attract an additional charge. The amount will
+                be communicated when your reservation request is reviewed.
+              </p>
+            </div>
+
+            <ReservationField
+              label="Home Visit Address"
+              type="text"
+              name="address"
+              value={form.address ?? ""}
+              onChange={onChange}
+              required={form.service === "home-visit"}
+              autoComplete="street-address"
+              placeholder="Street address, area / landmark, city"
+            />
+          </div>
+        )}
 
         <ReservationField
           label="Additional Notes"

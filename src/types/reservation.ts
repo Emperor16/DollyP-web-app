@@ -3,7 +3,9 @@ export type ReservationFormData = {
   email: string;
   phone: string;
   date: string;
+  time: string;
   service: string;
+  address: string;
   notes: string;
 };
 
@@ -12,6 +14,8 @@ export const initialReservationForm: ReservationFormData = {
   email: "",
   phone: "",
   date: "",
+  time: "",
   service: "",
+  address: "",
   notes: "",
 };

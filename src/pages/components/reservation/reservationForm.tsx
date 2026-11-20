@@ -90,20 +90,31 @@ const ReservationForm = ({
         </div>
 
         <div>
-          <p className="mb-4 font-sans text-[10px] font-medium uppercase tracking-[0.28em] text-dp-gold">
-            Appointment
-          </p>
+  <p className="mb-4 font-sans text-[10px] font-medium uppercase tracking-[0.28em] text-dp-gold">
+    Appointment
+  </p>
 
-          <ReservationField
-            label="Preferred Date"
-            type="date"
-            name="date"
-            min={today}
-            value={form.date}
-            onChange={onChange}
-            required
-          />
-        </div>
+  <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+    <ReservationField
+      label="Preferred Date"
+      type="date"
+      name="date"
+      min={today}
+      value={form.date}
+      onChange={onChange}
+      required
+    />
+
+    <ReservationField
+      label="Preferred Time"
+      type="time"
+      name="time"
+      value={form.time}
+      onChange={onChange}
+      required
+    />
+  </div>
+</div>
 
         <ServiceSelection
           value={form.service}

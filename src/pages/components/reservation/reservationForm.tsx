@@ -78,7 +78,7 @@ const ReservationForm = ({
           />
 
           <ReservationField
-            label="Phone Number"
+            label="Phone Number (WhatsApp preferred)"
             type="tel"
             name="phone"
             value={form.phone}

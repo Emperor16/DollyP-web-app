@@ -1,8 +1,4 @@
-import {
-  useState,
-  type ChangeEvent,
-  type FormEvent,
-} from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 
 import PageContainer from "../components/layout/PageContainer";
 
@@ -16,9 +12,7 @@ import {
 } from "../types/reservation";
 
 const Reservation = () => {
-  const [form, setForm] = useState<ReservationFormData>(
-    initialReservationForm,
-  );
+  const [form, setForm] = useState<ReservationFormData>(initialReservationForm);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -42,9 +36,7 @@ const Reservation = () => {
     }));
   };
 
-  const handleSubmit = async (
-    event: FormEvent<HTMLFormElement>,
-  ) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {

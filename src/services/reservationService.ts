@@ -28,7 +28,11 @@ export async function createReservation(form: ReservationFormData) {
     throw new Error(
       data?.message || `Reservation request failed (${response.status})`,
     );
-  }
+  };
+
+  if (!response.ok || !data.success) {
+  throw new Error(data.message || "Failed to create reservation");
+}
 
   return data;
 }

@@ -12,12 +12,7 @@ const ImagePreviewGrid: React.FC<Props> = ({ preview, removeImage }) => {
   return (
     <div className="grid grid-cols-3 gap-4 mt-4">
       {preview.map((src, idx) => (
-        <ImageItem
-          key={idx}
-          src={src}
-          index={idx}
-          removeImage={removeImage}
-        />
+        <ImageItem key={idx} src={src} index={idx} removeImage={removeImage} />
       ))}
     </div>
   );

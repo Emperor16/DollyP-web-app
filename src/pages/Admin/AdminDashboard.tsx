@@ -198,9 +198,8 @@ const AdminDashboard = () => {
                 </p>
 
                 <h2 className="mt-5 font-sans text-[15px] font-medium tracking-[-0.01em] text-white/75">
-  Total Products
-</h2>
-
+                  Total Products
+                </h2>
               </div>
 
               <Link
@@ -243,8 +242,8 @@ const AdminDashboard = () => {
               </p>
 
               <h2 className="mt-5 font-sans text-[15px] font-medium tracking-[-0.01em] text-dp-charcoal/70">
-  Featured Products
-</h2>
+                Featured Products
+              </h2>
             </div>
 
             <div className="mt-7 flex items-center gap-2">
@@ -366,43 +365,43 @@ const AdminDashboard = () => {
           </div>
         </section>
 
-       {/* =====================================================
+        {/* =====================================================
     PRODUCT OVERVIEW
 ====================================================== */}
-<section>
-  {/* SECTION HEADER */}
-  <div className="mb-8 flex items-end justify-between">
-    <div>
-      <p className="mb-3 font-sans text-[11px] font-medium uppercase tracking-[0.3em] text-dp-gold">
-        Catalogue insights
-      </p>
+        <section>
+          {/* SECTION HEADER */}
+          <div className="mb-8 flex items-end justify-between">
+            <div>
+              <p className="mb-3 font-sans text-[11px] font-medium uppercase tracking-[0.3em] text-dp-gold">
+                Catalogue insights
+              </p>
 
-      <h2 className="font-serif text-3xl tracking-[-0.025em] text-dp-black md:text-4xl">
-        Product Overview
-      </h2>
-    </div>
+              <h2 className="font-serif text-3xl tracking-[-0.025em] text-dp-black md:text-4xl">
+                Product Overview
+              </h2>
+            </div>
 
-    <Link
-      to="/admin/products"
-      className="
+            <Link
+              to="/admin/products"
+              className="
         hidden items-center gap-2
         font-sans text-sm font-medium text-dp-charcoal/60
         transition-colors duration-300
         hover:text-dp-gold
         sm:inline-flex
       "
-    >
-      Manage products
-      <ArrowUpRight size={15} />
-    </Link>
-  </div>
+            >
+              Manage products
+              <ArrowUpRight size={15} />
+            </Link>
+          </div>
 
-  <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-    {/* =====================================================
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            {/* =====================================================
         PRODUCT DISTRIBUTION
     ====================================================== */}
-    <div
-      className="
+            <div
+              className="
         lg:col-span-2
         rounded-[2rem]
         border border-dp-gold/15
@@ -416,21 +415,21 @@ const AdminDashboard = () => {
         hover:border-dp-gold/25
         hover:shadow-[0_26px_70px_rgba(28,24,19,0.10),0_4px_16px_rgba(28,24,19,0.045)]
       "
-    >
-      {/* CARD HEADER */}
-      <div className="mb-10 flex items-start justify-between gap-6">
-        <div>
-          <h3 className="font-serif text-2xl tracking-[-0.02em] text-dp-black md:text-[1.75rem]">
-            Product Distribution
-          </h3>
+            >
+              {/* CARD HEADER */}
+              <div className="mb-10 flex items-start justify-between gap-6">
+                <div>
+                  <h3 className="font-serif text-2xl tracking-[-0.02em] text-dp-black md:text-[1.75rem]">
+                    Product Distribution
+                  </h3>
 
-          <p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/50">
-            Your catalogue across each category.
-          </p>
-        </div>
+                  <p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/50">
+                    Your catalogue across each category.
+                  </p>
+                </div>
 
-        <span
-          className="
+                <span
+                  className="
             shrink-0
             rounded-full
             border border-dp-gold/10
@@ -440,24 +439,24 @@ const AdminDashboard = () => {
             uppercase tracking-[0.18em]
             text-dp-charcoal/65
           "
-        >
-          {totalProducts} items
-        </span>
-      </div>
+                >
+                  {totalProducts} items
+                </span>
+              </div>
 
-      {categories.length > 0 ? (
-        <div className="space-y-8">
-          {categories.map(([category, count]) => {
-            const percentage =
-              largestCategoryCount > 0
-                ? (count / largestCategoryCount) * 100
-                : 0;
+              {categories.length > 0 ? (
+                <div className="space-y-8">
+                  {categories.map(([category, count]) => {
+                    const percentage =
+                      largestCategoryCount > 0
+                        ? (count / largestCategoryCount) * 100
+                        : 0;
 
-            return (
-              <div key={category} className="group">
-                <div className="mb-3 flex items-end justify-between gap-4">
-                  <span
-                    className="
+                    return (
+                      <div key={category} className="group">
+                        <div className="mb-3 flex items-end justify-between gap-4">
+                          <span
+                            className="
                       font-sans
                       text-[15px]
                       font-medium
@@ -465,97 +464,97 @@ const AdminDashboard = () => {
                       tracking-[-0.01em]
                       text-dp-charcoal
                     "
-                  >
-                    {formatCategory(category)}
-                  </span>
+                          >
+                            {formatCategory(category)}
+                          </span>
 
-                  <span
-                    className="
+                          <span
+                            className="
                       font-serif
                       text-2xl
                       leading-none
                       tracking-[-0.03em]
                       text-dp-black
                     "
-                  >
-                    {count}
-                  </span>
-                </div>
+                          >
+                            {count}
+                          </span>
+                        </div>
 
-                {/* DISTRIBUTION BAR */}
-                <div
-                  className="
+                        {/* DISTRIBUTION BAR */}
+                        <div
+                          className="
                     h-2.5
                     overflow-hidden
                     rounded-full
                     bg-dp-gold/10
                   "
-                >
-                  <div
-                    className="
+                        >
+                          <div
+                            className="
                       h-full
                       rounded-full
                       bg-dp-gold
                       transition-all duration-700
                       group-hover:brightness-95
                     "
-                    style={{
-                      width: `${percentage}%`,
-                    }}
-                  />
+                            style={{
+                              width: `${percentage}%`,
+                            }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <div
-          className="
+              ) : (
+                <div
+                  className="
             flex min-h-[280px]
             items-center justify-center
             rounded-2xl
             border border-dashed border-dp-gold/30
             bg-dp-gold/[0.025]
           "
-        >
-          <div className="text-center">
-            <div
-              className="
+                >
+                  <div className="text-center">
+                    <div
+                      className="
                 mx-auto flex h-14 w-14
                 items-center justify-center
                 rounded-full
                 bg-dp-gold/10
                 text-dp-gold
               "
-            >
-              <Package size={23} strokeWidth={1.4} />
-            </div>
+                    >
+                      <Package size={23} strokeWidth={1.4} />
+                    </div>
 
-            <p className="mt-5 font-serif text-xl text-dp-black">
-              No products yet
-            </p>
+                    <p className="mt-5 font-serif text-xl text-dp-black">
+                      No products yet
+                    </p>
 
-            <Link
-              to="/admin/create"
-              className="
+                    <Link
+                      to="/admin/create"
+                      className="
                 mt-3 inline-flex items-center gap-2
                 font-sans text-sm text-dp-gold
                 transition-colors hover:text-dp-black
               "
-            >
-              Add your first product
-              <ArrowUpRight size={14} />
-            </Link>
-          </div>
-        </div>
-      )}
-    </div>
+                    >
+                      Add your first product
+                      <ArrowUpRight size={14} />
+                    </Link>
+                  </div>
+                </div>
+              )}
+            </div>
 
-    {/* =====================================================
+            {/* =====================================================
         AT A GLANCE
     ====================================================== */}
-    <div
-      className="
+            <div
+              className="
         flex flex-col
         rounded-[2rem]
         border border-dp-gold/15
@@ -569,28 +568,28 @@ const AdminDashboard = () => {
         hover:border-dp-gold/25
         hover:shadow-[0_26px_70px_rgba(28,24,19,0.10),0_4px_16px_rgba(28,24,19,0.045)]
       "
-    >
-      {/* HEADER */}
-      <div>
-        <p className="mb-2 font-sans text-[10px] font-medium uppercase tracking-[0.24em] text-dp-gold">
-          Quick summary
-        </p>
+            >
+              {/* HEADER */}
+              <div>
+                <p className="mb-2 font-sans text-[10px] font-medium uppercase tracking-[0.24em] text-dp-gold">
+                  Quick summary
+                </p>
 
-        <h3 className="font-serif text-2xl tracking-[-0.02em] text-dp-black md:text-[1.75rem]">
-          At a Glance
-        </h3>
+                <h3 className="font-serif text-2xl tracking-[-0.02em] text-dp-black md:text-[1.75rem]">
+                  At a Glance
+                </h3>
 
-        <p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/50">
-          A quick view of the Dolly P catalogue.
-        </p>
-      </div>
+                <p className="mt-2 font-sans text-sm leading-6 text-dp-charcoal/50">
+                  A quick view of the Dolly P catalogue.
+                </p>
+              </div>
 
-      {/* METRICS */}
-      <div className="mt-9 flex-1 divide-y divide-dp-gold/15">
-        {/* FEATURED */}
-        <div className="group flex items-center gap-5 py-6 first:pt-0">
-          <div
-            className="
+              {/* METRICS */}
+              <div className="mt-9 flex-1 divide-y divide-dp-gold/15">
+                {/* FEATURED */}
+                <div className="group flex items-center gap-5 py-6 first:pt-0">
+                  <div
+                    className="
               flex h-14 w-14
               shrink-0 items-center justify-center
               rounded-2xl
@@ -604,33 +603,33 @@ const AdminDashboard = () => {
               group-hover:bg-dp-gold
               group-hover:text-white
             "
-          >
-            <Sparkles size={21} strokeWidth={1.5} />
-          </div>
+                  >
+                    <Sparkles size={21} strokeWidth={1.5} />
+                  </div>
 
-          <div>
-            <p
-              className="
+                  <div>
+                    <p
+                      className="
                 font-serif
                 text-[2.6rem]
                 leading-none
                 tracking-[-0.04em]
                 text-dp-black
               "
-            >
-              {featuredProducts}
-            </p>
+                    >
+                      {featuredProducts}
+                    </p>
 
-            <p className="mt-2 font-sans text-sm font-medium text-dp-charcoal/55">
-              Featured products
-            </p>
-          </div>
-        </div>
+                    <p className="mt-2 font-sans text-sm font-medium text-dp-charcoal/55">
+                      Featured products
+                    </p>
+                  </div>
+                </div>
 
-        {/* RESERVATIONS */}
-        <div className="group flex items-center gap-5 py-6">
-          <div
-            className="
+                {/* RESERVATIONS */}
+                <div className="group flex items-center gap-5 py-6">
+                  <div
+                    className="
               flex h-14 w-14
               shrink-0 items-center justify-center
               rounded-2xl
@@ -644,33 +643,33 @@ const AdminDashboard = () => {
               group-hover:bg-dp-gold
               group-hover:text-white
             "
-          >
-            <CalendarDays size={21} strokeWidth={1.5} />
-          </div>
+                  >
+                    <CalendarDays size={21} strokeWidth={1.5} />
+                  </div>
 
-          <div>
-            <p
-              className="
+                  <div>
+                    <p
+                      className="
                 font-serif
                 text-[2.6rem]
                 leading-none
                 tracking-[-0.04em]
                 text-dp-black
               "
-            >
-              {totalReservations}
-            </p>
+                    >
+                      {totalReservations}
+                    </p>
 
-            <p className="mt-2 font-sans text-sm font-medium text-dp-charcoal/55">
-              Reservations
-            </p>
-          </div>
-        </div>
+                    <p className="mt-2 font-sans text-sm font-medium text-dp-charcoal/55">
+                      Reservations
+                    </p>
+                  </div>
+                </div>
 
-        {/* CATEGORIES */}
-        <div className="group flex items-center gap-5 py-6">
-          <div
-            className="
+                {/* CATEGORIES */}
+                <div className="group flex items-center gap-5 py-6">
+                  <div
+                    className="
               flex h-14 w-14
               shrink-0 items-center justify-center
               rounded-2xl
@@ -684,34 +683,34 @@ const AdminDashboard = () => {
               group-hover:bg-dp-gold
               group-hover:text-white
             "
-          >
-            <Grid2X2 size={21} strokeWidth={1.5} />
-          </div>
+                  >
+                    <Grid2X2 size={21} strokeWidth={1.5} />
+                  </div>
 
-          <div>
-            <p
-              className="
+                  <div>
+                    <p
+                      className="
                 font-serif
                 text-[2.6rem]
                 leading-none
                 tracking-[-0.04em]
                 text-dp-black
               "
-            >
-              {totalCategories}
-            </p>
+                    >
+                      {totalCategories}
+                    </p>
 
-            <p className="mt-2 font-sans text-sm font-medium text-dp-charcoal/55">
-              Categories
-            </p>
-          </div>
-        </div>
-      </div>
+                    <p className="mt-2 font-sans text-sm font-medium text-dp-charcoal/55">
+                      Categories
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-      {/* CTA */}
-      <Link
-        to="/admin/products"
-        className="
+              {/* CTA */}
+              <Link
+                to="/admin/products"
+                className="
           mt-6
           flex w-full
           items-center justify-between
@@ -731,17 +730,16 @@ const AdminDashboard = () => {
           hover:text-white
           hover:shadow-[0_12px_30px_rgba(28,24,19,0.12)]
         "
-      >
-        View full catalogue
-
-        <ArrowUpRight
-          size={16}
-          className="transition-transform duration-300 group-hover:translate-x-0.5"
-        />
-      </Link>
-    </div>
-  </div>
-</section>
+              >
+                View full catalogue
+                <ArrowUpRight
+                  size={16}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5"
+                />
+              </Link>
+            </div>
+          </div>
+        </section>
       </div>
     </AdminLayout>
   );

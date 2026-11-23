@@ -33,19 +33,20 @@ const Reservation = () => {
     useState<SubmissionMessage>(null);
 
   const handleChange = (
-    event: ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
-  ) => {
-    const { name, value } = event.target;
+  event: ChangeEvent<
+    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+  >,
+) => {
+  const { name, value } = event.target;
 
-    setForm((current) => ({
-      ...current,
-      value,
-    }));
+  setForm((current) => ({
+    ...current,
+    [name]: value,
+  }));
 
-    setSubmissionMessage(null);
-  };
+  setSubmissionMessage(null);
+};
+
 
   const handleServiceChange = (service: MeasurementType) => {
     setForm((current) => ({

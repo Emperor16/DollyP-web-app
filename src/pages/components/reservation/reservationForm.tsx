@@ -116,18 +116,15 @@ const ReservationForm = ({
           </div>
         </div>
 
-        <ServiceSelection
-          value={form.service}
-          onChange={onServiceChange}
-        />
+        <ServiceSelection value={form.service} onChange={onServiceChange} />
 
         {/* CONDITIONAL HOME VISIT ADDRESS */}
         {form.service === "home-visit" && (
           <div className="space-y-4">
             <div className="rounded-2xl bg-dp-gold/10 p-4">
               <p className="font-sans text-sm leading-6 text-dp-charcoal/70">
-                Home visits attract an additional charge. The amount will
-                be communicated when your reservation request is reviewed.
+                Home visits attract an additional charge. The amount will be
+                communicated when your reservation request is reviewed.
               </p>
             </div>
 

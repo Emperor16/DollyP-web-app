@@ -81,7 +81,6 @@ const ReservationForm = ({
 
             <ReservationField
               label="Phone Number"
-              hint="WhatsApp number preferred"
               type="tel"
               name="phone"
               value={form.phone}

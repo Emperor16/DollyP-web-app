@@ -1,160 +1,85 @@
+import { useState, type ChangeEvent, type FormEvent } from "react";
+
 import PageContainer from "../components/layout/PageContainer";
-import { useState } from "react";
+
+import AppointmentSummary from "./components/reservation/appointmentSummary";
+import ReservationForm from "./components/reservation/reservationForm";
+import ReservationHeader from "./components/reservation/reservationHeader";
+
+import {
+  initialReservationForm,
+  type ReservationFormData,
+} from "../types/reservation";
 
 const Reservation = () => {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    date: "",
-    service: "",
-    notes: "",
-  });
+  const [form, setForm] = useState<ReservationFormData>(initialReservationForm);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleChange = (
+    event: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value } = event.target;
+
+    setForm((current) => ({
+      ...current,
+      [name]: value,
+    }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Reservation submitted:", form);
-    alert("Your reservation request has been submitted. We will contact you shortly.");
+  const handleServiceChange = (service: string) => {
+    setForm((current) => ({
+      ...current,
+      service,
+    }));
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      setIsSubmitting(true);
+
+      // Connect to the reservation API here.
+      console.log("Reservation submitted:", form);
+    } catch (error) {
+      console.error("Failed to submit reservation:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="bg-dp-white">
-      {/* HERO */}
-      <section className="relative h-[60vh] w-full overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1520975922071-a57c1d1a6a3b?auto=format&fit=crop&q=80&w=1600"
-          className="absolute inset-0 w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-black/40" />
+    <main className="min-h-screen bg-[#f7f3ed]">
+      <ReservationHeader />
 
-        <div className="relative z-10 h-full flex flex-col justify-center items-start px-10 lg:px-20">
-          <h1 className="font-serif text-5xl text-white tracking-wide">
-            Book a Private Fitting
-          </h1>
-          <p className="text-white/90 font-sans text-lg max-w-xl mt-4">
-            Experience luxury craftsmanship tailored exclusively for you.
-          </p>
-        </div>
-      </section>
-
-      {/* FORM SECTION */}
       <PageContainer>
-        <div className="max-w-3xl mx-auto">
-          <h2 className="font-serif text-3xl text-dp-black tracking-wide mb-10">
-            Reservation Details
-          </h2>
+        <div
+          className="
+            grid
+            items-start
+            gap-6
+            py-10
+            sm:py-12
+            lg:grid-cols-[minmax(0,1.65fr)_minmax(300px,0.75fr)]
+            lg:gap-8
+            lg:py-16
+          "
+        >
+          <ReservationForm
+            form={form}
+            onChange={handleChange}
+            onServiceChange={handleServiceChange}
+            onSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
+          />
 
-          <form onSubmit={handleSubmit} className="space-y-8">
-
-            {/* NAME */}
-            <div>
-              <label className="block font-sans text-sm text-dp-charcoal/80 mb-2">
-                Full Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                required
-                className="w-full border border-dp-charcoal/30 px-4 py-3 font-sans text-sm focus:border-dp-black outline-none"
-              />
-            </div>
-
-            {/* EMAIL */}
-            <div>
-              <label className="block font-sans text-sm text-dp-charcoal/80 mb-2">
-                Email Address
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                required
-                className="w-full border border-dp-charcoal/30 px-4 py-3 font-sans text-sm focus:border-dp-black outline-none"
-              />
-            </div>
-
-            {/* PHONE */}
-            <div>
-              <label className="block font-sans text-sm text-dp-charcoal/80 mb-2">
-                Phone Number
-              </label>
-              <input
-                type="tel"
-                name="phone"
-                value={form.phone}
-                onChange={handleChange}
-                required
-                className="w-full border border-dp-charcoal/30 px-4 py-3 font-sans text-sm focus:border-dp-black outline-none"
-              />
-            </div>
-
-            {/* DATE */}
-            <div>
-              <label className="block font-sans text-sm text-dp-charcoal/80 mb-2">
-                Preferred Date
-              </label>
-              <input
-                type="date"
-                name="date"
-                value={form.date}
-                onChange={handleChange}
-                required
-                className="w-full border border-dp-charcoal/30 px-4 py-3 font-sans text-sm focus:border-dp-black outline-none"
-              />
-            </div>
-
-            {/* SERVICE TYPE */}
-            <div>
-              <label className="block font-sans text-sm text-dp-charcoal/80 mb-2">
-                Service Type
-              </label>
-              <select
-                name="service"
-                value={form.service}
-                onChange={handleChange}
-                required
-                className="w-full border border-dp-charcoal/30 px-4 py-3 font-sans text-sm focus:border-dp-black outline-none"
-              >
-                <option value="">Select a service</option>
-                <option value="couture-fitting">Couture Fitting</option>
-                <option value="custom-design">Custom Design Consultation</option>
-                <option value="bridal-session">Bridal Session</option>
-                <option value="measurement">Measurement Appointment</option>
-              </select>
-            </div>
-
-            {/* NOTES */}
-            <div>
-              <label className="block font-sans text-sm text-dp-charcoal/80 mb-2">
-                Additional Notes (Optional)
-              </label>
-              <textarea
-                name="notes"
-                value={form.notes}
-                onChange={handleChange}
-                rows={4}
-                className="w-full border border-dp-charcoal/30 px-4 py-3 font-sans text-sm focus:border-dp-black outline-none"
-              />
-            </div>
-
-            {/* SUBMIT */}
-            <button
-              type="submit"
-              className="w-full bg-dp-gold text-dp-black py-3 font-sans tracking-wide hover:bg-dp-velvet hover:text-white transition"
-            >
-              Submit Reservation
-            </button>
-          </form>
+          <AppointmentSummary form={form} />
         </div>
       </PageContainer>
-    </div>
+    </main>
   );
 };
 

@@ -1,12 +1,11 @@
 import type {
   InputHTMLAttributes,
-  ReactNode,
   TextareaHTMLAttributes,
 } from "react";
 
 type BaseProps = {
   label: string;
-  children?: ReactNode;
+  hint?: string;
 };
 
 type InputProps = BaseProps &
@@ -37,10 +36,12 @@ const fieldClassName = `
   focus:bg-white
   focus:ring-4
   focus:ring-dp-gold/10
+  disabled:cursor-not-allowed
+  disabled:opacity-60
 `;
 
 const ReservationField = (props: ReservationFieldProps) => {
-  const { label, multiline, ...fieldProps } = props;
+  const { label, hint, multiline, ...fieldProps } = props;
 
   return (
     <label className="block">
@@ -48,15 +49,25 @@ const ReservationField = (props: ReservationFieldProps) => {
         {label}
       </span>
 
+      {hint && (
+        <span className="-mt-1 mb-2.5 block font-sans text-xs leading-5 text-dp-charcoal/50">
+          {hint}
+        </span>
+      )}
+
       {multiline ? (
         <textarea
           {...(fieldProps as TextareaHTMLAttributes<HTMLTextAreaElement>)}
-          className={fieldClassName}
+          className={`${fieldClassName} ${
+            fieldProps.className ?? ""
+          }`}
         />
       ) : (
         <input
           {...(fieldProps as InputHTMLAttributes<HTMLInputElement>)}
-          className={fieldClassName}
+          className={`${fieldClassName} ${
+            fieldProps.className ?? ""
+          }`}
         />
       )}
     </label>

@@ -87,6 +87,7 @@ const ReservationForm = ({
               onChange={onChange}
               required
               disabled={isSubmitting}
+              hint= ""
               autoComplete="tel"
               inputMode="tel"
               placeholder="WhatsApp no. preferred"

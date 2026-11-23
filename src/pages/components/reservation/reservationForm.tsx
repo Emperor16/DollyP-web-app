@@ -89,7 +89,7 @@ const ReservationForm = ({
               disabled={isSubmitting}
               autoComplete="tel"
               inputMode="tel"
-              placeholder="Enter your phone number"
+              placeholder="WhatsApp no. preferred"
             />
 
             <div className="md:col-span-2">

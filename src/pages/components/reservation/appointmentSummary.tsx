@@ -27,9 +27,7 @@ const formatDate = (value: string) => {
   }).format(date);
 };
 
-const AppointmentSummary = ({
-  form,
-}: AppointmentSummaryProps) => {
+const AppointmentSummary = ({ form }: AppointmentSummaryProps) => {
   const service = form.service
     ? serviceLabels[form.service] || form.service
     : "Not selected";

@@ -1,4 +1,8 @@
-import { useState, type ChangeEvent, type FormEvent } from "react";
+import {
+  useState,
+  type ChangeEvent,
+  type FormEvent,
+} from "react";
 
 import PageContainer from "../components/layout/PageContainer";
 
@@ -6,46 +10,90 @@ import AppointmentSummary from "./components/reservation/appointmentSummary";
 import ReservationForm from "./components/reservation/reservationForm";
 import ReservationHeader from "./components/reservation/reservationHeader";
 
+import { createReservation } from "../services/reservationService";
+
 import {
   initialReservationForm,
+  type MeasurementType,
   type ReservationFormData,
 } from "../types/reservation";
 
+type SubmissionMessage = {
+  type: "success" | "error";
+  text: string;
+} | null;
+
 const Reservation = () => {
-  const [form, setForm] = useState<ReservationFormData>(initialReservationForm);
+  const [form, setForm] = useState<ReservationFormData>(
+    initialReservationForm,
+  );
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionMessage, setSubmissionMessage] =
+    useState<SubmissionMessage>(null);
 
   const handleChange = (
-    event: ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
-  ) => {
-    const { name, value } = event.target;
+  event: ChangeEvent<
+    HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+  >,
+) => {
+  const { name, value } = event.target;
 
-    setForm((current) => ({
-      ...current,
-      [name]: value,
-    }));
-  };
+  setForm((current) => ({
+    ...current,
+    [name]: value,
+  }));
 
-  const handleServiceChange = (service: string) => {
+  setSubmissionMessage(null);
+};
+
+
+  const handleServiceChange = (service: MeasurementType) => {
     setForm((current) => ({
       ...current,
       service,
+      address:
+        service === "home-visit" ? current.address : "",
     }));
+
+    setSubmissionMessage(null);
   };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (
+    event: FormEvent<HTMLFormElement>,
+  ) => {
     event.preventDefault();
+    setSubmissionMessage(null);
+
+    if (form.service === "home-visit" && !form.address.trim()) {
+      setSubmissionMessage({
+        type: "error",
+        text: "Please provide the address for your home visit.",
+      });
+      return;
+    }
 
     try {
       setIsSubmitting(true);
 
-      // Connect to the reservation API here.
-      console.log("Reservation submitted:", form);
+      await createReservation(form);
+
+      setSubmissionMessage({
+        type: "success",
+        text: "Your reservation request has been submitted. It is pending review, and we will contact you after it has been reviewed.",
+      });
+
+      setForm(initialReservationForm);
     } catch (error) {
-      console.error("Failed to submit reservation:", error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Failed to submit your reservation request.";
+
+      setSubmissionMessage({
+        type: "error",
+        text: message,
+      });
     } finally {
       setIsSubmitting(false);
     }
@@ -68,13 +116,37 @@ const Reservation = () => {
             lg:py-16
           "
         >
-          <ReservationForm
-            form={form}
-            onChange={handleChange}
-            onServiceChange={handleServiceChange}
-            onSubmit={handleSubmit}
-            isSubmitting={isSubmitting}
-          />
+          <div>
+            {submissionMessage && (
+              <div
+                role={
+                  submissionMessage.type === "error"
+                    ? "alert"
+                    : "status"
+                }
+                aria-live="polite"
+                className={`
+                  mb-5 rounded-2xl border px-5 py-4
+                  font-sans text-sm leading-6
+                  ${
+                    submissionMessage.type === "success"
+                      ? "border-green-700/20 bg-green-50 text-green-900"
+                      : "border-red-700/20 bg-red-50 text-red-900"
+                  }
+                `}
+              >
+                {submissionMessage.text}
+              </div>
+            )}
+
+            <ReservationForm
+              form={form}
+              onChange={handleChange}
+              onServiceChange={handleServiceChange}
+              onSubmit={handleSubmit}
+              isSubmitting={isSubmitting}
+            />
+          </div>
 
           <AppointmentSummary form={form} />
         </div>

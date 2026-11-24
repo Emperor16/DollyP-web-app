@@ -1,6 +1,11 @@
-import { createContext, useContext, useState, type ReactNode, useEffect } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  type ReactNode,
+  useEffect,
+} from "react";
 import { jwtDecode } from "jwt-decode";
-
 
 interface AdminAuthContextType {
   token: string | null;
@@ -12,31 +17,32 @@ interface AdminAuthContextType {
 const AdminAuthContext = createContext<AdminAuthContextType | null>(null);
 
 export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem("adminToken"));
+  const [token, setToken] = useState<string | null>(() =>
+    localStorage.getItem("adminToken"),
+  );
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
   // Validate token on load + whenever token changeses
   useEffect(() => {
-  if (!token) {
-    setIsAuthenticated(false);
-    return;
-  }
-
-  try {
-    const decoded: any = jwtDecode(token);
-
-    if (decoded.exp * 1000 < Date.now()) {
-      logout();
+    if (!token) {
+      setIsAuthenticated(false);
       return;
     }
 
-    // Token is valid
-    setIsAuthenticated(true);
-  } catch {
-    logout();
-  }
-}, [token]);
+    try {
+      const decoded: any = jwtDecode(token);
 
+      if (decoded.exp * 1000 < Date.now()) {
+        logout();
+        return;
+      }
+
+      // Token is valid
+      setIsAuthenticated(true);
+    } catch {
+      logout();
+    }
+  }, [token]);
 
   const login = (newToken: string) => {
     localStorage.setItem("adminToken", newToken);
@@ -50,7 +56,9 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AdminAuthContext.Provider value={{ token, isAuthenticated, login, logout }}>
+    <AdminAuthContext.Provider
+      value={{ token, isAuthenticated, login, logout }}
+    >
       {children}
     </AdminAuthContext.Provider>
   );
@@ -58,6 +66,7 @@ export const AdminAuthProvider = ({ children }: { children: ReactNode }) => {
 
 export const useAdminAuth = () => {
   const ctx = useContext(AdminAuthContext);
-  if (!ctx) throw new Error("useAdminAuth must be used inside AdminAuthProvider");
+  if (!ctx)
+    throw new Error("useAdminAuth must be used inside AdminAuthProvider");
   return ctx;
 };

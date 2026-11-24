@@ -26,7 +26,7 @@ const Shop = () => {
     // SEARCH
     if (search.trim() !== "") {
       result = result.filter((p) =>
-        p.name.toLowerCase().includes(search.toLowerCase())
+        p.name.toLowerCase().includes(search.toLowerCase()),
       );
     }
 
@@ -57,7 +57,6 @@ const Shop = () => {
 
       {/* FILTERS */}
       <div className="mb-12 grid grid-cols-1 lg:grid-cols-4 gap-8">
-
         {/* SEARCH */}
         <div className="lg:col-span-1">
           <input

@@ -18,7 +18,7 @@ api.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 // 2. Response Interceptor: Catch 401s globally and redirect
@@ -28,14 +28,13 @@ api.interceptors.response.use(
     const status = error.response?.status;
 
     if (status === 401) {
-
-      localStorage.removeItem("adminToken");     
+      localStorage.removeItem("adminToken");
 
       window.location.href = "/admin/login";
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default api;

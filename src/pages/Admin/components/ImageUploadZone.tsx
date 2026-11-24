@@ -45,8 +45,8 @@ const ImageUploadZone: React.FC<Props> = ({
   const borderColor = error
     ? "border-red-500"
     : dragActive
-    ? "border-blue-500"
-    : "border-gray-400";
+      ? "border-blue-500"
+      : "border-gray-400";
 
   return (
     <div className="mb-4">
@@ -63,10 +63,7 @@ const ImageUploadZone: React.FC<Props> = ({
       </div>
 
       {/* ERROR MESSAGE */}
-      {error && (
-        <p className="text-red-600 text-sm mt-2">{error}</p>
-      )}
-      
+      {error && <p className="text-red-600 text-sm mt-2">{error}</p>}
 
       {/* HIDDEN FILE INPUT */}
       <input

@@ -1,17 +1,21 @@
+export type MeasurementType = "in-office" | "home-visit";
+
 export type ReservationFormData = {
   name: string;
-  email: string;
   phone: string;
+  email: string;
+  service: MeasurementType | "";
   date: string;
-  service: string;
-  notes: string;
+  time: string;
+  address: string;
 };
 
 export const initialReservationForm: ReservationFormData = {
   name: "",
-  email: "",
   phone: "",
-  date: "",
+  email: "",
   service: "",
-  notes: "",
+  date: "",
+  time: "",
+  address: "",
 };

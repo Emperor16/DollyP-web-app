@@ -35,7 +35,7 @@ type ReservationResponse = {
 
 export async function getReservations() {
   const response =
-    await api.get<ReservationsResponse>("/api/reservations");
+    await api.get("/api/reservations");
 
   return response.data.data;
 }

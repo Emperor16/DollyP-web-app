@@ -9,7 +9,6 @@ import {
   type Reservation,
   type ReservationStatus,
 } from "../../services/adminReservationService";
-
 import axios from "axios";
 
 const AdminReservation = () => {
@@ -28,7 +27,7 @@ const AdminReservation = () => {
         console.log("Reservations:", data);
 
         setReservations(data);
-      } } catch (error) {
+      } catch (error) {
   if (axios.isAxiosError(error)) {
     console.error("GET reservations diagnostics:", {
       requestUrl: error.config?.url,
@@ -43,8 +42,7 @@ const AdminReservation = () => {
   }
 
   setError("Failed to load reservations.");
-}
-      } finally {
+} finally {
         setIsLoading(false);
       }
     };

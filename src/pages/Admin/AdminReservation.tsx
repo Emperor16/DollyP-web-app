@@ -10,6 +10,8 @@ import {
   type ReservationStatus,
 } from "../../services/adminReservationService";
 
+import axios from "axios";
+
 const AdminReservation = () => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,10 +28,22 @@ const AdminReservation = () => {
         console.log("Reservations:", data);
 
         setReservations(data);
-      } catch (error) {
-        console.error("Failed to fetch reservations:", error);
+      } } catch (error) {
+  if (axios.isAxiosError(error)) {
+    console.error("GET reservations diagnostics:", {
+      requestUrl: error.config?.url,
+      baseURL: error.config?.baseURL,
+      finalStatus: error.response?.status,
+      responseData: error.response?.data,
+      authorizationHeader:
+        error.config?.headers?.Authorization,
+    });
+  } else {
+    console.error("Non-Axios error:", error);
+  }
 
-        setError("Failed to load reservations.");
+  setError("Failed to load reservations.");
+}
       } finally {
         setIsLoading(false);
       }

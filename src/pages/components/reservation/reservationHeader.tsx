@@ -1,27 +1,35 @@
-const ReservationHeader = () => {
+type ReservationHeaderProps = {
+  pendingCount: number;
+};
+
+const ReservationHeader = ({
+  pendingCount,
+}: ReservationHeaderProps) => {
   return (
-    <section className="border-b border-dp-gold/15 bg-[#f7f3ed]">
-      <div className=" mx-auto max-w-7xl px-6 py-14 sm:px-10 sm:py-16 lg:px-16 lg:py-20">
-        <div className="mt-10 max-w-3xl">
-          <div className="mb-4 flex items-center gap-4">
-            <span className="h-px w-9 bg-dp-gold" />
+    <div className="flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
+      <div>
+        <p className="mb-2 font-sans text-[10px] font-medium uppercase tracking-[0.28em] text-dp-gold">
+          Appointments
+        </p>
 
-            <p className="font-sans text-[10px] font-medium uppercase tracking-[0.3em] text-dp-gold">
-              Private Appointments
-            </p>
-          </div>
+        <h1 className="font-serif text-3xl text-dp-black sm:text-4xl">
+          Reservations
+        </h1>
 
-          <h1 className="font-serif text-4xl leading-tight tracking-[-0.035em] text-dp-black sm:text-5xl lg:text-6xl">
-            Book a Private Fitting
-          </h1>
-
-          <p className="mt-5 max-w-2xl font-sans text-[15px] leading-7 text-dp-charcoal/65 sm:text-base">
-            Choose your preferred service and date, then provide your contact
-            details to request an appointment.
-          </p>
-        </div>
+        <p className="mt-2 max-w-xl font-sans text-sm leading-6 text-dp-charcoal/60">
+          Review incoming appointment requests and manage existing
+          bookings.
+        </p>
       </div>
-    </section>
+
+      <div className="inline-flex w-fit items-center gap-2 rounded-full border border-dp-gold/20 bg-dp-gold/10 px-4 py-2">
+        <span className="h-2 w-2 rounded-full bg-dp-gold" />
+
+        <span className="font-sans text-xs font-medium text-dp-charcoal">
+          {pendingCount} pending
+        </span>
+      </div>
+    </div>
   );
 };
 
